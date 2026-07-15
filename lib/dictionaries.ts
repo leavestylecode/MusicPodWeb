@@ -70,7 +70,7 @@ export type Messages = {
     badge: string;
     requirement: string;
   };
-  footer: { tagline: string; legal: string; rights: string };
+  footer: { rights: string };
 };
 
 const en: Messages = {
@@ -144,11 +144,7 @@ const en: Messages = {
     badge: "Coming soon",
     requirement: "Requires iOS 26 and an active Apple Music subscription.",
   },
-  footer: {
-    tagline: "An iPod for the Apple Music era.",
-    legal: "Apple, Apple Music, iPhone, iPod, and App Store are trademarks of Apple Inc. MusicPod is not affiliated with Apple Inc.",
-    rights: "All rights reserved.",
-  },
+  footer: { rights: "All rights reserved." },
 };
 
 const zhCN: Messages = {
@@ -181,7 +177,7 @@ const zhCN: Messages = {
   personalize: { kicker: "属于你的", title: "一台播放器，完全属于你。", body: "自定义机身、转盘、屏幕、背景、方向与光晕。", palette: "可选配色", stats: [{ value: "12", label: "种机身与转盘配色" }, { value: "9", label: "套背景主题" }, { value: "2", label: "套首页图标语言" }] },
   native: { kicker: "原生设计", title: "怀旧的外形，原生的内核。", body: "基于 Apple 框架打造，带来流畅播放、精准触感与无障碍导航。", technologies: ["SwiftUI", "MusicKit", "系统触感", "VoiceOver"] },
   availability: { kicker: "全球发布", title: "即将登陆 App Store。", body: "MusicPod 正在为全球发布做最后准备。", badgeKicker: "App Store", badge: "即将上线", requirement: "需要 iOS 26 和有效的 Apple Music 订阅。" },
-  footer: { tagline: "为 Apple Music 时代而生的 iPod。", legal: "Apple、Apple Music、iPhone、iPod 和 App Store 是 Apple Inc. 的商标。MusicPod 与 Apple Inc. 无关联。", rights: "保留所有权利。" },
+  footer: { rights: "保留所有权利。" },
 };
 
 const zhTW: Messages = {
@@ -195,7 +191,7 @@ const zhTW: Messages = {
   personalize: { kicker: "屬於你的", title: "一台播放器，完全屬於你。", body: "自訂機身、轉盤、螢幕、背景、方向與光暈。", palette: "可選配色", stats: [{ value: "12", label: "種機身與轉盤配色" }, { value: "9", label: "套背景主題" }, { value: "2", label: "套首頁圖示語言" }] },
   native: { kicker: "原生設計", title: "懷舊的外形，原生的核心。", body: "以 Apple 框架打造，帶來流暢播放、精準觸感與輔助使用導覽。", technologies: ["SwiftUI", "MusicKit", "系統觸感", "VoiceOver"] },
   availability: { kicker: "全球推出", title: "即將登上 App Store。", body: "MusicPod 正為全球推出進行最後準備。", badgeKicker: "App Store", badge: "即將推出", requirement: "需要 iOS 26 與有效的 Apple Music 訂閱。" },
-  footer: { tagline: "為 Apple Music 時代而生的 iPod。", legal: "Apple、Apple Music、iPhone、iPod 與 App Store 是 Apple Inc. 的商標。MusicPod 與 Apple Inc. 無關聯。", rights: "保留所有權利。" },
+  footer: { rights: "保留所有權利。" },
 };
 
 const ja: Messages = {
@@ -209,7 +205,7 @@ const ja: Messages = {
   personalize: { kicker: "自分らしく", title: "自分だけの一台に。", body: "本体、ホイール、画面、背景、向き、光まで選べます。", palette: "選べるカラーパレット", stats: [{ value: "12", label: "本体とホイールのカラー" }, { value: "9", label: "背景テーマ" }, { value: "2", label: "ホームアイコンの言語" }] },
   native: { kicker: "ネイティブ設計", title: "懐かしいかたち。中身は、どこまでもネイティブ。", body: "Appleのフレームワークで、滑らかな再生、正確な触覚、アクセシブルな操作を実現。", technologies: ["SwiftUI", "MusicKit", "触覚フィードバック", "VoiceOver"] },
   availability: { kicker: "世界同時リリース", title: "App Storeに近日登場。", body: "MusicPodは世界リリースに向けて最終準備中です。", badgeKicker: "App Store", badge: "近日公開", requirement: "iOS 26と有効なApple Musicサブスクリプションが必要です。" },
-  footer: { tagline: "Apple Musicの時代のためのiPod。", legal: "Apple、Apple Music、iPhone、iPod、App StoreはApple Inc.の商標です。MusicPodはApple Inc.とは提携していません。", rights: "All rights reserved." },
+  footer: { rights: "All rights reserved." },
 };
 
 const ko: Messages = {
@@ -223,7 +219,7 @@ const ko: Messages = {
   personalize: { kicker: "나만의 방식으로", title: "하나의 플레이어. 온전히 나만의 것.", body: "본체, 휠, 화면, 배경, 방향과 빛을 선택하세요.", palette: "사용 가능한 색상", stats: [{ value: "12", label: "본체 및 휠 색상" }, { value: "9", label: "배경 테마" }, { value: "2", label: "홈 아이콘 언어" }] },
   native: { kicker: "네이티브 설계", title: "형태는 향수를, 중심은 네이티브를.", body: "Apple 프레임워크로 부드러운 재생, 정교한 햅틱, 손쉬운 사용 탐색을 구현했습니다.", technologies: ["SwiftUI", "MusicKit", "햅틱", "VoiceOver"] },
   availability: { kicker: "글로벌 출시", title: "App Store 출시 예정.", body: "MusicPod는 전 세계 출시를 위한 마지막 준비 중입니다.", badgeKicker: "App Store", badge: "출시 예정", requirement: "iOS 26 및 유효한 Apple Music 구독이 필요합니다." },
-  footer: { tagline: "Apple Music 시대를 위한 iPod.", legal: "Apple, Apple Music, iPhone, iPod 및 App Store는 Apple Inc.의 상표입니다. MusicPod는 Apple Inc.와 제휴하지 않습니다.", rights: "All rights reserved." },
+  footer: { rights: "All rights reserved." },
 };
 
 const es: Messages = {
@@ -237,7 +233,7 @@ const es: Messages = {
   personalize: { kicker: "Hazlo tuyo", title: "Un reproductor. Completamente tuyo.", body: "Elige cuerpo, rueda, pantalla, fondo, orientación y brillo.", palette: "Paleta de colores disponible", stats: [{ value: "12", label: "colores de cuerpo y rueda" }, { value: "9", label: "temas de fondo" }, { value: "2", label: "idiomas de iconos" }] },
   native: { kicker: "Nativo por diseño", title: "Nostálgico por fuera. Nativo por dentro.", body: "Creado con tecnologías de Apple para una reproducción fluida, vibración precisa y navegación accesible.", technologies: ["SwiftUI", "MusicKit", "Vibración", "VoiceOver"] },
   availability: { kicker: "Lanzamiento mundial", title: "Próximamente en App Store.", body: "MusicPod está ultimando los detalles para su lanzamiento mundial.", badgeKicker: "App Store", badge: "Próximamente", requirement: "Requiere iOS 26 y una suscripción activa a Apple Music." },
-  footer: { tagline: "Un iPod para la era de Apple Music.", legal: "Apple, Apple Music, iPhone, iPod y App Store son marcas comerciales de Apple Inc. MusicPod no está afiliado a Apple Inc.", rights: "Todos los derechos reservados." },
+  footer: { rights: "Todos los derechos reservados." },
 };
 
 const fr: Messages = {
@@ -251,7 +247,7 @@ const fr: Messages = {
   personalize: { kicker: "À votre image", title: "Un lecteur. Entièrement le vôtre.", body: "Choisissez le boîtier, la molette, l’écran, le fond, l’orientation et la lumière.", palette: "Palette de couleurs disponible", stats: [{ value: "12", label: "couleurs de boîtier et molette" }, { value: "9", label: "thèmes d’arrière-plan" }, { value: "2", label: "langues d’icônes" }] },
   native: { kicker: "Natif par conception", title: "Nostalgique dans la forme. Natif dans l’âme.", body: "Conçu avec les technologies Apple pour une lecture fluide, un retour haptique précis et une navigation accessible.", technologies: ["SwiftUI", "MusicKit", "Haptique", "VoiceOver"] },
   availability: { kicker: "Lancement mondial", title: "Bientôt sur l’App Store.", body: "MusicPod finalise les préparatifs de son lancement mondial.", badgeKicker: "App Store", badge: "Bientôt disponible", requirement: "Nécessite iOS 26 et un abonnement Apple Music actif." },
-  footer: { tagline: "Un iPod pour l’ère Apple Music.", legal: "Apple, Apple Music, iPhone, iPod et App Store sont des marques d’Apple Inc. MusicPod n’est pas affilié à Apple Inc.", rights: "Tous droits réservés." },
+  footer: { rights: "Tous droits réservés." },
 };
 
 const de: Messages = {
@@ -265,7 +261,7 @@ const de: Messages = {
   personalize: { kicker: "Mach ihn zu deinem", title: "Ein Player. Ganz deiner.", body: "Wähle Gehäuse, Rad, Display, Hintergrund, Ausrichtung und Leuchten.", palette: "Verfügbare Farbpalette", stats: [{ value: "12", label: "Gehäuse- und Radfarben" }, { value: "9", label: "Hintergrundthemen" }, { value: "2", label: "Symbolsprachen" }] },
   native: { kicker: "Von Grund auf nativ", title: "Nostalgisch in der Form. Nativ im Kern.", body: "Mit Apple-Technologien für flüssige Wiedergabe, präzise Haptik und barrierefreie Navigation.", technologies: ["SwiftUI", "MusicKit", "Haptik", "VoiceOver"] },
   availability: { kicker: "Weltweiter Start", title: "Demnächst im App Store.", body: "MusicPod befindet sich in der letzten Vorbereitung für den weltweiten Start.", badgeKicker: "App Store", badge: "Demnächst", requirement: "Erfordert iOS 26 und ein aktives Apple Music-Abonnement." },
-  footer: { tagline: "Ein iPod für die Apple Music-Ära.", legal: "Apple, Apple Music, iPhone, iPod und App Store sind Marken von Apple Inc. MusicPod steht in keiner Verbindung zu Apple Inc.", rights: "Alle Rechte vorbehalten." },
+  footer: { rights: "Alle Rechte vorbehalten." },
 };
 
 const ptBR: Messages = {
@@ -279,7 +275,7 @@ const ptBR: Messages = {
   personalize: { kicker: "Deixe do seu jeito", title: "Um player. Totalmente seu.", body: "Escolha corpo, roda, tela, fundo, direção e brilho.", palette: "Paleta de cores disponível", stats: [{ value: "12", label: "cores de corpo e roda" }, { value: "9", label: "temas de fundo" }, { value: "2", label: "idiomas de ícones" }] },
   native: { kicker: "Nativo por design", title: "Nostálgico na forma. Nativo por dentro.", body: "Criado com tecnologias Apple para reprodução fluida, resposta tátil precisa e navegação acessível.", technologies: ["SwiftUI", "MusicKit", "Resposta tátil", "VoiceOver"] },
   availability: { kicker: "Lançamento mundial", title: "Em breve na App Store.", body: "O MusicPod está nos preparativos finais para o lançamento mundial.", badgeKicker: "App Store", badge: "Em breve", requirement: "Requer iOS 26 e uma assinatura ativa do Apple Music." },
-  footer: { tagline: "Um iPod para a era do Apple Music.", legal: "Apple, Apple Music, iPhone, iPod e App Store são marcas comerciais da Apple Inc. O MusicPod não é afiliado à Apple Inc.", rights: "Todos os direitos reservados." },
+  footer: { rights: "Todos os direitos reservados." },
 };
 
 export const dictionaries: Record<Locale, Messages> = {

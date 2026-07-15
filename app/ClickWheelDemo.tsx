@@ -87,45 +87,47 @@ export function ClickWheelDemo({ messages }: { messages: Messages["wheel"] }) {
 
   return (
     <div className="wheel-demo">
-      <div className="demo-screen">
-        <div className="demo-carousel" aria-live="polite">
-          <Image src={items[index].icon} alt="" width="148" height="148" unoptimized />
-          <div className="demo-side-icon demo-side-left">
-            <Image src={items[(index + items.length - 1) % items.length].icon} alt="" width="148" height="148" unoptimized />
+      <div className="wheel-device">
+        <div className="demo-screen">
+          <div className="demo-carousel" aria-live="polite">
+            <Image src={items[index].icon} alt="" width="148" height="148" unoptimized />
+            <div className="demo-side-icon demo-side-left">
+              <Image src={items[(index + items.length - 1) % items.length].icon} alt="" width="148" height="148" unoptimized />
+            </div>
+            <div className="demo-side-icon demo-side-right">
+              <Image src={items[(index + 1) % items.length].icon} alt="" width="148" height="148" unoptimized />
+            </div>
           </div>
-          <div className="demo-side-icon demo-side-right">
-            <Image src={items[(index + 1) % items.length].icon} alt="" width="148" height="148" unoptimized />
+          <strong>{items[index].label}</strong>
+          <div className="demo-dots" aria-hidden="true">
+            {items.map((item, dotIndex) => <i className={dotIndex === index ? "active" : ""} key={item.label} />)}
           </div>
         </div>
-        <strong>{items[index].label}</strong>
-        <div className="demo-dots" aria-hidden="true">
-          {items.map((item, dotIndex) => <i className={dotIndex === index ? "active" : ""} key={item.label} />)}
-        </div>
-      </div>
 
-      <div
-        aria-describedby="wheel-demo-help"
-        aria-label={messages.group}
-        className="click-wheel"
-        onKeyDown={handleKeyDown}
-        onPointerCancel={releasePointer}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={releasePointer}
-        role="group"
-        tabIndex={0}
-      >
-        <button
-          aria-label={messages.menu}
-          className="wheel-control wheel-menu"
-          onClick={() => { setIndex(0); setMessage(items[0].label); }}
-          onPointerDown={(event) => event.stopPropagation()}
-          type="button"
-        >MENU</button>
-        <button aria-label={messages.previous} className="wheel-control wheel-previous" onClick={() => move(-1)} onPointerDown={(event) => event.stopPropagation()} type="button">◀◀</button>
-        <button aria-label={messages.next} className="wheel-control wheel-next" onClick={() => move(1)} onPointerDown={(event) => event.stopPropagation()} type="button">▶▶</button>
-        <button aria-label={messages.play} className="wheel-control wheel-play" onClick={playCurrent} onPointerDown={(event) => event.stopPropagation()} type="button">▶Ⅱ</button>
-        <button aria-label={format(messages.select, items[index].label)} className="wheel-center" onClick={selectCurrent} onPointerDown={(event) => event.stopPropagation()} type="button" />
+        <div
+          aria-describedby="wheel-demo-help"
+          aria-label={messages.group}
+          className="click-wheel"
+          onKeyDown={handleKeyDown}
+          onPointerCancel={releasePointer}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={releasePointer}
+          role="group"
+          tabIndex={0}
+        >
+          <button
+            aria-label={messages.menu}
+            className="wheel-control wheel-menu"
+            onClick={() => { setIndex(0); setMessage(items[0].label); }}
+            onPointerDown={(event) => event.stopPropagation()}
+            type="button"
+          >MENU</button>
+          <button aria-label={messages.previous} className="wheel-control wheel-previous" onClick={() => move(-1)} onPointerDown={(event) => event.stopPropagation()} type="button">◀◀</button>
+          <button aria-label={messages.next} className="wheel-control wheel-next" onClick={() => move(1)} onPointerDown={(event) => event.stopPropagation()} type="button">▶▶</button>
+          <button aria-label={messages.play} className="wheel-control wheel-play" onClick={playCurrent} onPointerDown={(event) => event.stopPropagation()} type="button">▶Ⅱ</button>
+          <button aria-label={format(messages.select, items[index].label)} className="wheel-center" onClick={selectCurrent} onPointerDown={(event) => event.stopPropagation()} type="button" />
+        </div>
       </div>
 
       <p className="wheel-demo-help" id="wheel-demo-help" aria-live="polite">{message}</p>

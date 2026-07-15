@@ -17,8 +17,8 @@ export function LanguageMenu({ locale, label }: { locale: Locale; label: string 
   return (
     <details className="language-menu" ref={detailsRef}>
       <summary aria-label={`${label}: ${current.label}`}>
-        <span className="language-symbol" aria-hidden="true">文</span>
-        <span>{current.shortLabel}</span>
+        <span className="language-current-long">{current.label}</span>
+        <span className="language-current-short">{current.shortLabel}</span>
         <span className="language-chevron" aria-hidden="true">⌄</span>
       </summary>
       <div className="language-popover" aria-label={label} role="group">

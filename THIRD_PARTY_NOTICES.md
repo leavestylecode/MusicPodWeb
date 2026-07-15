@@ -32,3 +32,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Cover Flow photography — Unsplash
+
+Used under the [Unsplash License](https://unsplash.com/license). Attribution is
+not required by the license and is included here to credit the photographers.
+
+- Ocean photograph by [Martin Adams](https://unsplash.com/photos/e6rApz2Awog)
+- Neon street photograph by [ZHENYU LUO](https://unsplash.com/photos/TXVTR2itQyE)
+- Light trails photograph by [Egor Litvinov](https://unsplash.com/photos/god65fOyZpE)
+- Desert photograph by [bader Abdullah](https://unsplash.com/photos/A1o86P2sNnY)
+- Purple architecture photograph by [Wes Hicks](https://unsplash.com/photos/ZEZeFBLfiLs)

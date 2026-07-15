@@ -15,6 +15,14 @@ const libraryIcons = [
   "/product/icons/shuffle.webp",
 ] as const;
 
+const albumArtwork = [
+  { src: "/product/albums/ocean.webp", width: 1400, height: 933 },
+  { src: "/product/albums/desert.webp", width: 1400, height: 2489 },
+  { src: "/product/albums/neon.webp", width: 1400, height: 2100 },
+  { src: "/product/albums/light.webp", width: 1400, height: 927 },
+  { src: "/product/albums/purple.webp", width: 1400, height: 2100 },
+] as const;
+
 export default async function MusicPodPage({
   params,
 }: {
@@ -47,7 +55,7 @@ export default async function MusicPodPage({
 
       <header className="site-header">
         <Link aria-label={messages.nav.home} className="brand" href={home}>
-          <Image alt="" height="42" src="/app-icon.png" unoptimized width="42" />
+          <Image alt="" height="34" src="/app-icon.png" unoptimized width="34" />
           <span>MusicPod</span>
         </Link>
 
@@ -165,11 +173,18 @@ export default async function MusicPodPage({
                 <p>{messages.highlights.coverFlow.body}</p>
               </div>
               <div aria-hidden="true" className="cover-flow">
-                <div className="album album-one"><span>Blue<br />Hour</span></div>
-                <div className="album album-two"><span>SOFT<br />FOCUS</span></div>
-                <div className="album album-three"><span>ORBIT</span></div>
-                <div className="album album-four"><span>NIGHT<br />DRIVE</span></div>
-                <div className="album album-five"><span>AM</span></div>
+                {albumArtwork.map((artwork, index) => (
+                  <div className={`album album-${index + 1}`} key={artwork.src}>
+                    <Image
+                      alt=""
+                      height={artwork.height}
+                      sizes="(max-width: 620px) 150px, 220px"
+                      src={artwork.src}
+                      unoptimized
+                      width={artwork.width}
+                    />
+                  </div>
+                ))}
               </div>
             </SpotlightCard>
 
@@ -251,10 +266,9 @@ export default async function MusicPodPage({
 
       <footer className="site-footer">
         <div className="footer-brand">
-          <Image alt="" height="38" src="/app-icon.png" unoptimized width="38" />
-          <div><strong>MusicPod</strong><span>{messages.footer.tagline}</span></div>
+          <Image alt="" height="28" src="/app-icon.png" unoptimized width="28" />
+          <strong>MusicPod</strong>
         </div>
-        <p className="footer-legal">{messages.footer.legal}</p>
         <p>© 2026 MusicPod. {messages.footer.rights}</p>
       </footer>
     </div>
