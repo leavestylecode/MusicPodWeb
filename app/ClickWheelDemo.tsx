@@ -1,16 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
-import type { KeyboardEvent, PointerEvent } from "react";
 import Image from "next/image";
+import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import type { Messages } from "../lib/dictionaries";
 
-const items = [
-  { label: "Favorite Songs", icon: "/product/icons/favorites.webp" },
-  { label: "Playlists", icon: "/product/icons/playlists.webp" },
-  { label: "Albums", icon: "/product/icons/albums.webp" },
-  { label: "Shuffle", icon: "/product/icons/shuffle.webp" },
-  { label: "Theme", icon: "/product/icons/theme.webp" },
-];
+const itemIcons = [
+  "/product/icons/favorites.webp",
+  "/product/icons/playlists.webp",
+  "/product/icons/albums.webp",
+  "/product/icons/shuffle.webp",
+  "/product/icons/theme.webp",
+] as const;
 
 function pointerAngle(event: PointerEvent<HTMLDivElement>) {
   const rect = event.currentTarget.getBoundingClientRect();
@@ -20,9 +20,14 @@ function pointerAngle(event: PointerEvent<HTMLDivElement>) {
   );
 }
 
-export function ClickWheelDemo() {
+function format(template: string, item: string) {
+  return template.replace("{item}", item);
+}
+
+export function ClickWheelDemo({ messages }: { messages: Messages["wheel"] }) {
+  const items = messages.items.map((label, index) => ({ label, icon: itemIcons[index] }));
   const [index, setIndex] = useState(0);
-  const [message, setMessage] = useState("沿转盘滑动，或使用方向键");
+  const [message, setMessage] = useState(messages.help);
   const lastAngle = useRef<number | null>(null);
   const travel = useRef(0);
 
@@ -62,6 +67,9 @@ export function ClickWheelDemo() {
     travel.current = 0;
   };
 
+  const selectCurrent = () => setMessage(format(messages.selected, items[index].label));
+  const playCurrent = () => setMessage(format(messages.playing, items[index].label));
+
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (["ArrowRight", "ArrowDown"].includes(event.key)) {
       event.preventDefault();
@@ -73,7 +81,7 @@ export function ClickWheelDemo() {
     }
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      setMessage(`已选择 ${items[index].label}`);
+      selectCurrent();
     }
   };
 
@@ -96,52 +104,28 @@ export function ClickWheelDemo() {
       </div>
 
       <div
-        className="click-wheel"
-        role="group"
-        aria-label="MusicPod 点按式转盘演示"
         aria-describedby="wheel-demo-help"
-        tabIndex={0}
+        aria-label={messages.group}
+        className="click-wheel"
         onKeyDown={handleKeyDown}
+        onPointerCancel={releasePointer}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={releasePointer}
-        onPointerCancel={releasePointer}
+        role="group"
+        tabIndex={0}
       >
         <button
+          aria-label={messages.menu}
           className="wheel-control wheel-menu"
-          type="button"
-          aria-label="返回第一个项目"
-          onPointerDown={(event) => event.stopPropagation()}
           onClick={() => { setIndex(0); setMessage(items[0].label); }}
+          onPointerDown={(event) => event.stopPropagation()}
+          type="button"
         >MENU</button>
-        <button
-          className="wheel-control wheel-previous"
-          type="button"
-          aria-label="上一个项目"
-          onPointerDown={(event) => event.stopPropagation()}
-          onClick={() => move(-1)}
-        >◀◀</button>
-        <button
-          className="wheel-control wheel-next"
-          type="button"
-          aria-label="下一个项目"
-          onPointerDown={(event) => event.stopPropagation()}
-          onClick={() => move(1)}
-        >▶▶</button>
-        <button
-          className="wheel-control wheel-play"
-          type="button"
-          aria-label="播放所选项目"
-          onPointerDown={(event) => event.stopPropagation()}
-          onClick={() => setMessage(`正在播放 ${items[index].label}`)}
-        >▶Ⅱ</button>
-        <button
-          className="wheel-center"
-          type="button"
-          aria-label={`选择 ${items[index].label}`}
-          onPointerDown={(event) => event.stopPropagation()}
-          onClick={() => setMessage(`已选择 ${items[index].label}`)}
-        />
+        <button aria-label={messages.previous} className="wheel-control wheel-previous" onClick={() => move(-1)} onPointerDown={(event) => event.stopPropagation()} type="button">◀◀</button>
+        <button aria-label={messages.next} className="wheel-control wheel-next" onClick={() => move(1)} onPointerDown={(event) => event.stopPropagation()} type="button">▶▶</button>
+        <button aria-label={messages.play} className="wheel-control wheel-play" onClick={playCurrent} onPointerDown={(event) => event.stopPropagation()} type="button">▶Ⅱ</button>
+        <button aria-label={format(messages.select, items[index].label)} className="wheel-center" onClick={selectCurrent} onPointerDown={(event) => event.stopPropagation()} type="button" />
       </div>
 
       <p className="wheel-demo-help" id="wheel-demo-help" aria-live="polite">{message}</p>
