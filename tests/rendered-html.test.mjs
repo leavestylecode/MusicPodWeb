@@ -37,6 +37,7 @@ test("server-renders the MusicPod marketing page", async () => {
   assert.match(html, /Apple Music/);
   assert.match(html, /App Store/);
   assert.match(html, /即将上线/);
+  assert.match(html, /跳到主要内容/);
   assert.match(html, /\/product\/musicpod-home\.webp/);
   assert.match(html, /https?:\/\/[^\"]+\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|Codex is working|react-loading-skeleton|\/_vinext\/image/i);
@@ -55,13 +56,15 @@ test("ships the real product media and social card", async () => {
 
   await Promise.all(assets.map((asset) => access(new URL(asset, import.meta.url))));
 
-  const [page, packageJson] = await Promise.all([
+  const [page, styles, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
   assert.match(page, /MusicPod 真实应用界面/);
   assert.match(page, /12[\s\S]*种机身与转盘配色/);
   assert.match(page, /9[\s\S]*套星云背景主题/);
+  assert.match(styles, /img\s*{[^}]*height:\s*auto;/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 });

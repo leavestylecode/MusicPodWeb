@@ -30,6 +30,9 @@ const faqs = [
 export default function Home() {
   return (
     <div className="site-shell">
+      <a className="skip-link" href="#main-content">
+        跳到主要内容
+      </a>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="MusicPod 首页">
           <Image src="/app-icon.png" alt="" width="44" height="44" unoptimized />
@@ -43,12 +46,13 @@ export default function Home() {
         </nav>
 
         <a className="header-cta" href="#download">
-          即将上线 <span aria-hidden="true">↗</span>
+          即将上线 <span aria-hidden="true">↓</span>
         </a>
       </header>
 
-      <main id="top">
+      <main id="main-content" tabIndex={-1}>
         <section className="hero" aria-labelledby="hero-title">
+          <span id="top" className="anchor-target" aria-hidden="true" />
           <div className="hero-aurora" aria-hidden="true" />
           <div className="hero-copy">
             <p className="eyebrow">
