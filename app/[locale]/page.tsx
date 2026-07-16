@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AppStoreBadge } from "../AppStoreBadge";
 import { ClickWheelDemo } from "../ClickWheelDemo";
 import { LanguageMenu } from "../LanguageMenu";
 import { PersonalizationShowcase } from "../PersonalizationShowcase";
@@ -86,9 +87,12 @@ export default async function MusicPodPage({
             <p className="hero-body">{messages.hero.body}</p>
 
             <div className="hero-actions">
-              <a className="store-button" href="#availability">
-                <span>{messages.hero.primaryKicker}</span>
-                <strong>{messages.hero.primary}</strong>
+              <a
+                aria-label={`${messages.hero.primaryKicker} ${messages.hero.primary}`}
+                className="store-button"
+                href="#availability"
+              >
+                <AppStoreBadge eyebrow={messages.hero.primaryKicker} label={messages.hero.primary} />
               </a>
               <a className="text-button" href="#experience">
                 {messages.hero.secondary}<span aria-hidden="true">↓</span>
@@ -248,9 +252,8 @@ export default async function MusicPodPage({
           <p className="section-kicker">{messages.availability.kicker}</p>
           <h2>{messages.availability.title}</h2>
           <p>{messages.availability.body}</p>
-          <div aria-label={`${messages.availability.badgeKicker}: ${messages.availability.badge}`} className="availability-badge">
-            <span>{messages.availability.badgeKicker}</span>
-            <strong>{messages.availability.badge}</strong>
+          <div aria-label={`${messages.availability.badgeKicker} ${messages.availability.badge}`} className="availability-badge">
+            <AppStoreBadge eyebrow={messages.availability.badgeKicker} label={messages.availability.badge} />
           </div>
           <small>{messages.availability.requirement}</small>
         </section>
