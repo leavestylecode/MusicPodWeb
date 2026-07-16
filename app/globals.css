@@ -2250,8 +2250,12 @@ html[data-theme="dark"] .app-store-badge-white { display: block; }
 
 .footer-meta {
   display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: 18px;
+  min-width: 0;
 }
 
 .footer-meta p {
@@ -3298,6 +3302,7 @@ html[data-theme="dark"] .privacy-contact-card {
   .footer-meta {
     align-items: flex-start;
     flex-direction: column;
+    justify-content: flex-start;
     gap: 7px;
   }
 

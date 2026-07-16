@@ -1,5 +1,7 @@
+import { DEVELOPER_NAME } from "./site";
+
 export const privacyPolicyConfig = {
-  operator: "Leavestylecode",
+  operator: DEVELOPER_NAME,
   product: "MusicPod",
   email: "privacy@musicpod.app",
   version: "1.0",

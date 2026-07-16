@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localeDetails, localePath, locales, type Locale } from "../../lib/locales";
 import {
+  DEVELOPER_NAME,
+  DEVELOPER_URL,
   languageAlternates,
   SITE_METADATA_BASE,
   siteUrl,
@@ -43,8 +45,9 @@ export async function generateMetadata({
     title: messages.meta.title,
     description: messages.meta.description,
     applicationName: "MusicPod",
-    creator: "Leavestylecode",
-    publisher: "Leavestylecode",
+    authors: [{ name: DEVELOPER_NAME, url: DEVELOPER_URL }],
+    creator: DEVELOPER_NAME,
+    publisher: DEVELOPER_NAME,
     keywords: ["MusicPod", "iPod", "Apple Music", "iPhone", "Click Wheel", "MusicKit"],
     alternates: {
       canonical: siteUrl(canonicalPath),

@@ -5,7 +5,13 @@ import { getDictionary } from "../../../lib/dictionaries";
 import { getPrivacyDictionary } from "../../../lib/privacy-dictionaries";
 import { privacyPolicyConfig } from "../../../lib/privacy-config";
 import { isLocale, localeDetails, localePath, type Locale } from "../../../lib/locales";
-import { languageAlternates, siteUrl } from "../../../lib/site";
+import {
+  DEVELOPER_BRAND,
+  DEVELOPER_SCHEMA,
+  DEVELOPER_URL,
+  languageAlternates,
+  siteUrl,
+} from "../../../lib/site";
 import { BrandIcon } from "../../BrandIcon";
 import { LanguageMenu } from "../../LanguageMenu";
 import { ThemeToggle } from "../../ThemeToggle";
@@ -68,10 +74,13 @@ export default async function PrivacyPage({
     url: privacyUrl,
     dateModified: privacyPolicyConfig.lastUpdated,
     inLanguage: localeDetails[locale].htmlLang,
+    author: DEVELOPER_SCHEMA,
+    publisher: DEVELOPER_SCHEMA,
     isPartOf: {
       "@type": "WebSite",
       name: "MusicPod",
       url: siteUrl(),
+      publisher: DEVELOPER_SCHEMA,
     },
   };
 
@@ -195,6 +204,14 @@ export default async function PrivacyPage({
         </Link>
         <div className="footer-meta">
           <span aria-current="page" className="footer-link">{siteMessages.footer.privacy}</span>
+          <a
+            className="footer-link"
+            href={DEVELOPER_URL}
+            rel="author external noopener"
+            target="_blank"
+          >
+            {siteMessages.footer.developer} {DEVELOPER_BRAND}<span aria-hidden="true"> ↗</span>
+          </a>
           <p>© 2026 MusicPod. {siteMessages.footer.rights}</p>
         </div>
       </footer>

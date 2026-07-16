@@ -13,7 +13,12 @@ import { StrandsShowcase } from "../StrandsShowcase";
 import { ThemeToggle } from "../ThemeToggle";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localePath } from "../../lib/locales";
-import { siteUrl } from "../../lib/site";
+import {
+  DEVELOPER_BRAND,
+  DEVELOPER_SCHEMA,
+  DEVELOPER_URL,
+  siteUrl,
+} from "../../lib/site";
 
 const libraryIcons = [
   "/product/icons/favorites.webp",
@@ -41,6 +46,8 @@ export default async function MusicPodPage({
     applicationCategory: "MultimediaApplication",
     operatingSystem: "iOS 17 or later",
     url: siteUrl(home),
+    author: DEVELOPER_SCHEMA,
+    publisher: DEVELOPER_SCHEMA,
   };
 
   return (
@@ -247,6 +254,14 @@ export default async function MusicPodPage({
         </div>
         <div className="footer-meta">
           <Link className="footer-link" href={`${home}/privacy`}>{messages.footer.privacy}</Link>
+          <a
+            className="footer-link"
+            href={DEVELOPER_URL}
+            rel="author external noopener"
+            target="_blank"
+          >
+            {messages.footer.developer} {DEVELOPER_BRAND}<span aria-hidden="true"> ↗</span>
+          </a>
           <p>© 2026 MusicPod. {messages.footer.rights}</p>
         </div>
       </footer>
