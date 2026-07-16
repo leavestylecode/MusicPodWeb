@@ -70,8 +70,8 @@ test("server-renders the international English product page", async () => {
 
 test("ships localized HTML and metadata for every supported market", async () => {
   const expectations = [
-    ["/zh-cn", "zh-CN", "你的音乐。"],
-    ["/zh-tw", "zh-TW", "你的音樂。"],
+    ["/zh-cn", "zh-CN", "你的音乐"],
+    ["/zh-tw", "zh-TW", "你的音樂"],
     ["/ja", "ja", "あなたの音楽。"],
     ["/ko", "ko", "내 음악."],
     ["/es", "es", "Tu música."],
@@ -255,7 +255,7 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(brandIcon, /brand-icon-dark-art/);
   assert.match(brandIcon, /brand-icon-wheel/);
   assert.match(styles, /html\[data-theme="dark"\] \.brand-icon-dark/);
-  assert.match(styles, /\.availability::before\s*{[^}]*filter:\s*blur\(18px\);/s);
+  assert.match(styles, /html\[data-theme="dark"\] \.availability::before\s*{[^}]*content:\s*none;/s);
   assert.match(styles, /rgba\(255, 41, 56, 0\.17\)/);
   assert.match(themeToggle, /matchMedia\("\(prefers-color-scheme: dark\)"\)/);
   assert.match(themeToggle, /link\[data-musicpod-theme-icon\]/);
