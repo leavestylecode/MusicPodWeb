@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppStoreBadge } from "../AppStoreBadge";
+import { BrandIcon } from "../BrandIcon";
 import { ClickWheelDemo } from "../ClickWheelDemo";
 import { LanguageMenu } from "../LanguageMenu";
 import { PersonalizationShowcase } from "../PersonalizationShowcase";
@@ -58,7 +59,7 @@ export default async function MusicPodPage({
 
       <header className="site-header">
         <Link aria-label={messages.nav.home} className="brand" href={home}>
-          <Image alt="" height="34" src="/app-icon.png" unoptimized width="34" />
+          <BrandIcon priority size={34} />
           <span>MusicPod</span>
         </Link>
 
@@ -250,7 +251,7 @@ export default async function MusicPodPage({
         </section>
 
         <section className="availability section-pad" id="availability">
-          <Image alt="" className="availability-icon" height="96" src="/app-icon.png" unoptimized width="96" />
+          <BrandIcon className="availability-icon" size={96} />
           <p className="section-kicker">{messages.availability.kicker}</p>
           <h2>{messages.availability.title}</h2>
           <p>{messages.availability.body}</p>
@@ -263,7 +264,7 @@ export default async function MusicPodPage({
 
       <footer className="site-footer">
         <div className="footer-brand">
-          <Image alt="" height="28" src="/app-icon.png" unoptimized width="28" />
+          <BrandIcon size={28} />
           <strong>MusicPod</strong>
         </div>
         <p>© 2026 MusicPod. {messages.footer.rights}</p>

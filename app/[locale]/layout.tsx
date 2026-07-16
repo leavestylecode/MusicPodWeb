@@ -11,7 +11,7 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#08080a" },
+    { media: "(prefers-color-scheme: dark)", color: "#050506" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -53,9 +53,12 @@ export async function generateMetadata({
       languages: { ...languageAlternates, "x-default": "/en" },
     },
     icons: {
-      icon: "/app-icon.png",
-      shortcut: "/app-icon.png",
-      apple: "/app-icon.png",
+      icon: [
+        { media: "(prefers-color-scheme: light)", url: "/app-icon.png" },
+        { media: "(prefers-color-scheme: dark)", url: "/app-icon-dark.png" },
+      ],
+      shortcut: "/app-icon-dark.png",
+      apple: "/app-icon-dark.png",
     },
     openGraph: {
       type: "website",

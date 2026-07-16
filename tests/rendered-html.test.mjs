@@ -46,6 +46,8 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /app-store-badge-artwork/);
   assert.match(html, /class="theme-menu"/);
   assert.match(html, /id="musicpod-theme"/);
+  assert.match(html, /app-icon-dark\.png/);
+  assert.match(html, /brand-icon-dark/);
   assert.match(html, /Skip to content/);
   assert.match(html, /\/product\/musicpod-home\.webp/);
   assert.match(html, /application\/ld\+json/);
@@ -111,6 +113,7 @@ test("publishes international discovery metadata", async () => {
 test("ships the product media, internationalization source, and image sizing guard", async () => {
   const assets = [
     "../public/app-icon.png",
+    "../public/app-icon-dark.png",
     "../public/og.png",
     "../public/product/musicpod-home.webp",
     "../public/product/icons/albums.webp",
@@ -121,11 +124,12 @@ test("ships the product media, internationalization source, and image sizing gua
 
   await Promise.all(assets.map((asset) => access(new URL(asset, import.meta.url))));
 
-  const [page, styles, showcase, appStoreBadge, themeToggle, themeScript, dictionaries, packageJson] = await Promise.all([
+  const [page, styles, showcase, appStoreBadge, brandIcon, themeToggle, themeScript, dictionaries, packageJson] = await Promise.all([
     readFile(new URL("../app/[locale]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/PersonalizationShowcase.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/AppStoreBadge.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/BrandIcon.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ThemeToggle.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ThemeScript.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/dictionaries.ts", import.meta.url), "utf8"),
@@ -158,6 +162,9 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(appStoreBadge, /tools\.applemediaservices\.com\/api\/badges/);
   assert.match(appStoreBadge, /marketingLocales/);
   assert.match(appStoreBadge, /badgeUrl\("white"\)/);
+  assert.match(brandIcon, /app-icon-dark\.png/);
+  assert.match(styles, /html\[data-theme="dark"\] \.brand-icon-dark/);
+  assert.match(styles, /rgba\(255, 41, 56, 0\.17\)/);
   assert.match(themeToggle, /matchMedia\("\(prefers-color-scheme: dark\)"\)/);
   assert.match(themeToggle, /localStorage\.(setItem|removeItem)/);
   assert.match(themeToggle, /"system" \| "light" \| "dark"/);
