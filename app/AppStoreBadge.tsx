@@ -31,15 +31,27 @@ const badgeWidths: Record<Locale, number> = {
 
 export function AppStoreBadge({ locale }: AppStoreBadgeProps) {
   const marketingLocale = marketingLocales[locale];
+  const badgeUrl = (style: "black" | "white") =>
+    `https://tools.applemediaservices.com/api/badges/download-on-the-app-store/${style}/${marketingLocale}?size=250x83`;
 
   return (
-    <Image
-      alt=""
-      className="app-store-badge-image"
-      height={40}
-      src={`https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/${marketingLocale}?size=250x83`}
-      unoptimized
-      width={badgeWidths[locale]}
-    />
+    <span className="app-store-badge-artwork">
+      <Image
+        alt=""
+        className="app-store-badge-image app-store-badge-black"
+        height={40}
+        src={badgeUrl("black")}
+        unoptimized
+        width={badgeWidths[locale]}
+      />
+      <Image
+        alt=""
+        className="app-store-badge-image app-store-badge-white"
+        height={40}
+        src={badgeUrl("white")}
+        unoptimized
+        width={badgeWidths[locale]}
+      />
+    </span>
   );
 }

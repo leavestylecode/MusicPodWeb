@@ -12,6 +12,7 @@ export type Messages = {
     language: string;
     soon: string;
   };
+  theme: { label: string; system: string; light: string; dark: string };
   hero: {
     kicker: string;
     title: [string, string];
@@ -83,6 +84,7 @@ const en: Messages = {
   },
   skip: "Skip to content",
   nav: { home: "MusicPod home", label: "Primary navigation", experience: "Experience", highlights: "Highlights", personalize: "Personalize", language: "Language", soon: "Coming soon" },
+  theme: { label: "Appearance", system: "System", light: "Light", dark: "Dark" },
   hero: {
     kicker: "Designed for Apple Music",
     title: ["Your music.", "Your iPod."],
@@ -155,6 +157,7 @@ const zhCN: Messages = {
   meta: { title: "MusicPod — 你的音乐，你的 iPod", description: "一款为 iPhone 打造的触感音乐播放器，以点按式转盘连接你的 Apple Music 资料库。", social: "转动、点按，然后聆听。一台为 Apple Music 时代重新想象的 iPod。" },
   skip: "跳到主要内容",
   nav: { home: "MusicPod 首页", label: "主导航", experience: "体验", highlights: "亮点", personalize: "个性化", language: "语言", soon: "即将上线" },
+  theme: { label: "外观", system: "跟随系统", light: "浅色", dark: "深色" },
   hero: {
     kicker: "专为 Apple Music 设计",
     title: ["你的音乐。", "你的 iPod。"],
@@ -188,6 +191,7 @@ const zhTW: Messages = {
   meta: { title: "MusicPod — 你的音樂，你的 iPod", description: "一款為 iPhone 打造的觸感音樂播放器，以點按式轉盤連接你的 Apple Music 資料庫。", social: "轉動、點按，然後聆聽。一台為 Apple Music 時代重新想像的 iPod。" },
   skip: "跳到主要內容",
   nav: { home: "MusicPod 首頁", label: "主要導覽", experience: "體驗", highlights: "亮點", personalize: "個人化", language: "語言", soon: "即將推出" },
+  theme: { label: "外觀", system: "跟隨系統", light: "淺色", dark: "深色" },
   hero: { kicker: "專為 Apple Music 設計", title: ["你的音樂。", "你的 iPod。"], body: "一款為 iPhone 打造的觸感音樂播放器，以點按式轉盤連接你的 Apple Music 資料庫。", primaryKicker: "即將登上", primary: "App Store", secondary: "探索 MusicPod", badges: ["為 iPhone 打造", "Apple Music", "iOS 17+"], productLabel: "MusicPod 實際 App 介面", screenshotAlt: "MusicPod 首頁，包含喜愛歌曲、迷你播放器與紅色點按式轉盤", actual: "實際介面", native: "原生 SwiftUI" },
   mantra: { label: "MusicPod 的三個動作", eyebrow: "熟悉的動作，全新的體驗。", words: ["點按。", "轉動。", "聆聽。"] },
   wheel: { kicker: "點按式轉盤", title: "轉盤，回來了。", body: "轉動瀏覽，按下選擇。每一步都有原生觸感回饋。", try: "試試轉盤", help: "沿轉盤滑動，或使用方向鍵", group: "MusicPod 點按式轉盤示範", menu: "返回第一個項目", previous: "上一個項目", next: "下一個項目", play: "播放所選項目", select: "選擇 {item}", selected: "已選擇：{item}", playing: "正在播放：{item}", items: ["喜愛歌曲", "播放列表", "專輯", "隨機播放", "主題"] },
@@ -202,6 +206,7 @@ const ja: Messages = {
   meta: { title: "MusicPod — あなたの音楽を、あなたのiPodで。", description: "クリックホイールとApple Musicライブラリを中心に設計した、iPhoneのための触感的なミュージックプレーヤー。", social: "回して、押して、聴く。Apple Musicの時代に再構想したiPod。" },
   skip: "メインコンテンツへ移動",
   nav: { home: "MusicPod ホーム", label: "メインナビゲーション", experience: "体験", highlights: "特長", personalize: "カスタマイズ", language: "言語", soon: "近日公開" },
+  theme: { label: "外観", system: "システム", light: "ライト", dark: "ダーク" },
   hero: { kicker: "Apple Musicのためにデザイン", title: ["あなたの音楽。", "あなたのiPod。"], body: "クリックホイールとApple Musicライブラリを中心に設計した、iPhoneのための触感的なミュージックプレーヤー。", primaryKicker: "まもなく登場", primary: "App Store", secondary: "MusicPodを体験", badges: ["iPhoneのために", "Apple Music", "iOS 17+"], productLabel: "MusicPodの実際のアプリ画面", screenshotAlt: "お気に入りの曲、ミニプレーヤー、赤いクリックホイールを表示したMusicPodのホーム画面", actual: "実際の画面", native: "SwiftUIネイティブ" },
   mantra: { label: "MusicPodを表す3つの動作", eyebrow: "懐かしい操作を、新しい体験へ。", words: ["押す。", "回す。", "聴く。"] },
   wheel: { kicker: "クリックホイール", title: "クリックホイールが、帰ってきた。", body: "回して探す。押して選ぶ。すべての操作にネイティブな触覚が応えます。", try: "ホイールを試す", help: "ホイールに沿ってスライドするか、矢印キーを使ってください", group: "MusicPodクリックホイールのデモ", menu: "最初の項目に戻る", previous: "前の項目", next: "次の項目", play: "選択した項目を再生", select: "{item}を選択", selected: "選択済み：{item}", playing: "再生中：{item}", items: ["お気に入り", "プレイリスト", "アルバム", "シャッフル", "テーマ"] },
@@ -216,6 +221,7 @@ const ko: Messages = {
   meta: { title: "MusicPod — 내 음악. 나만의 iPod.", description: "클릭 휠과 Apple Music 보관함을 중심으로 설계한 iPhone용 촉각 음악 플레이어입니다.", social: "돌리고, 누르고, 듣다. Apple Music 시대를 위해 새롭게 만든 iPod." },
   skip: "본문으로 건너뛰기",
   nav: { home: "MusicPod 홈", label: "주요 탐색", experience: "경험", highlights: "주요 기능", personalize: "맞춤 설정", language: "언어", soon: "출시 예정" },
+  theme: { label: "화면 모드", system: "시스템", light: "라이트", dark: "다크" },
   hero: { kicker: "Apple Music을 위해 설계", title: ["내 음악.", "나만의 iPod."], body: "클릭 휠과 Apple Music 보관함을 중심으로 설계한 iPhone용 촉각 음악 플레이어입니다.", primaryKicker: "곧 출시됩니다", primary: "App Store", secondary: "MusicPod 살펴보기", badges: ["iPhone을 위해 제작", "Apple Music", "iOS 17+"], productLabel: "MusicPod 실제 앱 화면", screenshotAlt: "좋아하는 노래, 미니 플레이어, 빨간색 클릭 휠이 있는 MusicPod 홈 화면", actual: "실제 화면", native: "네이티브 SwiftUI" },
   mantra: { label: "MusicPod의 세 가지 동작", eyebrow: "익숙한 동작을 새롭게.", words: ["누르고.", "돌리고.", "듣다."] },
   wheel: { kicker: "클릭 휠", title: "클릭 휠이 돌아왔습니다.", body: "돌려서 탐색하고 눌러서 선택하세요. 모든 단계에 네이티브 햅틱이 응답합니다.", try: "휠 사용해 보기", help: "휠을 따라 밀거나 화살표 키를 사용하세요", group: "MusicPod 클릭 휠 데모", menu: "첫 항목으로 돌아가기", previous: "이전 항목", next: "다음 항목", play: "선택한 항목 재생", select: "{item} 선택", selected: "선택됨: {item}", playing: "재생 중: {item}", items: ["좋아하는 노래", "플레이리스트", "앨범", "임의 재생", "테마"] },
@@ -230,6 +236,7 @@ const es: Messages = {
   meta: { title: "MusicPod — Tu música. Tu iPod.", description: "Un reproductor de música táctil para iPhone, creado alrededor de la rueda de clic y tu biblioteca de Apple Music.", social: "Gira, pulsa y escucha. Un iPod reinventado para la era de Apple Music." },
   skip: "Saltar al contenido",
   nav: { home: "Inicio de MusicPod", label: "Navegación principal", experience: "Experiencia", highlights: "Funciones", personalize: "Personaliza", language: "Idioma", soon: "Próximamente" },
+  theme: { label: "Apariencia", system: "Sistema", light: "Claro", dark: "Oscuro" },
   hero: { kicker: "Diseñado para Apple Music", title: ["Tu música.", "Tu iPod."], body: "Un reproductor de música táctil para iPhone, creado alrededor de la rueda de clic y tu biblioteca de Apple Music.", primaryKicker: "Próximamente en", primary: "App Store", secondary: "Descubre MusicPod", badges: ["Creado para iPhone", "Apple Music", "iOS 17+"], productLabel: "Interfaz real de la app MusicPod", screenshotAlt: "Pantalla de inicio de MusicPod con canciones favoritas, minirreproductor y rueda de clic roja", actual: "Interfaz real", native: "SwiftUI nativo" },
   mantra: { label: "MusicPod en tres gestos", eyebrow: "Un gesto familiar, hecho de nuevo.", words: ["Pulsa.", "Gira.", "Escucha."] },
   wheel: { kicker: "Rueda de clic", title: "La rueda de clic ha vuelto.", body: "Gira para explorar. Pulsa para elegir. Cada paso responde con vibración nativa.", try: "Prueba la rueda", help: "Desliza alrededor de la rueda o usa las teclas de flecha", group: "Demostración de la rueda de clic de MusicPod", menu: "Volver al primer elemento", previous: "Elemento anterior", next: "Elemento siguiente", play: "Reproducir el elemento seleccionado", select: "Seleccionar {item}", selected: "Seleccionado: {item}", playing: "Reproduciendo: {item}", items: ["Favoritas", "Playlists", "Álbumes", "Aleatorio", "Tema"] },
@@ -244,6 +251,7 @@ const fr: Messages = {
   meta: { title: "MusicPod — Votre musique. Votre iPod.", description: "Un lecteur de musique tactile pour iPhone, conçu autour de la molette cliquable et de votre bibliothèque Apple Music.", social: "Tournez, cliquez, écoutez. Un iPod repensé pour l’ère Apple Music." },
   skip: "Aller au contenu",
   nav: { home: "Accueil MusicPod", label: "Navigation principale", experience: "Expérience", highlights: "Fonctions", personalize: "Personnaliser", language: "Langue", soon: "Bientôt disponible" },
+  theme: { label: "Apparence", system: "Système", light: "Clair", dark: "Sombre" },
   hero: { kicker: "Conçu pour Apple Music", title: ["Votre musique.", "Votre iPod."], body: "Un lecteur de musique tactile pour iPhone, conçu autour de la molette cliquable et de votre bibliothèque Apple Music.", primaryKicker: "Bientôt sur", primary: "App Store", secondary: "Découvrir MusicPod", badges: ["Conçu pour iPhone", "Apple Music", "iOS 17+"], productLabel: "Interface réelle de l’app MusicPod", screenshotAlt: "Écran d’accueil MusicPod avec morceaux favoris, mini-lecteur et molette rouge", actual: "Interface réelle", native: "SwiftUI natif" },
   mantra: { label: "MusicPod en trois gestes", eyebrow: "Un geste familier, réinventé.", words: ["Cliquez.", "Tournez.", "Écoutez."] },
   wheel: { kicker: "Molette cliquable", title: "La molette cliquable est de retour.", body: "Tournez pour parcourir. Cliquez pour choisir. Chaque étape répond par un retour haptique natif.", try: "Essayez la molette", help: "Glissez autour de la molette ou utilisez les touches fléchées", group: "Démonstration de la molette MusicPod", menu: "Revenir au premier élément", previous: "Élément précédent", next: "Élément suivant", play: "Lire l’élément sélectionné", select: "Sélectionner {item}", selected: "Sélection : {item}", playing: "Lecture : {item}", items: ["Morceaux favoris", "Playlists", "Albums", "Aléatoire", "Thème"] },
@@ -258,6 +266,7 @@ const de: Messages = {
   meta: { title: "MusicPod — Deine Musik. Dein iPod.", description: "Ein taktiler Musikplayer für das iPhone – rund um das Click Wheel und deine Apple Music-Mediathek entwickelt.", social: "Drehen, klicken, hören. Ein iPod, neu gedacht für die Apple Music-Ära." },
   skip: "Zum Inhalt springen",
   nav: { home: "MusicPod Startseite", label: "Hauptnavigation", experience: "Erlebnis", highlights: "Funktionen", personalize: "Personalisieren", language: "Sprache", soon: "Demnächst" },
+  theme: { label: "Darstellung", system: "System", light: "Hell", dark: "Dunkel" },
   hero: { kicker: "Für Apple Music entwickelt", title: ["Deine Musik.", "Dein iPod."], body: "Ein taktiler Musikplayer für das iPhone – rund um das Click Wheel und deine Apple Music-Mediathek entwickelt.", primaryKicker: "Demnächst im", primary: "App Store", secondary: "MusicPod entdecken", badges: ["Für iPhone gemacht", "Apple Music", "iOS 17+"], productLabel: "Echte Benutzeroberfläche der MusicPod App", screenshotAlt: "MusicPod-Startbildschirm mit Lieblingstiteln, Miniplayer und rotem Click Wheel", actual: "Echte Oberfläche", native: "Natives SwiftUI" },
   mantra: { label: "MusicPod in drei Gesten", eyebrow: "Eine vertraute Geste, neu gedacht.", words: ["Klicken.", "Drehen.", "Hören."] },
   wheel: { kicker: "Click Wheel", title: "Das Click Wheel ist zurück.", body: "Drehen zum Suchen. Drücken zum Auswählen. Jeder Schritt antwortet mit nativem haptischem Feedback.", try: "Click Wheel ausprobieren", help: "Auf dem Rad wischen oder die Pfeiltasten verwenden", group: "Interaktives MusicPod Click Wheel", menu: "Zum ersten Eintrag zurückkehren", previous: "Vorheriger Eintrag", next: "Nächster Eintrag", play: "Ausgewählten Eintrag abspielen", select: "{item} auswählen", selected: "Ausgewählt: {item}", playing: "Wiedergabe: {item}", items: ["Lieblingstitel", "Playlists", "Alben", "Zufällig", "Design"] },
@@ -272,6 +281,7 @@ const ptBR: Messages = {
   meta: { title: "MusicPod — Sua música. Seu iPod.", description: "Um player de música tátil para iPhone, criado em torno da click wheel e da sua biblioteca do Apple Music.", social: "Gire, clique e ouça. Um iPod reinventado para a era do Apple Music." },
   skip: "Pular para o conteúdo",
   nav: { home: "Início do MusicPod", label: "Navegação principal", experience: "Experiência", highlights: "Recursos", personalize: "Personalize", language: "Idioma", soon: "Em breve" },
+  theme: { label: "Aparência", system: "Sistema", light: "Claro", dark: "Escuro" },
   hero: { kicker: "Criado para Apple Music", title: ["Sua música.", "Seu iPod."], body: "Um player de música tátil para iPhone, criado em torno da click wheel e da sua biblioteca do Apple Music.", primaryKicker: "Em breve na", primary: "App Store", secondary: "Conheça o MusicPod", badges: ["Feito para iPhone", "Apple Music", "iOS 17+"], productLabel: "Interface real do app MusicPod", screenshotAlt: "Tela inicial do MusicPod com músicas favoritas, miniplayer e click wheel vermelha", actual: "Interface real", native: "SwiftUI nativo" },
   mantra: { label: "MusicPod em três gestos", eyebrow: "Um gesto familiar, feito de novo.", words: ["Clique.", "Gire.", "Ouça."] },
   wheel: { kicker: "Click wheel", title: "A click wheel está de volta.", body: "Gire para navegar. Clique para escolher. Cada passo responde com retorno tátil nativo.", try: "Experimente a roda", help: "Deslize ao redor da roda ou use as teclas de seta", group: "Demonstração da click wheel do MusicPod", menu: "Voltar ao primeiro item", previous: "Item anterior", next: "Próximo item", play: "Reproduzir item selecionado", select: "Selecionar {item}", selected: "Selecionado: {item}", playing: "Reproduzindo: {item}", items: ["Favoritas", "Playlists", "Álbuns", "Aleatório", "Tema"] },

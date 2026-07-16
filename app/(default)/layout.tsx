@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { ThemeScript } from "../ThemeScript";
 import "../globals.css";
 
 export const viewport: Viewport = {
-  colorScheme: "light",
-  themeColor: "#f5f5f7",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#08080a" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -17,7 +21,8 @@ export const metadata: Metadata = {
 
 export default function DefaultLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head><ThemeScript /></head>
       <body>{children}</body>
     </html>
   );

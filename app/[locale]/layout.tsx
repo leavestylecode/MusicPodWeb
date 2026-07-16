@@ -4,11 +4,15 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localeDetails, locales, type Locale } from "../../lib/locales";
+import { ThemeScript } from "../ThemeScript";
 import "../globals.css";
 
 export const viewport: Viewport = {
-  colorScheme: "light",
-  themeColor: "#f5f5f7",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#08080a" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -83,7 +87,8 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
 
   return (
-    <html lang={localeDetails[locale].htmlLang}>
+    <html lang={localeDetails[locale].htmlLang} suppressHydrationWarning>
+      <head><ThemeScript /></head>
       <body>{children}</body>
     </html>
   );

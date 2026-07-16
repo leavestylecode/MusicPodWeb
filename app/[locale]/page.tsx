@@ -7,6 +7,7 @@ import { ClickWheelDemo } from "../ClickWheelDemo";
 import { LanguageMenu } from "../LanguageMenu";
 import { PersonalizationShowcase } from "../PersonalizationShowcase";
 import { SpotlightCard } from "../SpotlightCard";
+import { ThemeToggle } from "../ThemeToggle";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localePath } from "../../lib/locales";
 
@@ -68,6 +69,7 @@ export default async function MusicPodPage({
         </nav>
 
         <div className="header-actions">
+          <ThemeToggle labels={messages.theme} />
           <LanguageMenu label={messages.nav.language} locale={locale} />
           <a className="header-status" href="#availability">
             <span className="status-dot" aria-hidden="true" />

@@ -43,7 +43,9 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /The click wheel is back\./);
   assert.match(html, /Coming to App Store\./);
   assert.match(html, /Coming soon on the/);
-  assert.match(html, /app-store-mark/);
+  assert.match(html, /app-store-badge-artwork/);
+  assert.match(html, /class="theme-menu"/);
+  assert.match(html, /id="musicpod-theme"/);
   assert.match(html, /Skip to content/);
   assert.match(html, /\/product\/musicpod-home\.webp/);
   assert.match(html, /application\/ld\+json/);
@@ -119,11 +121,13 @@ test("ships the product media, internationalization source, and image sizing gua
 
   await Promise.all(assets.map((asset) => access(new URL(asset, import.meta.url))));
 
-  const [page, styles, showcase, appStoreBadge, dictionaries, packageJson] = await Promise.all([
+  const [page, styles, showcase, appStoreBadge, themeToggle, themeScript, dictionaries, packageJson] = await Promise.all([
     readFile(new URL("../app/[locale]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/PersonalizationShowcase.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/AppStoreBadge.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/ThemeToggle.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/ThemeScript.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/dictionaries.ts", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
@@ -132,6 +136,8 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(page, /MusicPod actual app interface|productLabel/);
   assert.match(styles, /img\s*{[^}]*height:\s*auto;/);
   assert.match(styles, /prefers-reduced-motion/);
+  assert.match(styles, /:root\[data-theme="dark"\]/);
+  assert.match(styles, /prefers-color-scheme:\s*dark/);
   assert.match(showcase, /#e8222b/);
   assert.match(showcase, /#f28d03/);
   assert.match(showcase, /#eaba00/);
@@ -151,6 +157,12 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(styles, /\.app-store-badge-image/);
   assert.match(appStoreBadge, /tools\.applemediaservices\.com\/api\/badges/);
   assert.match(appStoreBadge, /marketingLocales/);
+  assert.match(appStoreBadge, /badgeUrl\("white"\)/);
+  assert.match(themeToggle, /matchMedia\("\(prefers-color-scheme: dark\)"\)/);
+  assert.match(themeToggle, /localStorage\.(setItem|removeItem)/);
+  assert.match(themeToggle, /"system" \| "light" \| "dark"/);
+  assert.match(themeScript, /dataset\.theme/);
+  assert.match(themeScript, /musicpod-theme/);
   assert.match(page, /iOS 17 or later/);
   assert.match(dictionaries, /iOS 17\+/);
   assert.match(dictionaries, /Classic color combinations/);
