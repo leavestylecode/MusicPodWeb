@@ -207,9 +207,12 @@ export default async function MusicPodPage({
 
         <section className="personalize section-pad" id="personalize">
           <PersonalizationShowcase
+            artist={messages.highlights.nowPlaying.artist}
             combinationsLabel={messages.personalize.combinations}
+            nowPlayingLabel={messages.highlights.nowPlaying.kicker}
             paletteLabel={messages.personalize.palette}
             presetNames={messages.personalize.presets}
+            track={messages.highlights.nowPlaying.track}
           />
 
           <div className="personalize-copy reveal">

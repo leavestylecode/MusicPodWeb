@@ -5,9 +5,12 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type PersonalizationShowcaseProps = {
+  artist: string;
   combinationsLabel: string;
+  nowPlayingLabel: string;
   paletteLabel: string;
   presetNames: readonly string[];
+  track: string;
 };
 
 type ThemeStyle = CSSProperties & Record<`--${string}`, string>;
@@ -24,122 +27,74 @@ const navigationIcons = [
 const finishes = [
   {
     id: "original",
-    shell: "#000000",
-    wheel: "#e8222b",
-    center: "#000000",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#030a1a",
-    screenGlow: "#2855af",
+    accent: "#e8222b",
+    accentSoft: "#ff6571",
     icon: "/product/icons/theme.webp",
   },
   {
     id: "classic-silver",
-    shell: "#c9cbcc",
-    wheel: "#f4f4f2",
-    center: "#c9cbcc",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#0d1114",
-    screenGlow: "#b4bcc5",
+    accent: "#c9cbcc",
+    accentSoft: "#f3f5f6",
     icon: "/product/icons/albums.webp",
   },
   {
     id: "classic-black",
-    shell: "#1c1c1e",
-    wheel: "#000000",
-    center: "#1c1c1e",
-    controls: "rgba(255, 255, 255, 0.92)",
-    screenBase: "#16051f",
-    screenGlow: "#752d9a",
+    accent: "#1c1c1e",
+    accentSoft: "#696970",
     icon: "/product/icons/shuffle.webp",
   },
   {
     id: "classic-white",
-    shell: "#f4f4f2",
-    wheel: "#f4f4f2",
-    center: "#f4f4f2",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#0d1114",
-    screenGlow: "#b4bcc5",
+    accent: "#f4f4f2",
+    accentSoft: "#ffffff",
     icon: "/product/icons/favorites.webp",
   },
   {
     id: "red",
-    shell: "#e8222b",
-    wheel: "#f4f4f2",
-    center: "#e8222b",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#1f0508",
-    screenGlow: "#db4254",
+    accent: "#e8222b",
+    accentSoft: "#ff6571",
     icon: "/product/icons/favorites.webp",
   },
   {
     id: "orange",
-    shell: "#f28d03",
-    wheel: "#f4f4f2",
-    center: "#f28d03",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#1a0c03",
-    screenGlow: "#c5753f",
+    accent: "#f28d03",
+    accentSoft: "#ffbe55",
     icon: "/product/icons/playlists.webp",
   },
   {
     id: "yellow",
-    shell: "#eaba00",
-    wheel: "#f4f4f2",
-    center: "#eaba00",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#1f1c05",
-    screenGlow: "#dbcc42",
+    accent: "#eaba00",
+    accentSoft: "#ffe45f",
     icon: "/product/icons/albums.webp",
   },
   {
     id: "green",
-    shell: "#00803d",
-    wheel: "#f4f4f2",
-    center: "#00803d",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#05140e",
-    screenGlow: "#24c57d",
+    accent: "#00803d",
+    accentSoft: "#35d07e",
     icon: "/product/icons/theme.webp",
   },
   {
     id: "teal",
-    shell: "#009e9e",
-    wheel: "#f4f4f2",
-    center: "#009e9e",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#02181f",
-    screenGlow: "#2b96ba",
+    accent: "#009e9e",
+    accentSoft: "#41d6d6",
     icon: "/product/icons/shuffle.webp",
   },
   {
     id: "blue",
-    shell: "#0082ce",
-    wheel: "#f4f4f2",
-    center: "#0082ce",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#030a1a",
-    screenGlow: "#2855af",
+    accent: "#0082ce",
+    accentSoft: "#43b9ff",
     icon: "/product/icons/playlists.webp",
   },
   {
     id: "purple",
-    shell: "#52388b",
-    wheel: "#f4f4f2",
-    center: "#52388b",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#16051f",
-    screenGlow: "#752d9a",
+    accent: "#52388b",
+    accentSoft: "#9577d7",
     icon: "/product/icons/albums.webp",
   },
   {
     id: "pink",
-    shell: "#cd2370",
-    wheel: "#f4f4f2",
-    center: "#cd2370",
-    controls: "rgba(0, 0, 0, 0.78)",
-    screenBase: "#240a16",
-    screenGlow: "#db8aaf",
+    accent: "#cd2370",
+    accentSoft: "#ff74b2",
     icon: "/product/icons/favorites.webp",
   },
 ] as const;
@@ -148,47 +103,81 @@ type Finish = (typeof finishes)[number];
 
 function finishStyle(finish: Finish): ThemeStyle {
   return {
-    "--pod-shell": finish.shell,
-    "--pod-wheel": finish.wheel,
-    "--pod-center": finish.center,
-    "--pod-controls": finish.controls,
-    "--pod-screen-base": finish.screenBase,
-    "--pod-screen-glow": finish.screenGlow,
+    "--pod-accent": finish.accent,
+    "--pod-accent-soft": finish.accentSoft,
   };
 }
 
-function PodPreview({ finish }: { finish: Finish }) {
+function PodPreview({
+  artist,
+  finish,
+  nowPlayingLabel,
+  track,
+}: {
+  artist: string;
+  finish: Finish;
+  nowPlayingLabel: string;
+  track: string;
+}) {
   const activeIconIndex = navigationIcons.indexOf(finish.icon);
   const leftIcon = navigationIcons[(activeIconIndex - 1 + navigationIcons.length) % navigationIcons.length];
   const rightIcon = navigationIcons[(activeIconIndex + 1) % navigationIcons.length];
 
   return (
     <div className="personalization-device">
-      <div className="personalization-screen">
-        <span className="personalization-screen-glow" />
-        <div className="personalization-icon-row">
-          <Image alt="" className="personalization-icon-side personalization-icon-left" height="72" src={leftIcon} unoptimized width="72" />
-          <Image alt="" className="personalization-icon-active" height="112" src={finish.icon} unoptimized width="112" />
-          <Image alt="" className="personalization-icon-side personalization-icon-right" height="72" src={rightIcon} unoptimized width="72" />
+      <div className="personalization-app-screen">
+        <div className="personalization-now-playing-card">
+          <div className="personalization-icon-row">
+            <Image alt="" className="personalization-icon-side personalization-icon-left" height="72" src={leftIcon} unoptimized width="72" />
+            <Image alt="" className="personalization-icon-active" height="112" src={finish.icon} unoptimized width="112" />
+            <Image alt="" className="personalization-icon-side personalization-icon-right" height="72" src={rightIcon} unoptimized width="72" />
+          </div>
+
+          <strong className="personalization-screen-title">{nowPlayingLabel}</strong>
+          <div className="personalization-page-dots" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+
+          <div className="personalization-track-card">
+            <Image alt="" className="personalization-track-art" height="72" src="/product/albums/neon.webp" unoptimized width="72" />
+            <div className="personalization-track-copy">
+              <strong>{track}</strong>
+              <span>{artist}</span>
+              <i aria-hidden="true"><span /></i>
+              <small><span>1:42</span><span>−2:16</span></small>
+            </div>
+            <Image alt="" className="personalization-vinyl" height="72" src="/product/textures/vinyl.webp" unoptimized width="72" />
+          </div>
         </div>
-        <div className="personalization-page-dots"><i /><i /><i /></div>
+
+        <div className="personalization-wheel">
+          <span className="personalization-menu">MENU</span>
+          <span className="personalization-previous">◀◀</span>
+          <span className="personalization-next">▶▶</span>
+          <span className="personalization-play">Ⅱ</span>
+          <i className="personalization-center" />
+        </div>
       </div>
 
-      <div className="personalization-wheel">
-        <span className="personalization-menu">MENU</span>
-        <span className="personalization-previous">◀◀</span>
-        <span className="personalization-next">▶▶</span>
-        <span className="personalization-play">▶Ⅱ</span>
-        <i className="personalization-center" />
-      </div>
+      <Image
+        alt=""
+        aria-hidden="true"
+        className="personalization-device-frame"
+        height="1560"
+        priority={false}
+        src="/product/iphone-frame.png"
+        unoptimized
+        width="877"
+      />
     </div>
   );
 }
 
 export function PersonalizationShowcase({
+  artist,
   combinationsLabel,
+  nowPlayingLabel,
   paletteLabel,
   presetNames,
+  track,
 }: PersonalizationShowcaseProps) {
   const [selected, setSelected] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -283,7 +272,7 @@ export function PersonalizationShowcase({
                 style={finishStyle(option)}
               >
                 <div aria-hidden="true" className="personalization-device-stage">
-                  <PodPreview finish={option} />
+                  <PodPreview artist={artist} finish={option} nowPlayingLabel={nowPlayingLabel} track={track} />
                 </div>
               </div>
             ))}
@@ -325,10 +314,11 @@ export function PersonalizationShowcase({
               className={selected === index ? "is-selected" : undefined}
               key={option.id}
               onClick={() => goTo(index)}
+              style={finishStyle(option)}
               type="button"
             >
-              <span style={{ background: option.shell }}>
-                <i style={{ background: option.wheel }} />
+              <span>
+                <i />
               </span>
             </button>
           ))}

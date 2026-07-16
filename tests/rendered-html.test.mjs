@@ -170,6 +170,7 @@ test("ships the product media, internationalization source, and image sizing gua
     "../public/app-icon.png",
     "../public/app-icon-dark.png",
     "../public/og.png",
+    "../public/product/iphone-frame.png",
     "../public/product/musicpod-home.webp",
     "../public/product/icons/albums.webp",
     "../public/product/icons/playlists.webp",
@@ -222,11 +223,14 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(showcase, /const leftIcon = navigationIcons/);
   assert.match(showcase, /const rightIcon = navigationIcons/);
   assert.match(showcase, /personalization-icon-active/);
-  assert.match(styles, /\.personalization-screen\s*{[^}]*aspect-ratio:\s*1;/s);
-  assert.match(styles, /\.personalization-icon-row\s*{[^}]*inset:\s*0;/s);
+  assert.match(showcase, /\/product\/iphone-frame\.png/);
+  assert.match(showcase, /personalization-now-playing-card/);
+  assert.match(styles, /\.personalization-device-frame\s*{[^}]*mix-blend-mode:\s*multiply;/s);
+  assert.match(styles, /\.personalization-app-screen\s*{[^}]*background:\s*#000;/s);
+  assert.match(styles, /\.personalization-icon-row\s*{[^}]*height:\s*40%;/s);
   assert.match(styles, /\.personalization-icon-row \.personalization-icon-active\s*{[^}]*left:\s*50%;/s);
-  assert.match(styles, /\.personalization-wheel\s*{[^}]*width:\s*72%;/s);
-  assert.match(styles, /\.personalization-center\s*{[^}]*width:\s*34%;/s);
+  assert.match(styles, /\.personalization-wheel\s*{[^}]*width:\s*78%;/s);
+  assert.match(styles, /\.personalization-center\s*{[^}]*width:\s*39%;/s);
   assert.match(page, /CoverFlowShowcase/);
   assert.match(page, /StrandsShowcase/);
   assert.match(coverFlow, /rotateY\(\$\{-clamped \* 58\}deg\)/);
