@@ -23,15 +23,15 @@ export function BrandIcon({ className = "", priority = false, size }: BrandIconP
         unoptimized
         width={size}
       />
-      <Image
-        alt=""
-        className="brand-icon-image brand-icon-dark"
-        height={size}
-        priority={priority}
-        src="/app-icon-dark.png"
-        unoptimized
-        width={size}
-      />
+      <span className="brand-icon-dark brand-icon-dark-art">
+        <span className="brand-icon-wheel">
+          <span className="brand-icon-menu">MENU</span>
+          <span className="brand-icon-skip brand-icon-previous"><i /><i /></span>
+          <span className="brand-icon-skip brand-icon-next"><i /><i /></span>
+          <span className="brand-icon-pause"><i /><i /></span>
+          <span className="brand-icon-center" />
+        </span>
+      </span>
     </span>
   );
 }

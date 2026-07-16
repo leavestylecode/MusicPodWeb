@@ -310,6 +310,7 @@ img {
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 22.5%;
+  container-type: inline-size;
   isolation: isolate;
 }
 
@@ -324,17 +325,89 @@ img {
 
 .brand-icon-dark { opacity: 0; }
 
-.brand-icon::after {
+.brand-icon-dark-art {
   position: absolute;
-  z-index: 3;
   inset: 0;
-  border: 1.5px solid rgba(8, 8, 10, 0.98);
   border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgba(255, 41, 56, 0.18);
-  content: "";
-  opacity: 0;
-  pointer-events: none;
+  background: linear-gradient(155deg, #303033 0%, #18181a 34%, #050506 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 41, 56, 0.08);
   transition: opacity 240ms ease;
+}
+
+.brand-icon-wheel {
+  position: absolute;
+  inset: 8.5%;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ff3a47 0%, #ff2938 48%, #b91e2a 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(105, 0, 10, 0.38),
+    inset 0 -2cqw 4cqw rgba(83, 0, 8, 0.16),
+    0 2.2cqw 5cqw rgba(0, 0, 0, 0.38);
+}
+
+.brand-icon-menu,
+.brand-icon-skip,
+.brand-icon-pause,
+.brand-icon-center {
+  position: absolute;
+  z-index: 2;
+}
+
+.brand-icon-menu {
+  top: 14%;
+  left: 50%;
+  color: #08080a;
+  font-size: 6.3cqw;
+  font-weight: 780;
+  letter-spacing: 0.015em;
+  line-height: 1;
+  transform: translateX(-50%);
+}
+
+.brand-icon-skip {
+  top: 50%;
+  display: flex;
+  gap: 0.7cqw;
+  transform: translateY(-50%);
+}
+
+.brand-icon-skip i {
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 3.6cqw solid transparent;
+  border-bottom: 3.6cqw solid transparent;
+}
+
+.brand-icon-previous { left: 12.5%; }
+.brand-icon-next { right: 12.5%; }
+.brand-icon-previous i { border-right: 4.8cqw solid #08080a; }
+.brand-icon-next i { border-left: 4.8cqw solid #08080a; }
+
+.brand-icon-pause {
+  bottom: 13%;
+  left: 50%;
+  display: flex;
+  gap: 2.2cqw;
+  transform: translateX(-50%);
+}
+
+.brand-icon-pause i {
+  width: 2.2cqw;
+  height: 7.4cqw;
+  border-radius: 0.45cqw;
+  background: #08080a;
+}
+
+.brand-icon-center {
+  top: 50%;
+  left: 50%;
+  width: 41.5%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 43% 37%, #29292c, #131315 72%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.72), 0 0 0 0.8cqw rgba(255, 83, 94, 0.16);
+  transform: translate(-50%, -50%);
 }
 
 .brand .brand-icon,
@@ -347,23 +420,10 @@ img {
 
 html[data-theme="dark"] .brand-icon-light { opacity: 0; }
 html[data-theme="dark"] .brand-icon-dark { opacity: 1; }
-html[data-theme="dark"] .brand-icon::after { opacity: 1; }
-
-html[data-theme="dark"] .availability-icon::after {
-  border-width: 4px;
-  border-color: rgba(8, 8, 10, 0.99);
-  box-shadow: inset 0 0 0 1px rgba(255, 41, 56, 0.22);
-}
 
 @media (prefers-color-scheme: dark) {
   html:not([data-theme]) .brand-icon-light { opacity: 0; }
   html:not([data-theme]) .brand-icon-dark { opacity: 1; }
-  html:not([data-theme]) .brand-icon::after { opacity: 1; }
-  html:not([data-theme]) .availability-icon::after {
-    border-width: 4px;
-    border-color: rgba(8, 8, 10, 0.99);
-    box-shadow: inset 0 0 0 1px rgba(255, 41, 56, 0.22);
-  }
 }
 
 .site-nav {
@@ -2004,9 +2064,7 @@ html[data-theme="dark"] .site-header {
 
 html[data-theme="dark"] .brand .brand-icon,
 html[data-theme="dark"] .footer-brand .brand-icon {
-  box-shadow:
-    0 0 0 1px rgba(255, 41, 56, 0.12),
-    0 5px 18px rgba(255, 41, 56, 0.18);
+  box-shadow: 0 5px 18px rgba(255, 41, 56, 0.16);
 }
 
 html[data-theme="dark"] .status-dot {
@@ -2195,20 +2253,19 @@ html[data-theme="dark"] .availability::before {
   z-index: -1;
   top: 95px;
   left: 50%;
-  width: 260px;
+  width: 340px;
   aspect-ratio: 1;
-  border: 1px solid rgba(255, 59, 72, 0.11);
   border-radius: 50%;
-  box-shadow: 0 0 100px rgba(255, 41, 56, 0.1), inset 0 0 55px rgba(255, 41, 56, 0.04);
+  background: radial-gradient(circle, rgba(255, 41, 56, 0.16), rgba(255, 41, 56, 0.055) 38%, transparent 70%);
   content: "";
+  filter: blur(18px);
   transform: translateX(-50%);
 }
 
 html[data-theme="dark"] .availability-icon {
   box-shadow:
-    0 0 0 1px rgba(255, 59, 72, 0.18),
     0 22px 54px rgba(0, 0, 0, 0.42),
-    0 0 50px rgba(255, 41, 56, 0.2);
+    0 0 46px rgba(255, 41, 56, 0.18);
 }
 
 html[data-theme="dark"] .site-footer {

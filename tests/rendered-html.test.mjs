@@ -162,9 +162,10 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(appStoreBadge, /tools\.applemediaservices\.com\/api\/badges/);
   assert.match(appStoreBadge, /marketingLocales/);
   assert.match(appStoreBadge, /badgeUrl\("white"\)/);
-  assert.match(brandIcon, /app-icon-dark\.png/);
+  assert.match(brandIcon, /brand-icon-dark-art/);
+  assert.match(brandIcon, /brand-icon-wheel/);
   assert.match(styles, /html\[data-theme="dark"\] \.brand-icon-dark/);
-  assert.match(styles, /\.availability-icon::after\s*{[^}]*border-width:\s*4px;/s);
+  assert.match(styles, /\.availability::before\s*{[^}]*filter:\s*blur\(18px\);/s);
   assert.match(styles, /rgba\(255, 41, 56, 0\.17\)/);
   assert.match(themeToggle, /matchMedia\("\(prefers-color-scheme: dark\)"\)/);
   assert.match(themeToggle, /localStorage\.(setItem|removeItem)/);
