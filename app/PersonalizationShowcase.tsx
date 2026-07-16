@@ -198,7 +198,7 @@ export function PersonalizationShowcase({
     if (paused || reduceMotion) return;
     const timer = window.setInterval(() => {
       setSelected((current) => (current + 1) % total);
-    }, 4800);
+    }, 3000);
     return () => window.clearInterval(timer);
   }, [paused, reduceMotion, total]);
 

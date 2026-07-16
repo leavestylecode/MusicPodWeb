@@ -142,6 +142,7 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(showcase, /#52388b/);
   assert.match(showcase, /#cd2370/);
   assert.match(showcase, /setInterval/);
+  assert.match(showcase, /}, 3000\);/);
   assert.match(showcase, /personalization-carousel-track/);
   assert.match(showcase, /finishes\.map/);
   assert.match(styles, /\.personalization-screen\s*{[^}]*aspect-ratio:\s*1;/s);
