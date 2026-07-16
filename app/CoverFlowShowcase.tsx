@@ -3,6 +3,11 @@
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  getCoverFlowGestureIntent,
+  getCoverFlowSwipeDirection,
+  type CoverFlowGestureIntent,
+} from "../lib/cover-flow-gesture";
 
 const albums = [
   {
@@ -53,6 +58,13 @@ type CoverStyle = CSSProperties & {
   "--cover-offset": number;
 };
 
+type ActivePointer = {
+  id: number;
+  intent: CoverFlowGestureIntent;
+  startX: number;
+  startY: number;
+};
+
 function wrappedOffset(index: number, activeIndex: number) {
   const direct = index - activeIndex;
   if (direct > albums.length / 2) return direct - albums.length;
@@ -71,7 +83,7 @@ export function CoverFlowShowcase({
   const [focusWithin, setFocusWithin] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const pointerStart = useRef<number | null>(null);
+  const activePointer = useRef<ActivePointer | null>(null);
   const suppressClick = useRef(false);
   const activeAlbum = albums[activeIndex];
 
@@ -96,18 +108,49 @@ export function CoverFlowShowcase({
   }, [flipped, focusWithin, hovered, move, reducedMotion]);
 
   function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
-    pointerStart.current = event.clientX;
-    event.currentTarget.setPointerCapture(event.pointerId);
+    if (!event.isPrimary || event.button !== 0) return;
+
+    activePointer.current = {
+      id: event.pointerId,
+      intent: "pending",
+      startX: event.clientX,
+      startY: event.clientY,
+    };
+  }
+
+  function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    const pointer = activePointer.current;
+    if (!pointer || pointer.id !== event.pointerId || pointer.intent === "vertical") return;
+
+    const deltaX = event.clientX - pointer.startX;
+    const deltaY = event.clientY - pointer.startY;
+
+    if (pointer.intent === "pending") {
+      const intent = getCoverFlowGestureIntent(deltaX, deltaY);
+      if (intent === "pending") return;
+
+      pointer.intent = intent;
+      if (intent === "vertical") return;
+
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
   }
 
   function handlePointerUp(event: ReactPointerEvent<HTMLDivElement>) {
-    if (pointerStart.current === null) return;
-    const delta = event.clientX - pointerStart.current;
-    pointerStart.current = null;
-    if (Math.abs(delta) < 34) return;
+    const pointer = activePointer.current;
+    if (!pointer || pointer.id !== event.pointerId) return;
+
+    activePointer.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    if (pointer.intent !== "horizontal") return;
+    const direction = getCoverFlowSwipeDirection(event.clientX - pointer.startX);
+    if (direction === 0) return;
 
     suppressClick.current = true;
-    move(delta < 0 ? 1 : -1);
+    move(direction);
     window.setTimeout(() => {
       suppressClick.current = false;
     }, 0);
@@ -142,10 +185,14 @@ export function CoverFlowShowcase({
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onPointerCancel={() => {
-        pointerStart.current = null;
+      onPointerCancel={(event) => {
+        activePointer.current = null;
+        if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+          event.currentTarget.releasePointerCapture(event.pointerId);
+        }
       }}
       onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       role="group"
       style={backdropStyle}

@@ -228,6 +228,13 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(coverFlow, /setInterval\(\(\) => move\(1\), 3000\)/);
   assert.match(coverFlow, /data-flipped/);
   assert.match(coverFlow, /onPointerDown/);
+  assert.match(coverFlow, /onPointerMove=\{handlePointerMove\}/);
+  assert.match(coverFlow, /getCoverFlowGestureIntent/);
+  assert.match(coverFlow, /getCoverFlowSwipeDirection/);
+  assert.doesNotMatch(
+    coverFlow.match(/function handlePointerDown[\s\S]*?\n  }/)?.[0] ?? "",
+    /setPointerCapture/,
+  );
   assert.match(coverFlow, /ArrowLeft/);
   assert.match(strands, /ResizeObserver/);
   assert.match(strands, /frequency = 4\.25 \+ index \* 0\.8/);
