@@ -30,9 +30,13 @@ function resolveTheme(preference: ThemePreference, systemDark: boolean): Resolve
 function applyTheme(preference: ThemePreference, systemDark: boolean) {
   const resolved = resolveTheme(preference, systemDark);
   const root = document.documentElement;
+  const iconHref = resolved === "dark" ? "/app-icon-dark.png" : "/app-icon.png";
   root.dataset.theme = resolved;
   root.dataset.themePreference = preference;
   root.style.colorScheme = resolved;
+  document.querySelectorAll<HTMLLinkElement>("link[data-musicpod-theme-icon]").forEach((link) => {
+    link.href = iconHref;
+  });
   return resolved;
 }
 

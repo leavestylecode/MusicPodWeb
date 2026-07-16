@@ -52,14 +52,6 @@ export async function generateMetadata({
       canonical: `/${locale}`,
       languages: { ...languageAlternates, "x-default": "/en" },
     },
-    icons: {
-      icon: [
-        { media: "(prefers-color-scheme: light)", url: "/app-icon.png" },
-        { media: "(prefers-color-scheme: dark)", url: "/app-icon-dark.png" },
-      ],
-      shortcut: "/app-icon-dark.png",
-      apple: "/app-icon-dark.png",
-    },
     openGraph: {
       type: "website",
       locale: info.openGraphLocale,
@@ -91,7 +83,12 @@ export default async function LocaleLayout({
 
   return (
     <html lang={localeDetails[locale].htmlLang} suppressHydrationWarning>
-      <head><ThemeScript /></head>
+      <head>
+        <link data-musicpod-theme-icon href="/app-icon.png" rel="icon" type="image/png" />
+        <link data-musicpod-theme-icon href="/app-icon.png" rel="shortcut icon" type="image/png" />
+        <link href="/app-icon.png" rel="apple-touch-icon" />
+        <ThemeScript />
+      </head>
       <body>{children}</body>
     </html>
   );

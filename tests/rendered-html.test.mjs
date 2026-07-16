@@ -47,6 +47,9 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /class="theme-menu"/);
   assert.match(html, /id="musicpod-theme"/);
   assert.match(html, /app-icon-dark\.png/);
+  assert.match(html, /data-musicpod-theme-icon/);
+  assert.match(html, /rel="icon" type="image\/png"/);
+  assert.match(html, /rel="shortcut icon" type="image\/png"/);
   assert.match(html, /brand-icon-dark/);
   assert.match(html, /Skip to content/);
   assert.match(html, /\/product\/musicpod-home\.webp/);
@@ -194,9 +197,13 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(styles, /\.availability::before\s*{[^}]*filter:\s*blur\(18px\);/s);
   assert.match(styles, /rgba\(255, 41, 56, 0\.17\)/);
   assert.match(themeToggle, /matchMedia\("\(prefers-color-scheme: dark\)"\)/);
+  assert.match(themeToggle, /link\[data-musicpod-theme-icon\]/);
+  assert.match(themeToggle, /resolved === "dark" \? "\/app-icon-dark\.png" : "\/app-icon\.png"/);
   assert.match(themeToggle, /localStorage\.(setItem|removeItem)/);
   assert.match(themeToggle, /"system" \| "light" \| "dark"/);
   assert.match(themeScript, /dataset\.theme/);
+  assert.match(themeScript, /syncThemeIcons/);
+  assert.match(themeScript, /DOMContentLoaded/);
   assert.match(themeScript, /musicpod-theme/);
   assert.match(page, /iOS 17 or later/);
   assert.match(dictionaries, /iOS 17\+/);

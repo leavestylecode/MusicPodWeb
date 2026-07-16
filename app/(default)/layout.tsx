@@ -16,13 +16,17 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "MusicPod — Your music. Your iPod.",
   description: "A tactile music player for iPhone, built around the click wheel and your Apple Music library.",
-  icons: { icon: "/app-icon.png", shortcut: "/app-icon.png", apple: "/app-icon.png" },
 };
 
 export default function DefaultLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head><ThemeScript /></head>
+      <head>
+        <link data-musicpod-theme-icon href="/app-icon.png" rel="icon" type="image/png" />
+        <link data-musicpod-theme-icon href="/app-icon.png" rel="shortcut icon" type="image/png" />
+        <link href="/app-icon.png" rel="apple-touch-icon" />
+        <ThemeScript />
+      </head>
       <body>{children}</body>
     </html>
   );
