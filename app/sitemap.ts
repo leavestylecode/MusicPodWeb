@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...locales.map((locale) => ({
       url: siteUrl(localePath(locale, "/privacy")),
-      lastModified: new Date("2026-07-16"),
+      lastModified: new Date("2026-07-17"),
       changeFrequency: "yearly" as const,
       priority: locale === "en" ? 0.5 : 0.4,
       alternates: { languages: privacyLanguages },

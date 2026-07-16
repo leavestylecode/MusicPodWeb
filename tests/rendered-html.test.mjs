@@ -93,8 +93,8 @@ test("ships localized HTML and metadata for every supported market", async () =>
 test("publishes a localized, launch-ready privacy policy", async () => {
   const expectations = [
     ["/en/privacy", "Privacy Policy — MusicPod", "Your music stays yours."],
-    ["/zh-cn/privacy", "隐私政策 — MusicPod", "你的音乐，始终属于你。"],
-    ["/zh-tw/privacy", "隱私權政策 — MusicPod", "你的音樂，始終屬於你。"],
+    ["/zh-cn/privacy", "隐私政策 — MusicPod", "你的音乐 始终属于你"],
+    ["/zh-tw/privacy", "隱私權政策 — MusicPod", "你的音樂 始終屬於你"],
     ["/ja/privacy", "プライバシーポリシー — MusicPod", "あなたの音楽は、あなたのもの。"],
     ["/ko/privacy", "개인정보 처리방침 — MusicPod", "내 음악은 언제나 나의 것."],
     ["/es/privacy", "Política de privacidad — MusicPod", "Tu música sigue siendo tuya."],
@@ -110,7 +110,7 @@ test("publishes a localized, launch-ready privacy policy", async () => {
     assert.match(html, new RegExp(`<title>${title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</title>`), pathname);
     assert.match(html, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
     assert.match(html, new RegExp(`rel="canonical" href="https://www\\.musicpod\\.app${pathname}"`), pathname);
-    assert.match(html, /privacy@musicpod\.app/, pathname);
+    assert.match(html, /leavestyle101@gmail\.com/, pathname);
     assert.match(html, /application\/ld\+json/, pathname);
     assert.match(html, /href="https:\/\/leavestyle\.com\/"/, pathname);
   }));
@@ -271,7 +271,7 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(dictionaries, /Classic color combinations/);
   assert.match(dictionaries, /"pt-br": ptBR/);
   assert.match(privacyDictionaries, /No MusicPod account/);
-  assert.match(privacyDictionaries, /privacy@musicpod\.app|Privacy email/);
+  assert.match(privacyDictionaries, /Privacy email/);
   assert.match(privacyDictionaries, /"pt-br": ptBR/);
   assert.match(packageJson, /@formatjs\/intl-localematcher/);
   assert.doesNotMatch(packageJson, /react-icons/);

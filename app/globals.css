@@ -2273,8 +2273,8 @@ a.footer-link:hover {
 
 .privacy-main {
   background:
-    radial-gradient(circle at 83% 8%, rgba(119, 80, 222, 0.08), transparent 25%),
-    radial-gradient(circle at 8% 18%, rgba(255, 41, 56, 0.055), transparent 22%),
+    radial-gradient(circle at 78% 5%, rgba(119, 80, 222, 0.055), transparent 23%),
+    radial-gradient(circle at 10% 12%, rgba(255, 41, 56, 0.04), transparent 20%),
     var(--paper);
 }
 
@@ -2291,13 +2291,11 @@ a.footer-link:hover {
 
 .privacy-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(380px, 0.88fr);
-  gap: clamp(58px, 7vw, 112px);
-  align-items: center;
-  width: min(1380px, 100%);
-  min-height: min(820px, 92svh);
+  gap: 70px;
+  width: min(1120px, 100%);
+  min-height: 0;
   margin: 0 auto;
-  padding: 142px var(--page-padding) 92px;
+  padding: 160px var(--page-padding) 100px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -2306,9 +2304,9 @@ a.footer-link:hover {
 }
 
 .privacy-hero h1 {
-  max-width: 920px;
+  max-width: 860px;
   margin: 28px 0 30px;
-  font-size: clamp(4.25rem, 7.3vw, 7.65rem);
+  font-size: clamp(4rem, 7vw, 6.9rem);
   font-weight: 760;
   letter-spacing: -0.075em;
   line-height: 0.89;
@@ -2337,19 +2335,19 @@ a.footer-link:hover {
 
 .privacy-principles {
   display: grid;
-  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 5vw, 70px);
 }
 
 .privacy-principle {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 14px;
   align-items: start;
-  padding: 24px 25px;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
-  box-shadow: 0 16px 46px rgba(29, 29, 31, 0.045);
+  padding: 22px 0 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  box-shadow: none;
 }
 
 .privacy-principle > span {
@@ -2376,12 +2374,12 @@ a.footer-link:hover {
 
 .privacy-layout {
   display: grid;
-  grid-template-columns: 230px minmax(0, 780px);
-  gap: clamp(72px, 9vw, 142px);
+  grid-template-columns: minmax(0, 860px);
+  gap: 72px;
   justify-content: center;
-  width: min(1260px, 100%);
+  width: min(1040px, 100%);
   margin: 0 auto;
-  padding: 100px var(--page-padding) 150px;
+  padding: 86px var(--page-padding) 150px;
 }
 
 .privacy-sidebar {
@@ -2389,10 +2387,8 @@ a.footer-link:hover {
 }
 
 .privacy-toc {
-  position: sticky;
-  top: 104px;
-  padding-left: 20px;
-  border-left: 1px solid var(--line);
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--line);
 }
 
 .privacy-toc h2 {
@@ -2405,8 +2401,9 @@ a.footer-link:hover {
 }
 
 .privacy-toc ol {
-  display: grid;
-  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2414,7 +2411,7 @@ a.footer-link:hover {
 
 .privacy-toc a {
   color: var(--quiet-text);
-  font-size: 0.73rem;
+  font-size: 0.76rem;
   line-height: 1.45;
   transition: color 160ms ease;
 }
@@ -2429,11 +2426,11 @@ a.footer-link:hover {
 
 .privacy-section {
   scroll-margin-top: 94px;
-  padding: 0 0 70px;
+  padding: 0 0 58px;
 }
 
 .privacy-section + .privacy-section {
-  padding-top: 70px;
+  padding-top: 58px;
   border-top: 1px solid var(--line);
 }
 
@@ -2487,7 +2484,7 @@ a.footer-link:hover {
   padding: 20px 22px;
   border: 1px solid var(--line);
   border-left: 3px solid var(--red);
-  border-radius: 4px 18px 18px 4px;
+  border-radius: 0;
   background: var(--interactive-background);
   color: var(--control-text);
   font-size: 0.85rem;
@@ -2531,10 +2528,9 @@ a.footer-link:hover {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 32px 0 0;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: var(--surface);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: transparent;
 }
 
 .privacy-contact-card div {
@@ -2768,15 +2764,15 @@ html[data-theme="dark"] .site-footer {
 
 html[data-theme="dark"] .privacy-main {
   background:
-    radial-gradient(circle at 83% 7%, rgba(119, 80, 222, 0.09), transparent 25%),
-    radial-gradient(circle at 8% 18%, rgba(255, 41, 56, 0.085), transparent 24%),
+    radial-gradient(circle at 78% 5%, rgba(119, 80, 222, 0.055), transparent 23%),
+    radial-gradient(circle at 10% 12%, rgba(255, 41, 56, 0.05), transparent 20%),
     #050506;
 }
 
 html[data-theme="dark"] .privacy-principle {
-  border-color: rgba(255, 59, 72, 0.12);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.052), rgba(255, 41, 56, 0.025));
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.23), inset 0 1px rgba(255, 255, 255, 0.025);
+  border-color: var(--line);
+  background: transparent;
+  box-shadow: none;
 }
 
 html[data-theme="dark"] .privacy-note {
@@ -2788,7 +2784,7 @@ html[data-theme="dark"] .privacy-note {
 html[data-theme="dark"] .privacy-source-links a,
 html[data-theme="dark"] .privacy-contact-card {
   border-color: rgba(255, 59, 72, 0.13);
-  background: rgba(255, 255, 255, 0.035);
+  background: transparent;
 }
 
 @keyframes device-float {
@@ -3295,7 +3291,7 @@ html[data-theme="dark"] .privacy-contact-card {
   }
 
   .privacy-sidebar {
-    display: none;
+    display: block;
   }
 }
 
@@ -3338,8 +3334,8 @@ html[data-theme="dark"] .privacy-contact-card {
 
   .privacy-principle {
     gap: 13px;
-    padding: 20px;
-    border-radius: 20px;
+    padding: 18px 0 0;
+    border-radius: 0;
   }
 
   .privacy-layout {
