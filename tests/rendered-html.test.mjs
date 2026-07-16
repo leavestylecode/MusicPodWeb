@@ -50,6 +50,10 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /brand-icon-dark/);
   assert.match(html, /Skip to content/);
   assert.match(html, /\/product\/musicpod-home\.webp/);
+  assert.match(html, /cover-flow-showcase/);
+  assert.match(html, /strands-showcase/);
+  assert.match(html, /Strands · (?:<!-- -->)?Now playing/);
+  assert.match(html, /Midnight Memory/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /href="\/zh-cn"/);
   assert.match(html, /hreflang="fr"/i);
@@ -124,10 +128,12 @@ test("ships the product media, internationalization source, and image sizing gua
 
   await Promise.all(assets.map((asset) => access(new URL(asset, import.meta.url))));
 
-  const [page, styles, showcase, appStoreBadge, brandIcon, themeToggle, themeScript, dictionaries, packageJson] = await Promise.all([
+  const [page, styles, showcase, coverFlow, strands, appStoreBadge, brandIcon, themeToggle, themeScript, dictionaries, packageJson] = await Promise.all([
     readFile(new URL("../app/[locale]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/PersonalizationShowcase.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/CoverFlowShowcase.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/StrandsShowcase.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/AppStoreBadge.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/BrandIcon.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ThemeToggle.tsx", import.meta.url), "utf8"),
@@ -158,6 +164,20 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(styles, /\.personalization-screen\s*{[^}]*aspect-ratio:\s*1;/s);
   assert.match(styles, /\.personalization-wheel\s*{[^}]*width:\s*72%;/s);
   assert.match(styles, /\.personalization-center\s*{[^}]*width:\s*34%;/s);
+  assert.match(page, /CoverFlowShowcase/);
+  assert.match(page, /StrandsShowcase/);
+  assert.match(coverFlow, /rotateY\(\$\{-clamped \* 58\}deg\)/);
+  assert.match(coverFlow, /setInterval\(\(\) => move\(1\), 3000\)/);
+  assert.match(coverFlow, /data-flipped/);
+  assert.match(coverFlow, /onPointerDown/);
+  assert.match(coverFlow, /ArrowLeft/);
+  assert.match(strands, /ResizeObserver/);
+  assert.match(strands, /frequency = 4\.25 \+ index \* 0\.8/);
+  assert.match(strands, /velocity = 1\.55 \+ index \* 0\.95/);
+  assert.match(strands, /smootherStep\(value \/ 0\.23\)/);
+  assert.match(strands, /prefers-reduced-motion: reduce/);
+  assert.match(styles, /\.strands-showcase\s*{[^}]*aspect-ratio:\s*1;/s);
+  assert.match(styles, /\.cover-flow-cover\s*{[^}]*width:\s*222px;[^}]*height:\s*222px;/s);
   assert.match(styles, /\.app-store-badge-image/);
   assert.match(appStoreBadge, /tools\.applemediaservices\.com\/api\/badges/);
   assert.match(appStoreBadge, /marketingLocales/);

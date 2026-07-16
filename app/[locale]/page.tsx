@@ -5,9 +5,11 @@ import { notFound } from "next/navigation";
 import { AppStoreBadge } from "../AppStoreBadge";
 import { BrandIcon } from "../BrandIcon";
 import { ClickWheelDemo } from "../ClickWheelDemo";
+import { CoverFlowShowcase } from "../CoverFlowShowcase";
 import { LanguageMenu } from "../LanguageMenu";
 import { PersonalizationShowcase } from "../PersonalizationShowcase";
 import { SpotlightCard } from "../SpotlightCard";
+import { StrandsShowcase } from "../StrandsShowcase";
 import { ThemeToggle } from "../ThemeToggle";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localePath } from "../../lib/locales";
@@ -17,14 +19,6 @@ const libraryIcons = [
   "/product/icons/playlists.webp",
   "/product/icons/albums.webp",
   "/product/icons/shuffle.webp",
-] as const;
-
-const albumArtwork = [
-  { src: "/product/albums/ocean.webp", width: 1400, height: 933 },
-  { src: "/product/albums/desert.webp", width: 1400, height: 2489 },
-  { src: "/product/albums/neon.webp", width: 1400, height: 2100 },
-  { src: "/product/albums/light.webp", width: 1400, height: 927 },
-  { src: "/product/albums/purple.webp", width: 1400, height: 2100 },
 ] as const;
 
 export default async function MusicPodPage({
@@ -180,42 +174,25 @@ export default async function MusicPodPage({
                 <h3>{messages.highlights.coverFlow.title}</h3>
                 <p>{messages.highlights.coverFlow.body}</p>
               </div>
-              <div aria-hidden="true" className="cover-flow">
-                {albumArtwork.map((artwork, index) => (
-                  <div className={`album album-${index + 1}`} key={artwork.src}>
-                    <Image
-                      alt=""
-                      height={artwork.height}
-                      sizes="(max-width: 620px) 150px, 220px"
-                      src={artwork.src}
-                      unoptimized
-                      width={artwork.width}
-                    />
-                  </div>
-                ))}
-              </div>
+              <CoverFlowShowcase
+                groupLabel={messages.highlights.coverFlow.body}
+                nextLabel={messages.wheel.next}
+                previousLabel={messages.wheel.previous}
+                selectTemplate={messages.wheel.select}
+              />
             </SpotlightCard>
 
             <SpotlightCard className="story-card playing-story reveal" spotlightColor="rgba(255, 255, 255, 0.42)">
               <div className="story-copy">
-                <p className="card-kicker">{messages.highlights.nowPlaying.kicker}</p>
+                <p className="card-kicker">Strands · {messages.highlights.nowPlaying.kicker}</p>
                 <h3>{messages.highlights.nowPlaying.title}</h3>
                 <p>{messages.highlights.nowPlaying.body}</p>
               </div>
-              <div aria-hidden="true" className="playing-visual">
-                <div className="record">
-                  <Image alt="" height="512" src="/product/textures/vinyl.webp" unoptimized width="512" />
-                  <i />
-                </div>
-                <div className="track-info">
-                  <strong>{messages.highlights.nowPlaying.track}</strong>
-                  <span>{messages.highlights.nowPlaying.artist}</span>
-                  <div className="waveform">
-                    {Array.from({ length: 19 }).map((_, index) => <i key={index} style={{ "--bar": index } as CSSProperties} />)}
-                  </div>
-                  <div><span>1:42</span><span>3:58</span></div>
-                </div>
-              </div>
+              <StrandsShowcase
+                ariaLabel={`${messages.highlights.nowPlaying.title} ${messages.highlights.nowPlaying.track}`}
+                artist={messages.highlights.nowPlaying.artist}
+                track={messages.highlights.nowPlaying.track}
+              />
             </SpotlightCard>
           </div>
         </section>
