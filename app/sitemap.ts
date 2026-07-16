@@ -1,25 +1,21 @@
 import type { MetadataRoute } from "next";
-import { localeDetails, locales } from "../lib/locales";
+import { localePath, locales } from "../lib/locales";
+import { languageAlternates, siteUrl } from "../lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const origin = "https://www.musicpod.app";
-  const homeLanguages = Object.fromEntries(
-    locales.map((locale) => [localeDetails[locale].htmlLang, `${origin}/${locale}`]),
-  );
-  const privacyLanguages = Object.fromEntries(
-    locales.map((locale) => [localeDetails[locale].htmlLang, `${origin}/${locale}/privacy`]),
-  );
+  const homeLanguages = languageAlternates();
+  const privacyLanguages = languageAlternates("/privacy");
 
   return [
     ...locales.map((locale) => ({
-      url: `${origin}/${locale}`,
+      url: siteUrl(localePath(locale)),
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: locale === "en" ? 1 : 0.9,
       alternates: { languages: homeLanguages },
     })),
     ...locales.map((locale) => ({
-      url: `${origin}/${locale}/privacy`,
+      url: siteUrl(localePath(locale, "/privacy")),
       lastModified: new Date("2026-07-16"),
       changeFrequency: "yearly" as const,
       priority: locale === "en" ? 0.5 : 0.4,

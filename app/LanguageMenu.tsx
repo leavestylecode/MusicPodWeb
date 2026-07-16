@@ -1,21 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { rememberLocale } from "../lib/browser-locale";
-import { localeDetails, locales, type Locale } from "../lib/locales";
+import {
+  localeDetails,
+  locales,
+  localizedHref,
+  type Locale,
+} from "../lib/locales";
 
 export function LanguageMenu({
   locale,
   label,
-  pathSuffix = "",
 }: {
   locale: Locale;
   label: string;
-  pathSuffix?: string;
 }) {
   const detailsRef = useRef<HTMLDetailsElement>(null);
+  const pathname = usePathname() ?? `/${locale}`;
+  const [locationParts, setLocationParts] = useState({ search: "", hash: "" });
   const current = localeDetails[locale];
+
+  useEffect(() => {
+    const syncLocationParts = () => {
+      setLocationParts({
+        search: window.location.search,
+        hash: window.location.hash,
+      });
+    };
+
+    syncLocationParts();
+    window.addEventListener("hashchange", syncLocationParts);
+    window.addEventListener("popstate", syncLocationParts);
+
+    return () => {
+      window.removeEventListener("hashchange", syncLocationParts);
+      window.removeEventListener("popstate", syncLocationParts);
+    };
+  }, [pathname]);
 
   const selectLocale = (nextLocale: Locale) => {
     rememberLocale(nextLocale);
@@ -36,7 +60,12 @@ export function LanguageMenu({
           return (
             <Link
               aria-current={nextLocale === locale ? "page" : undefined}
-              href={`/${nextLocale}${pathSuffix}`}
+              href={localizedHref(
+                nextLocale,
+                pathname,
+                locationParts.search,
+                locationParts.hash,
+              )}
               hrefLang={option.htmlLang}
               key={nextLocale}
               lang={option.htmlLang}

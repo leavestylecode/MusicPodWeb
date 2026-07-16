@@ -83,7 +83,7 @@ test("ships localized HTML and metadata for every supported market", async () =>
     const html = await response.text();
     assert.match(html, new RegExp(`<html lang="${htmlLang}">`), pathname);
     assert.match(html, new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
-    assert.match(html, new RegExp(`rel="canonical" href="https?://[^\"]+${pathname}"`), pathname);
+    assert.match(html, new RegExp(`rel="canonical" href="https://www\\.musicpod\\.app${pathname}"`), pathname);
   }));
 });
 
@@ -106,7 +106,7 @@ test("publishes a localized, launch-ready privacy policy", async () => {
     const html = await response.text();
     assert.match(html, new RegExp(`<title>${title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</title>`), pathname);
     assert.match(html, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
-    assert.match(html, new RegExp(`rel="canonical" href="https?://[^"]+${pathname}"`), pathname);
+    assert.match(html, new RegExp(`rel="canonical" href="https://www\\.musicpod\\.app${pathname}"`), pathname);
     assert.match(html, /privacy@musicpod\.app/, pathname);
     assert.match(html, /application\/ld\+json/, pathname);
   }));
@@ -157,6 +157,7 @@ test("publishes international discovery metadata", async () => {
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br\/privacy/);
   assert.match(sitemap, /hreflang="ja"/);
+  assert.match(sitemap, /hreflang="x-default"/);
   assert.match(robots, /Sitemap: https:\/\/www\.musicpod\.app\/sitemap\.xml/i);
 });
 
@@ -193,7 +194,7 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(page, /SpotlightCard/);
   assert.match(page, /footer\.privacy/);
   assert.match(privacyPage, /privacyPolicyConfig/);
-  assert.match(privacyPage, /pathSuffix="\/privacy"/);
+  assert.doesNotMatch(privacyPage, /pathSuffix/);
   assert.match(privacyPage, /application\/ld\+json/);
   assert.match(page, /MusicPod actual app interface|productLabel/);
   assert.match(styles, /img\s*{[^}]*height:\s*auto;/);

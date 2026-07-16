@@ -38,6 +38,34 @@ export function isLocale(value: string): value is Locale {
   return locales.includes(value.toLowerCase() as Locale);
 }
 
-export function localePath(locale: Locale, hash = "") {
-  return `/${locale}${hash}`;
+/**
+ * Adds or replaces the leading locale segment while leaving the rest of the
+ * route intact. Query strings and hashes are handled separately by
+ * `localizedHref` because they are not part of a pathname.
+ */
+export function localePath(locale: Locale, pathname = "/") {
+  if (!pathname || pathname === "/") return `/${locale}`;
+
+  const normalizedPathname = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  const segments = normalizedPathname.split("/");
+
+  if (segments[1] && isLocale(segments[1])) {
+    segments[1] = locale;
+  } else {
+    segments.splice(1, 0, locale);
+  }
+
+  return segments.join("/");
+}
+
+export function localizedHref(
+  locale: Locale,
+  pathname = "/",
+  search = "",
+  hash = "",
+) {
+  const normalizedSearch = search && !search.startsWith("?") ? `?${search}` : search;
+  const normalizedHash = hash && !hash.startsWith("#") ? `#${hash}` : hash;
+
+  return `${localePath(locale, pathname)}${normalizedSearch}${normalizedHash}`;
 }

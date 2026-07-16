@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { getDictionary } from "../../../lib/dictionaries";
 import { getPrivacyDictionary } from "../../../lib/privacy-dictionaries";
 import { privacyPolicyConfig } from "../../../lib/privacy-config";
-import { isLocale, localeDetails, locales, localePath, type Locale } from "../../../lib/locales";
+import { isLocale, localeDetails, localePath, type Locale } from "../../../lib/locales";
+import { languageAlternates, siteUrl } from "../../../lib/site";
 import { BrandIcon } from "../../BrandIcon";
 import { LanguageMenu } from "../../LanguageMenu";
 import { ThemeToggle } from "../../ThemeToggle";
@@ -19,16 +20,14 @@ export async function generateMetadata({
 
   const locale: Locale = rawLocale;
   const messages = getPrivacyDictionary(locale);
-  const languageAlternates = Object.fromEntries(
-    locales.map((entry) => [localeDetails[entry].htmlLang, `/${entry}/privacy`]),
-  );
+  const canonicalPath = localePath(locale, "/privacy");
 
   return {
     title: messages.meta.title,
     description: messages.meta.description,
     alternates: {
-      canonical: `/${locale}/privacy`,
-      languages: { ...languageAlternates, "x-default": "/en/privacy" },
+      canonical: siteUrl(canonicalPath),
+      languages: languageAlternates("/privacy"),
     },
     openGraph: {
       type: "website",
@@ -36,7 +35,7 @@ export async function generateMetadata({
       siteName: "MusicPod",
       title: messages.meta.title,
       description: messages.meta.description,
-      url: `/${locale}/privacy`,
+      url: siteUrl(canonicalPath),
       images: [{ url: "/og.png", width: 1200, height: 630, alt: messages.meta.title }],
     },
     twitter: {
@@ -60,18 +59,19 @@ export default async function PrivacyPage({
   const siteMessages = getDictionary(locale);
   const messages = getPrivacyDictionary(locale);
   const home = localePath(locale);
+  const privacyUrl = siteUrl(localePath(locale, "/privacy"));
   const policySchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: messages.meta.title,
     description: messages.meta.description,
-    url: `https://www.musicpod.app/${locale}/privacy`,
+    url: privacyUrl,
     dateModified: privacyPolicyConfig.lastUpdated,
     inLanguage: localeDetails[locale].htmlLang,
     isPartOf: {
       "@type": "WebSite",
       name: "MusicPod",
-      url: "https://www.musicpod.app",
+      url: siteUrl(),
     },
   };
 
@@ -97,11 +97,7 @@ export default async function PrivacyPage({
 
         <div className="header-actions">
           <ThemeToggle labels={siteMessages.theme} />
-          <LanguageMenu
-            label={siteMessages.nav.language}
-            locale={locale}
-            pathSuffix="/privacy"
-          />
+          <LanguageMenu label={siteMessages.nav.language} locale={locale} />
           <Link className="header-status privacy-back" href={home}>
             <span aria-hidden="true">←</span>
             {messages.back}

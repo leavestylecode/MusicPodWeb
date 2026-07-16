@@ -1,9 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { getDictionary } from "../../lib/dictionaries";
-import { isLocale, localeDetails, locales, type Locale } from "../../lib/locales";
+import { isLocale, localeDetails, localePath, locales, type Locale } from "../../lib/locales";
+import {
+  languageAlternates,
+  SITE_METADATA_BASE,
+  siteUrl,
+} from "../../lib/site";
 import { ThemeScript } from "../ThemeScript";
 import "../globals.css";
 
@@ -32,16 +36,10 @@ export async function generateMetadata({
   const locale: Locale = rawLocale;
   const messages = getDictionary(locale);
   const info = localeDetails[locale];
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "localhost:3000";
-  const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-  const metadataBase = new URL(`${protocol}://${host}`);
-  const languageAlternates = Object.fromEntries(
-    locales.map((entry) => [localeDetails[entry].htmlLang, `/${entry}`]),
-  );
+  const canonicalPath = localePath(locale);
 
   return {
-    metadataBase,
+    metadataBase: SITE_METADATA_BASE,
     title: messages.meta.title,
     description: messages.meta.description,
     applicationName: "MusicPod",
@@ -49,8 +47,8 @@ export async function generateMetadata({
     publisher: "Leavestylecode",
     keywords: ["MusicPod", "iPod", "Apple Music", "iPhone", "Click Wheel", "MusicKit"],
     alternates: {
-      canonical: `/${locale}`,
-      languages: { ...languageAlternates, "x-default": "/en" },
+      canonical: siteUrl(canonicalPath),
+      languages: languageAlternates(),
     },
     openGraph: {
       type: "website",
@@ -59,7 +57,7 @@ export async function generateMetadata({
       siteName: "MusicPod",
       title: messages.meta.title,
       description: messages.meta.social,
-      url: `/${locale}`,
+      url: siteUrl(canonicalPath),
       images: [{ url: "/og.png", width: 1200, height: 630, alt: messages.meta.title }],
     },
     twitter: {

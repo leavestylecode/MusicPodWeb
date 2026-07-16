@@ -13,6 +13,7 @@ import { StrandsShowcase } from "../StrandsShowcase";
 import { ThemeToggle } from "../ThemeToggle";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localePath } from "../../lib/locales";
+import { siteUrl } from "../../lib/site";
 
 const libraryIcons = [
   "/product/icons/favorites.webp",
@@ -39,7 +40,7 @@ export default async function MusicPodPage({
     description: messages.meta.description,
     applicationCategory: "MultimediaApplication",
     operatingSystem: "iOS 17 or later",
-    url: `https://www.musicpod.app/${locale}`,
+    url: siteUrl(home),
   };
 
   return (
