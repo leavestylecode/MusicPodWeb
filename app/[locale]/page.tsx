@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ClickWheelDemo } from "../ClickWheelDemo";
 import { LanguageMenu } from "../LanguageMenu";
+import { PersonalizationShowcase } from "../PersonalizationShowcase";
 import { SpotlightCard } from "../SpotlightCard";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localePath } from "../../lib/locales";
@@ -213,25 +214,16 @@ export default async function MusicPodPage({
         </section>
 
         <section className="personalize section-pad" id="personalize">
-          <div aria-hidden="true" className="pod-lineup reveal">
-            <div className="mini-pod mini-pod-purple">
-              <div><Image alt="" height="132" src="/product/icons/theme.webp" unoptimized width="132" /></div><span><b>MENU</b><i /></span>
-            </div>
-            <div className="mini-pod mini-pod-silver">
-              <div><Image alt="" height="132" src="/product/icons/albums.webp" unoptimized width="132" /></div><span><b>MENU</b><i /></span>
-            </div>
-            <div className="mini-pod mini-pod-red">
-              <div><Image alt="" height="132" src="/product/icons/favorites.webp" unoptimized width="132" /></div><span><b>MENU</b><i /></span>
-            </div>
-          </div>
+          <PersonalizationShowcase
+            combinationsLabel={messages.personalize.combinations}
+            paletteLabel={messages.personalize.palette}
+            presetNames={messages.personalize.presets}
+          />
 
           <div className="personalize-copy reveal">
             <p className="section-kicker">03 · {messages.personalize.kicker}</p>
             <h2>{messages.personalize.title}</h2>
             <p>{messages.personalize.body}</p>
-            <div aria-label={messages.personalize.palette} className="palette" role="img">
-              {["#ff2938", "#ff8a00", "#00a650", "#1588d3", "#6d45bd", "#d5d5d7", "#0c0c0d"].map((color) => <i key={color} style={{ background: color }} />)}
-            </div>
             <dl className="personalize-stats">
               {messages.personalize.stats.map((stat) => <div key={stat.label}><dt>{stat.value}</dt><dd>{stat.label}</dd></div>)}
             </dl>

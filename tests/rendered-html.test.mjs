@@ -117,9 +117,10 @@ test("ships the product media, internationalization source, and image sizing gua
 
   await Promise.all(assets.map((asset) => access(new URL(asset, import.meta.url))));
 
-  const [page, styles, dictionaries, packageJson] = await Promise.all([
+  const [page, styles, showcase, dictionaries, packageJson] = await Promise.all([
     readFile(new URL("../app/[locale]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/PersonalizationShowcase.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/dictionaries.ts", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
@@ -128,6 +129,12 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(page, /MusicPod actual app interface|productLabel/);
   assert.match(styles, /img\s*{[^}]*height:\s*auto;/);
   assert.match(styles, /prefers-reduced-motion/);
+  assert.match(showcase, /#e8222b/);
+  assert.match(showcase, /#c9cbcc/);
+  assert.match(showcase, /#0082ce/);
+  assert.match(showcase, /#cd2370/);
+  assert.match(showcase, /podColors\.map/);
+  assert.match(dictionaries, /Classic color combinations/);
   assert.match(dictionaries, /"pt-br": ptBR/);
   assert.match(packageJson, /@formatjs\/intl-localematcher/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
