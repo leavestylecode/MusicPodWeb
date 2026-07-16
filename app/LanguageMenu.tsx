@@ -5,7 +5,15 @@ import { useRef } from "react";
 import { rememberLocale } from "../lib/browser-locale";
 import { localeDetails, locales, type Locale } from "../lib/locales";
 
-export function LanguageMenu({ locale, label }: { locale: Locale; label: string }) {
+export function LanguageMenu({
+  locale,
+  label,
+  pathSuffix = "",
+}: {
+  locale: Locale;
+  label: string;
+  pathSuffix?: string;
+}) {
   const detailsRef = useRef<HTMLDetailsElement>(null);
   const current = localeDetails[locale];
 
@@ -28,7 +36,7 @@ export function LanguageMenu({ locale, label }: { locale: Locale; label: string 
           return (
             <Link
               aria-current={nextLocale === locale ? "page" : undefined}
-              href={`/${nextLocale}`}
+              href={`/${nextLocale}${pathSuffix}`}
               hrefLang={option.htmlLang}
               key={nextLocale}
               lang={option.htmlLang}

@@ -73,7 +73,7 @@ export type Messages = {
     badge: string;
     requirement: string;
   };
-  footer: { rights: string };
+  footer: { rights: string; privacy: string };
 };
 
 const en: Messages = {
@@ -150,7 +150,7 @@ const en: Messages = {
     badge: "App Store",
     requirement: "Compatible with iOS 17 or later · Apple Music subscription required.",
   },
-  footer: { rights: "All rights reserved." },
+  footer: { rights: "All rights reserved.", privacy: "Privacy Policy" },
 };
 
 const zhCN: Messages = {
@@ -184,7 +184,7 @@ const zhCN: Messages = {
   personalize: { kicker: "属于你的", title: "一台播放器，完全属于你。", body: "自定义机身、转盘、屏幕、背景、方向与光晕。", palette: "12 种真实机身与转盘配色", combinations: "经典配色组合", presets: ["MusicPod 原色", "经典银白", "经典黑", "经典白", "红色特别版", "nano 橙", "nano 黄", "mini 绿", "nano 青", "nano 蓝", "nano 紫", "nano 粉"], stats: [{ value: "12", label: "种机身与转盘配色" }, { value: "9", label: "套背景主题" }, { value: "2", label: "套首页图标语言" }] },
   native: { kicker: "原生设计", title: "怀旧的外形，原生的内核。", body: "基于 Apple 框架打造，带来流畅播放、精准触感与无障碍导航。", technologies: ["SwiftUI", "MusicKit", "系统触感", "VoiceOver"] },
   availability: { kicker: "全球发布", title: "即将登陆 App Store。", body: "MusicPod 正在为全球发布做最后准备。", badgeKicker: "即将登陆", badge: "App Store", requirement: "兼容 iOS 17 及更高版本 · 需要 Apple Music 订阅" },
-  footer: { rights: "保留所有权利。" },
+  footer: { rights: "保留所有权利。", privacy: "隐私政策" },
 };
 
 const zhTW: Messages = {
@@ -199,7 +199,7 @@ const zhTW: Messages = {
   personalize: { kicker: "屬於你的", title: "一台播放器，完全屬於你。", body: "自訂機身、轉盤、螢幕、背景、方向與光暈。", palette: "12 種真實機身與轉盤配色", combinations: "經典配色組合", presets: ["MusicPod 原色", "經典銀白", "經典黑", "經典白", "紅色特別版", "nano 橙", "nano 黃", "mini 綠", "nano 青", "nano 藍", "nano 紫", "nano 粉"], stats: [{ value: "12", label: "種機身與轉盤配色" }, { value: "9", label: "套背景主題" }, { value: "2", label: "套首頁圖示語言" }] },
   native: { kicker: "原生設計", title: "懷舊的外形，原生的核心。", body: "以 Apple 框架打造，帶來流暢播放、精準觸感與輔助使用導覽。", technologies: ["SwiftUI", "MusicKit", "系統觸感", "VoiceOver"] },
   availability: { kicker: "全球推出", title: "即將登上 App Store。", body: "MusicPod 正為全球推出進行最後準備。", badgeKicker: "即將登上", badge: "App Store", requirement: "相容於 iOS 17 或以上版本 · 需要 Apple Music 訂閱" },
-  footer: { rights: "保留所有權利。" },
+  footer: { rights: "保留所有權利。", privacy: "隱私權政策" },
 };
 
 const ja: Messages = {
@@ -214,7 +214,7 @@ const ja: Messages = {
   personalize: { kicker: "自分らしく", title: "自分だけの一台に。", body: "本体、ホイール、画面、背景、向き、光まで選べます。", palette: "本体とホイールの12色", combinations: "クラシックな配色", presets: ["MusicPod オリジナル", "クラシックシルバー", "クラシックブラック", "クラシックホワイト", "レッドエディション", "nano オレンジ", "nano イエロー", "mini グリーン", "nano ティール", "nano ブルー", "nano パープル", "nano ピンク"], stats: [{ value: "12", label: "本体とホイールのカラー" }, { value: "9", label: "背景テーマ" }, { value: "2", label: "ホームアイコンの言語" }] },
   native: { kicker: "ネイティブ設計", title: "懐かしいかたち。中身は、どこまでもネイティブ。", body: "Appleのフレームワークで、滑らかな再生、正確な触覚、アクセシブルな操作を実現。", technologies: ["SwiftUI", "MusicKit", "触覚フィードバック", "VoiceOver"] },
   availability: { kicker: "世界同時リリース", title: "App Storeに近日登場。", body: "MusicPodは世界リリースに向けて最終準備中です。", badgeKicker: "まもなく登場", badge: "App Store", requirement: "iOS 17以降に対応 · Apple Musicのサブスクリプションが必要" },
-  footer: { rights: "All rights reserved." },
+  footer: { rights: "All rights reserved.", privacy: "プライバシーポリシー" },
 };
 
 const ko: Messages = {
@@ -229,7 +229,7 @@ const ko: Messages = {
   personalize: { kicker: "나만의 방식으로", title: "하나의 플레이어. 온전히 나만의 것.", body: "본체, 휠, 화면, 배경, 방향과 빛을 선택하세요.", palette: "본체 및 휠 실제 색상 12개", combinations: "클래식 색상 조합", presets: ["MusicPod 오리지널", "클래식 실버", "클래식 블랙", "클래식 화이트", "레드 에디션", "nano 오렌지", "nano 옐로", "mini 그린", "nano 틸", "nano 블루", "nano 퍼플", "nano 핑크"], stats: [{ value: "12", label: "본체 및 휠 색상" }, { value: "9", label: "배경 테마" }, { value: "2", label: "홈 아이콘 언어" }] },
   native: { kicker: "네이티브 설계", title: "형태는 향수를, 중심은 네이티브를.", body: "Apple 프레임워크로 부드러운 재생, 정교한 햅틱, 손쉬운 사용 탐색을 구현했습니다.", technologies: ["SwiftUI", "MusicKit", "햅틱", "VoiceOver"] },
   availability: { kicker: "글로벌 출시", title: "App Store 출시 예정.", body: "MusicPod는 전 세계 출시를 위한 마지막 준비 중입니다.", badgeKicker: "곧 출시됩니다", badge: "App Store", requirement: "iOS 17 이상 지원 · Apple Music 구독 필요" },
-  footer: { rights: "All rights reserved." },
+  footer: { rights: "All rights reserved.", privacy: "개인정보 처리방침" },
 };
 
 const es: Messages = {
@@ -244,7 +244,7 @@ const es: Messages = {
   personalize: { kicker: "Hazlo tuyo", title: "Un reproductor. Completamente tuyo.", body: "Elige cuerpo, rueda, pantalla, fondo, orientación y brillo.", palette: "12 colores reales de cuerpo y rueda", combinations: "Combinaciones de color clásicas", presets: ["MusicPod Original", "Classic plata", "Classic negro", "Classic blanco", "Edición roja", "nano naranja", "nano amarillo", "mini verde", "nano turquesa", "nano azul", "nano morado", "nano rosa"], stats: [{ value: "12", label: "colores de cuerpo y rueda" }, { value: "9", label: "temas de fondo" }, { value: "2", label: "idiomas de iconos" }] },
   native: { kicker: "Nativo por diseño", title: "Nostálgico por fuera. Nativo por dentro.", body: "Creado con tecnologías de Apple para una reproducción fluida, vibración precisa y navegación accesible.", technologies: ["SwiftUI", "MusicKit", "Vibración", "VoiceOver"] },
   availability: { kicker: "Lanzamiento mundial", title: "Próximamente en App Store.", body: "MusicPod está ultimando los detalles para su lanzamiento mundial.", badgeKicker: "Próximamente en", badge: "App Store", requirement: "Compatible con iOS 17 o posterior · Requiere Apple Music" },
-  footer: { rights: "Todos los derechos reservados." },
+  footer: { rights: "Todos los derechos reservados.", privacy: "Política de privacidad" },
 };
 
 const fr: Messages = {
@@ -259,7 +259,7 @@ const fr: Messages = {
   personalize: { kicker: "À votre image", title: "Un lecteur. Entièrement le vôtre.", body: "Choisissez le boîtier, la molette, l’écran, le fond, l’orientation et la lumière.", palette: "12 couleurs réelles de boîtier et molette", combinations: "Combinaisons de couleurs classiques", presets: ["MusicPod Original", "Classic argent", "Classic noir", "Classic blanc", "Édition rouge", "nano orange", "nano jaune", "mini vert", "nano turquoise", "nano bleu", "nano violet", "nano rose"], stats: [{ value: "12", label: "couleurs de boîtier et molette" }, { value: "9", label: "thèmes d’arrière-plan" }, { value: "2", label: "langues d’icônes" }] },
   native: { kicker: "Natif par conception", title: "Nostalgique dans la forme. Natif dans l’âme.", body: "Conçu avec les technologies Apple pour une lecture fluide, un retour haptique précis et une navigation accessible.", technologies: ["SwiftUI", "MusicKit", "Haptique", "VoiceOver"] },
   availability: { kicker: "Lancement mondial", title: "Bientôt sur l’App Store.", body: "MusicPod finalise les préparatifs de son lancement mondial.", badgeKicker: "Bientôt sur", badge: "App Store", requirement: "Compatible avec iOS 17 ou version ultérieure · Abonnement Apple Music requis" },
-  footer: { rights: "Tous droits réservés." },
+  footer: { rights: "Tous droits réservés.", privacy: "Politique de confidentialité" },
 };
 
 const de: Messages = {
@@ -274,7 +274,7 @@ const de: Messages = {
   personalize: { kicker: "Mach ihn zu deinem", title: "Ein Player. Ganz deiner.", body: "Wähle Gehäuse, Rad, Display, Hintergrund, Ausrichtung und Leuchten.", palette: "12 echte Gehäuse- und Radfarben", combinations: "Klassische Farbkombinationen", presets: ["MusicPod Original", "Classic Silber", "Classic Schwarz", "Classic Weiß", "Red Edition", "nano Orange", "nano Gelb", "mini Grün", "nano Türkis", "nano Blau", "nano Violett", "nano Pink"], stats: [{ value: "12", label: "Gehäuse- und Radfarben" }, { value: "9", label: "Hintergrundthemen" }, { value: "2", label: "Symbolsprachen" }] },
   native: { kicker: "Von Grund auf nativ", title: "Nostalgisch in der Form. Nativ im Kern.", body: "Mit Apple-Technologien für flüssige Wiedergabe, präzise Haptik und barrierefreie Navigation.", technologies: ["SwiftUI", "MusicKit", "Haptik", "VoiceOver"] },
   availability: { kicker: "Weltweiter Start", title: "Demnächst im App Store.", body: "MusicPod befindet sich in der letzten Vorbereitung für den weltweiten Start.", badgeKicker: "Demnächst im", badge: "App Store", requirement: "Kompatibel mit iOS 17 oder neuer · Apple Music-Abo erforderlich" },
-  footer: { rights: "Alle Rechte vorbehalten." },
+  footer: { rights: "Alle Rechte vorbehalten.", privacy: "Datenschutzerklärung" },
 };
 
 const ptBR: Messages = {
@@ -289,7 +289,7 @@ const ptBR: Messages = {
   personalize: { kicker: "Deixe do seu jeito", title: "Um player. Totalmente seu.", body: "Escolha corpo, roda, tela, fundo, direção e brilho.", palette: "12 cores reais de corpo e roda", combinations: "Combinações de cores clássicas", presets: ["MusicPod Original", "Classic prateado", "Classic preto", "Classic branco", "Edição vermelha", "nano laranja", "nano amarelo", "mini verde", "nano turquesa", "nano azul", "nano roxo", "nano rosa"], stats: [{ value: "12", label: "cores de corpo e roda" }, { value: "9", label: "temas de fundo" }, { value: "2", label: "idiomas de ícones" }] },
   native: { kicker: "Nativo por design", title: "Nostálgico na forma. Nativo por dentro.", body: "Criado com tecnologias Apple para reprodução fluida, resposta tátil precisa e navegação acessível.", technologies: ["SwiftUI", "MusicKit", "Resposta tátil", "VoiceOver"] },
   availability: { kicker: "Lançamento mundial", title: "Em breve na App Store.", body: "O MusicPod está nos preparativos finais para o lançamento mundial.", badgeKicker: "Em breve na", badge: "App Store", requirement: "Compatível com iOS 17 ou posterior · Requer Apple Music" },
-  footer: { rights: "Todos os direitos reservados." },
+  footer: { rights: "Todos os direitos reservados.", privacy: "Política de Privacidade" },
 };
 
 export const dictionaries: Record<Locale, Messages> = {

@@ -244,7 +244,10 @@ export default async function MusicPodPage({
           <BrandIcon size={28} />
           <strong>MusicPod</strong>
         </div>
-        <p>© 2026 MusicPod. {messages.footer.rights}</p>
+        <div className="footer-meta">
+          <Link className="footer-link" href={`${home}/privacy`}>{messages.footer.privacy}</Link>
+          <p>© 2026 MusicPod. {messages.footer.rights}</p>
+        </div>
       </footer>
     </div>
   );

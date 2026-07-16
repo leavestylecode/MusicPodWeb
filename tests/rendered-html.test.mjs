@@ -58,6 +58,7 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /Strands · (?:<!-- -->)?Now playing/);
   assert.match(html, /Midnight Memory/);
   assert.match(html, /application\/ld\+json/);
+  assert.match(html, /href="\/en\/privacy"/);
   assert.match(html, /href="\/zh-cn"/);
   assert.match(html, /hreflang="fr"/i);
   assert.match(html, /https?:\/\/[^\"]+\/og\.png/);
@@ -86,6 +87,40 @@ test("ships localized HTML and metadata for every supported market", async () =>
   }));
 });
 
+test("publishes a localized, launch-ready privacy policy", async () => {
+  const expectations = [
+    ["/en/privacy", "Privacy Policy — MusicPod", "Your music stays yours."],
+    ["/zh-cn/privacy", "隐私政策 — MusicPod", "你的音乐，始终属于你。"],
+    ["/zh-tw/privacy", "隱私權政策 — MusicPod", "你的音樂，始終屬於你。"],
+    ["/ja/privacy", "プライバシーポリシー — MusicPod", "あなたの音楽は、あなたのもの。"],
+    ["/ko/privacy", "개인정보 처리방침 — MusicPod", "내 음악은 언제나 나의 것."],
+    ["/es/privacy", "Política de privacidad — MusicPod", "Tu música sigue siendo tuya."],
+    ["/fr/privacy", "Politique de confidentialité — MusicPod", "Votre musique reste la vôtre."],
+    ["/de/privacy", "Datenschutzerklärung — MusicPod", "Deine Musik bleibt deine."],
+    ["/pt-br/privacy", "Política de Privacidade — MusicPod", "Sua música continua sendo sua."],
+  ];
+
+  await Promise.all(expectations.map(async ([pathname, title, heading]) => {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, new RegExp(`<title>${title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</title>`), pathname);
+    assert.match(html, new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), pathname);
+    assert.match(html, new RegExp(`rel="canonical" href="https?://[^"]+${pathname}"`), pathname);
+    assert.match(html, /privacy@musicpod\.app/, pathname);
+    assert.match(html, /application\/ld\+json/, pathname);
+  }));
+
+  const english = await (await render("/en/privacy")).text();
+  assert.match(english, /No MusicPod account/);
+  assert.match(english, /MusicPod does not sell or rent personal information/);
+  assert.match(english, /Apple Music &amp; Privacy/);
+  assert.match(english, /Vercel Privacy Notice/);
+  assert.match(english, /href="\/zh-cn\/privacy"/);
+  assert.match(english, /musicpod_locale/);
+  assert.match(english, /musicpod-theme/);
+});
+
 test("selects a locale from browser preferences and remembers an explicit choice", async () => {
   const french = await render("/", { "accept-language": "fr-FR,fr;q=0.9,en;q=0.8" });
   assert.equal(french.status, 307);
@@ -97,6 +132,12 @@ test("selects a locale from browser preferences and remembers an explicit choice
   });
   assert.equal(remembered.status, 307);
   assert.equal(remembered.headers.get("location"), "https://musicpod.example/de");
+
+  const privacyFrench = await render("/privacy", {
+    "accept-language": "fr-FR,fr;q=0.9,en;q=0.8",
+  });
+  assert.equal(privacyFrench.status, 307);
+  assert.equal(privacyFrench.headers.get("location"), "https://musicpod.example/fr/privacy");
 });
 
 test("publishes international discovery metadata", async () => {
@@ -112,7 +153,9 @@ test("publishes international discovery metadata", async () => {
     robotsResponse.text(),
   ]);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en/);
+  assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en\/privacy/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br/);
+  assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br\/privacy/);
   assert.match(sitemap, /hreflang="ja"/);
   assert.match(robots, /Sitemap: https:\/\/www\.musicpod\.app\/sitemap\.xml/i);
 });
@@ -131,8 +174,9 @@ test("ships the product media, internationalization source, and image sizing gua
 
   await Promise.all(assets.map((asset) => access(new URL(asset, import.meta.url))));
 
-  const [page, styles, showcase, coverFlow, strands, appStoreBadge, brandIcon, themeToggle, themeScript, dictionaries, packageJson] = await Promise.all([
+  const [page, privacyPage, styles, showcase, coverFlow, strands, appStoreBadge, brandIcon, themeToggle, themeScript, dictionaries, privacyDictionaries, packageJson] = await Promise.all([
     readFile(new URL("../app/[locale]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/[locale]/privacy/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/PersonalizationShowcase.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/CoverFlowShowcase.tsx", import.meta.url), "utf8"),
@@ -142,10 +186,15 @@ test("ships the product media, internationalization source, and image sizing gua
     readFile(new URL("../app/ThemeToggle.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ThemeScript.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/dictionaries.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/privacy-dictionaries.ts", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
   assert.match(page, /SpotlightCard/);
+  assert.match(page, /footer\.privacy/);
+  assert.match(privacyPage, /privacyPolicyConfig/);
+  assert.match(privacyPage, /pathSuffix="\/privacy"/);
+  assert.match(privacyPage, /application\/ld\+json/);
   assert.match(page, /MusicPod actual app interface|productLabel/);
   assert.match(styles, /img\s*{[^}]*height:\s*auto;/);
   assert.match(styles, /prefers-reduced-motion/);
@@ -209,6 +258,9 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(dictionaries, /iOS 17\+/);
   assert.match(dictionaries, /Classic color combinations/);
   assert.match(dictionaries, /"pt-br": ptBR/);
+  assert.match(privacyDictionaries, /No MusicPod account/);
+  assert.match(privacyDictionaries, /privacy@musicpod\.app|Privacy email/);
+  assert.match(privacyDictionaries, /"pt-br": ptBR/);
   assert.match(packageJson, /@formatjs\/intl-localematcher/);
   assert.doesNotMatch(packageJson, /react-icons/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
