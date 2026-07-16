@@ -161,7 +161,13 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(showcase, /}, 3000\);/);
   assert.match(showcase, /personalization-carousel-track/);
   assert.match(showcase, /finishes\.map/);
+  assert.match(showcase, /const navigationIcons = \[/);
+  assert.match(showcase, /const leftIcon = navigationIcons/);
+  assert.match(showcase, /const rightIcon = navigationIcons/);
+  assert.match(showcase, /personalization-icon-active/);
   assert.match(styles, /\.personalization-screen\s*{[^}]*aspect-ratio:\s*1;/s);
+  assert.match(styles, /\.personalization-icon-row\s*{[^}]*inset:\s*0;/s);
+  assert.match(styles, /\.personalization-icon-row \.personalization-icon-active\s*{[^}]*left:\s*50%;/s);
   assert.match(styles, /\.personalization-wheel\s*{[^}]*width:\s*72%;/s);
   assert.match(styles, /\.personalization-center\s*{[^}]*width:\s*34%;/s);
   assert.match(page, /CoverFlowShowcase/);

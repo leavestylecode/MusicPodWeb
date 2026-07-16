@@ -1874,31 +1874,40 @@ html[data-theme="dark"] .app-store-badge-white { display: block; }
 
 .personalization-icon-row {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  transform: translate(-50%, -53%);
+  inset: 0;
 }
 
 .personalization-icon-row img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 48px;
   aspect-ratio: 1;
   border-radius: 22.5%;
   opacity: 0.48;
   filter: saturate(0.86);
   clip-path: inset(0 round 22.5%);
-  transform: scale(0.9) rotate(-5deg);
+  transform: translate(-50%, -50%);
+  transition: left 380ms ease, opacity 380ms ease, transform 380ms ease, width 380ms ease;
 }
 
-.personalization-icon-row img:last-child { transform: scale(0.9) rotate(5deg); }
+.personalization-icon-row .personalization-icon-left {
+  left: 22%;
+  transform: translate(-50%, -50%) scale(0.88) rotate(-6deg);
+}
+
+.personalization-icon-row .personalization-icon-right {
+  left: 78%;
+  transform: translate(-50%, -50%) scale(0.88) rotate(6deg);
+}
 
 .personalization-icon-row .personalization-icon-active {
+  z-index: 2;
+  left: 50%;
   width: 82px;
   opacity: 1;
   filter: none;
-  transform: none;
+  transform: translate(-50%, -50%);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
 }
 
@@ -2895,7 +2904,6 @@ html[data-theme="dark"] .site-footer {
   .personalization-device-stage { min-height: 455px; }
   .personalization-device { width: 236px; padding: 12px 12px 21px; border-radius: 36px; }
   .personalization-screen { border-radius: 21px; }
-  .personalization-icon-row { gap: 10px; }
   .personalization-icon-row img { width: 39px; }
   .personalization-icon-row .personalization-icon-active { width: 70px; }
   .personalization-wheel { margin-top: 21px; }

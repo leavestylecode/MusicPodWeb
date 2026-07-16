@@ -12,6 +12,15 @@ type PersonalizationShowcaseProps = {
 
 type ThemeStyle = CSSProperties & Record<`--${string}`, string>;
 
+const navigationIcons = [
+  "/product/icons/playlists.webp",
+  "/product/icons/favorites.webp",
+  "/product/icons/albums.webp",
+  "/product/icons/shuffle.webp",
+  "/product/icons/theme.webp",
+  "/product/icons/now-playing.webp",
+] as const;
+
 const finishes = [
   {
     id: "original",
@@ -149,14 +158,18 @@ function finishStyle(finish: Finish): ThemeStyle {
 }
 
 function PodPreview({ finish }: { finish: Finish }) {
+  const activeIconIndex = navigationIcons.indexOf(finish.icon);
+  const leftIcon = navigationIcons[(activeIconIndex - 1 + navigationIcons.length) % navigationIcons.length];
+  const rightIcon = navigationIcons[(activeIconIndex + 1) % navigationIcons.length];
+
   return (
     <div className="personalization-device">
       <div className="personalization-screen">
         <span className="personalization-screen-glow" />
         <div className="personalization-icon-row">
-          <Image alt="" height="72" src="/product/icons/favorites.webp" unoptimized width="72" />
+          <Image alt="" className="personalization-icon-side personalization-icon-left" height="72" src={leftIcon} unoptimized width="72" />
           <Image alt="" className="personalization-icon-active" height="112" src={finish.icon} unoptimized width="112" />
-          <Image alt="" height="72" src="/product/icons/playlists.webp" unoptimized width="72" />
+          <Image alt="" className="personalization-icon-side personalization-icon-right" height="72" src={rightIcon} unoptimized width="72" />
         </div>
         <div className="personalization-page-dots"><i /><i /><i /></div>
       </div>
