@@ -42,7 +42,7 @@ export default async function MusicPodPage({
     name: "MusicPod",
     description: messages.meta.description,
     applicationCategory: "MultimediaApplication",
-    operatingSystem: "iOS 26",
+    operatingSystem: "iOS 17 or later",
     url: `https://www.musicpod.app/${locale}`,
   };
 
@@ -92,7 +92,7 @@ export default async function MusicPodPage({
                 className="store-button"
                 href="#availability"
               >
-                <AppStoreBadge eyebrow={messages.hero.primaryKicker} label={messages.hero.primary} />
+                <AppStoreBadge locale={locale} />
               </a>
               <a className="text-button" href="#experience">
                 {messages.hero.secondary}<span aria-hidden="true">↓</span>
@@ -253,7 +253,7 @@ export default async function MusicPodPage({
           <h2>{messages.availability.title}</h2>
           <p>{messages.availability.body}</p>
           <div aria-label={`${messages.availability.badgeKicker} ${messages.availability.badge}`} className="availability-badge">
-            <AppStoreBadge eyebrow={messages.availability.badgeKicker} label={messages.availability.badge} />
+            <AppStoreBadge locale={locale} />
           </div>
           <small>{messages.availability.requirement}</small>
         </section>

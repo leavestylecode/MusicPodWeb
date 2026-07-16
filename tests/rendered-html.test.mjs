@@ -148,11 +148,14 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(styles, /\.personalization-screen\s*{[^}]*aspect-ratio:\s*1;/s);
   assert.match(styles, /\.personalization-wheel\s*{[^}]*width:\s*72%;/s);
   assert.match(styles, /\.personalization-center\s*{[^}]*width:\s*34%;/s);
-  assert.match(styles, /\.app-store-badge-content/);
-  assert.match(appStoreBadge, /FaApple/);
+  assert.match(styles, /\.app-store-badge-image/);
+  assert.match(appStoreBadge, /tools\.applemediaservices\.com\/api\/badges/);
+  assert.match(appStoreBadge, /marketingLocales/);
+  assert.match(page, /iOS 17 or later/);
+  assert.match(dictionaries, /iOS 17\+/);
   assert.match(dictionaries, /Classic color combinations/);
   assert.match(dictionaries, /"pt-br": ptBR/);
   assert.match(packageJson, /@formatjs\/intl-localematcher/);
-  assert.match(packageJson, /react-icons/);
+  assert.doesNotMatch(packageJson, /react-icons/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 });

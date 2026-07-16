@@ -351,64 +351,20 @@ html[lang="ko"] .hero-title {
 }
 
 .store-button {
-  display: inline-flex;
-  align-items: center;
-  min-width: 214px;
-  min-height: 66px;
-  padding: 7px 16px 7px 13px;
-  border: 1.5px solid rgba(255, 255, 255, 0.78);
-  border-radius: 12px;
-  background: #050505;
-  color: white;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.9), 0 10px 26px rgba(0, 0, 0, 0.12);
-  transition: transform 170ms ease, background 170ms ease, box-shadow 170ms ease;
+  display: inline-block;
+  line-height: 0;
 }
 
-.store-button:hover {
-  background: #000;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.9), 0 14px 31px rgba(0, 0, 0, 0.17);
-  transform: translateY(-2px);
+.store-button:focus-visible {
+  border-radius: 8px;
+  outline: 3px solid rgba(0, 122, 255, 0.56);
+  outline-offset: 4px;
 }
 
-.app-store-badge-content {
-  display: grid;
-  grid-template-columns: 39px 1fr;
-  align-items: center;
-  gap: 9px;
-  width: 100%;
-}
-
-.app-store-mark {
-  width: 39px;
-  height: 39px;
-  color: #fff;
-}
-
-.app-store-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 0;
-  text-align: left;
-}
-
-.app-store-copy small {
-  color: rgba(255, 255, 255, 0.94);
-  font-size: 0.64rem;
-  font-weight: 540;
-  letter-spacing: 0.015em;
-  line-height: 1.05;
-  white-space: nowrap;
-}
-
-.app-store-copy strong {
-  margin-top: 1px;
-  color: #fff;
-  font-size: 1.36rem;
-  font-weight: 510;
-  letter-spacing: -0.04em;
-  line-height: 1.04;
-  white-space: nowrap;
+.app-store-badge-image {
+  width: auto;
+  height: 48px;
+  max-width: none;
 }
 
 .text-button {
@@ -1660,31 +1616,12 @@ html[lang="ko"] .hero-title {
 }
 
 .availability-badge {
-  display: inline-flex;
-  align-items: center;
-  min-width: 224px;
-  min-height: 72px;
+  display: inline-block;
   margin-top: 34px;
-  padding: 8px 17px 8px 14px;
-  border: 1.5px solid rgba(255, 255, 255, 0.78);
-  border-radius: 13px;
-  background: #050505;
-  color: white;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.9), 0 15px 34px rgba(0, 0, 0, 0.14);
+  line-height: 0;
 }
 
-.availability-badge .app-store-badge-content {
-  grid-template-columns: 43px 1fr;
-  gap: 10px;
-}
-
-.availability-badge .app-store-mark {
-  width: 43px;
-  height: 43px;
-}
-
-.availability-badge .app-store-copy small { font-size: 0.67rem; }
-.availability-badge .app-store-copy strong { font-size: 1.48rem; }
+.availability-badge .app-store-badge-image { height: 52px; }
 
 .availability small {
   margin-top: 25px;
@@ -1959,7 +1896,7 @@ html[lang="ko"] .hero-title {
   }
 
   .store-button {
-    width: min(100%, 224px);
+    width: auto;
   }
 
   .text-button { min-height: 48px; }
