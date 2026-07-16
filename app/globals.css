@@ -324,6 +324,19 @@ img {
 
 .brand-icon-dark { opacity: 0; }
 
+.brand-icon::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border: 1.5px solid rgba(8, 8, 10, 0.98);
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 41, 56, 0.18);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
 .brand .brand-icon,
 .footer-brand .brand-icon {
   border-radius: 9px;
@@ -334,10 +347,23 @@ img {
 
 html[data-theme="dark"] .brand-icon-light { opacity: 0; }
 html[data-theme="dark"] .brand-icon-dark { opacity: 1; }
+html[data-theme="dark"] .brand-icon::after { opacity: 1; }
+
+html[data-theme="dark"] .availability-icon::after {
+  border-width: 4px;
+  border-color: rgba(8, 8, 10, 0.99);
+  box-shadow: inset 0 0 0 1px rgba(255, 41, 56, 0.22);
+}
 
 @media (prefers-color-scheme: dark) {
   html:not([data-theme]) .brand-icon-light { opacity: 0; }
   html:not([data-theme]) .brand-icon-dark { opacity: 1; }
+  html:not([data-theme]) .brand-icon::after { opacity: 1; }
+  html:not([data-theme]) .availability-icon::after {
+    border-width: 4px;
+    border-color: rgba(8, 8, 10, 0.99);
+    box-shadow: inset 0 0 0 1px rgba(255, 41, 56, 0.22);
+  }
 }
 
 .site-nav {
@@ -1979,7 +2005,6 @@ html[data-theme="dark"] .site-header {
 html[data-theme="dark"] .brand .brand-icon,
 html[data-theme="dark"] .footer-brand .brand-icon {
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
     0 0 0 1px rgba(255, 41, 56, 0.12),
     0 5px 18px rgba(255, 41, 56, 0.18);
 }
