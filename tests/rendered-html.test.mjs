@@ -65,7 +65,13 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /href="\/en\/privacy"/);
   assert.match(html, /href="\/zh-cn"/);
   assert.match(html, /hreflang="fr"/i);
+  assert.match(html, /name="robots" content="index, follow"/i);
+  assert.match(html, /name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/i);
+  assert.match(html, /rel="manifest" href="https:\/\/www\.musicpod\.app\/manifest\.webmanifest"/i);
   assert.match(html, /https?:\/\/[^\"]+\/og\.png/);
+  assert.match(html, /"@type":"WebSite"/);
+  assert.match(html, /"@type":"SoftwareApplication"/);
+  assert.match(html, /"featureList"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|\/_vinext\/image/i);
 });
 
@@ -146,16 +152,19 @@ test("selects a locale from browser preferences and remembers an explicit choice
 });
 
 test("publishes international discovery metadata", async () => {
-  const [sitemapResponse, robotsResponse] = await Promise.all([
+  const [sitemapResponse, robotsResponse, manifestResponse] = await Promise.all([
     render("/sitemap.xml"),
     render("/robots.txt"),
+    render("/manifest.webmanifest"),
   ]);
   assert.equal(sitemapResponse.status, 200);
   assert.equal(robotsResponse.status, 200);
+  assert.equal(manifestResponse.status, 200);
 
-  const [sitemap, robots] = await Promise.all([
+  const [sitemap, robots, manifest] = await Promise.all([
     sitemapResponse.text(),
     robotsResponse.text(),
+    manifestResponse.text(),
   ]);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en\/privacy/);
@@ -163,7 +172,11 @@ test("publishes international discovery metadata", async () => {
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br\/privacy/);
   assert.match(sitemap, /hreflang="ja"/);
   assert.match(sitemap, /hreflang="x-default"/);
+  assert.match(sitemap, /<lastmod>2026-07-17T00:00:00\.000Z<\/lastmod>/);
   assert.match(robots, /Sitemap: https:\/\/www\.musicpod\.app\/sitemap\.xml/i);
+  assert.match(robots, /Host: https:\/\/www\.musicpod\.app\//i);
+  assert.match(manifestResponse.headers.get("content-type") ?? "", /^application\/manifest\+json\b/i);
+  assert.equal(JSON.parse(manifest).short_name, "MusicPod");
 });
 
 test("ships the product media, internationalization source, and image sizing guard", async () => {

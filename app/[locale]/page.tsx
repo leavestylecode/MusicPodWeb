@@ -13,11 +13,15 @@ import { SpotlightCard } from "../SpotlightCard";
 import { StrandsShowcase } from "../StrandsShowcase";
 import { ThemeToggle } from "../ThemeToggle";
 import { getDictionary } from "../../lib/dictionaries";
-import { isLocale, localePath } from "../../lib/locales";
+import { isLocale, localeDetails, localePath } from "../../lib/locales";
 import {
   DEVELOPER_BRAND,
   DEVELOPER_SCHEMA,
   DEVELOPER_URL,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SOFTWARE_SCHEMA_ID,
+  WEBSITE_SCHEMA_ID,
   siteUrl,
 } from "../../lib/site";
 
@@ -39,22 +43,46 @@ export default async function MusicPodPage({
   const locale = rawLocale;
   const messages = getDictionary(locale);
   const home = localePath(locale);
-  const productSchema = {
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "MusicPod",
-    description: messages.meta.description,
-    applicationCategory: "MultimediaApplication",
-    operatingSystem: "iOS 17 or later",
-    url: siteUrl(home),
-    author: DEVELOPER_SCHEMA,
-    publisher: DEVELOPER_SCHEMA,
+    "@graph": [
+      DEVELOPER_SCHEMA,
+      {
+        "@type": "WebSite",
+        "@id": WEBSITE_SCHEMA_ID,
+        name: SITE_NAME,
+        url: siteUrl(),
+        inLanguage: localeDetails[locale].htmlLang,
+        publisher: { "@id": DEVELOPER_SCHEMA["@id"] },
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": SOFTWARE_SCHEMA_ID,
+        name: SITE_NAME,
+        description: messages.meta.description,
+        applicationCategory: "MultimediaApplication",
+        operatingSystem: "iOS 17 or later",
+        url: siteUrl(home),
+        image: siteUrl(SITE_OG_IMAGE),
+        screenshot: siteUrl("/product/musicpod-home.webp"),
+        inLanguage: localeDetails[locale].htmlLang,
+        featureList: [
+          messages.wheel.title,
+          messages.highlights.coverFlow.title,
+          messages.highlights.nowPlaying.title,
+          messages.personalize.title,
+        ],
+        author: { "@id": DEVELOPER_SCHEMA["@id"] },
+        publisher: { "@id": DEVELOPER_SCHEMA["@id"] },
+        isPartOf: { "@id": WEBSITE_SCHEMA_ID },
+      },
+    ],
   };
 
   return (
     <div className="site-shell">
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
         type="application/ld+json"
       />
 

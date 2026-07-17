@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { SITE_DESCRIPTION, SITE_METADATA_BASE, SITE_NAME } from "../../lib/site";
 import { ThemeScript } from "../ThemeScript";
 import "../globals.css";
 
@@ -14,8 +15,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "MusicPod — Your music. Your iPod.",
-  description: "A tactile music player for iPhone, built around the click wheel and your Apple Music library.",
+  metadataBase: SITE_METADATA_BASE,
+  title: `${SITE_NAME} — Your music. Your iPod.`,
+  description: SITE_DESCRIPTION,
+  robots: { index: false, follow: true },
 };
 
 export default function DefaultLayout({ children }: Readonly<{ children: ReactNode }>) {

@@ -7,6 +7,11 @@ import {
 
 export const SITE_ORIGIN = "https://www.musicpod.app";
 export const SITE_METADATA_BASE = new URL(SITE_ORIGIN);
+export const SITE_NAME = "MusicPod";
+export const SITE_DESCRIPTION =
+  "A tactile music player for iPhone, built around the click wheel and your Apple Music library.";
+export const SITE_OG_IMAGE = "/og.png";
+export const SITE_CONTENT_UPDATED = "2026-07-17";
 export const DEVELOPER_NAME = "Leavestylecode";
 export const DEVELOPER_BRAND = "LeaveStyle";
 export const DEVELOPER_URL = "https://leavestyle.com/";
@@ -18,6 +23,9 @@ export const DEVELOPER_SCHEMA = {
   alternateName: DEVELOPER_BRAND,
   url: DEVELOPER_URL,
 } as const;
+
+export const WEBSITE_SCHEMA_ID = `${SITE_ORIGIN}/#website`;
+export const SOFTWARE_SCHEMA_ID = `${SITE_ORIGIN}/#software`;
 
 export function siteUrl(pathname = "/") {
   return new URL(pathname, `${SITE_ORIGIN}/`).toString();

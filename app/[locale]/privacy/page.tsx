@@ -10,6 +10,9 @@ import {
   DEVELOPER_SCHEMA,
   DEVELOPER_URL,
   languageAlternates,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  WEBSITE_SCHEMA_ID,
   siteUrl,
 } from "../../../lib/site";
 import { BrandIcon } from "../../BrandIcon";
@@ -31,6 +34,7 @@ export async function generateMetadata({
   return {
     title: messages.meta.title,
     description: messages.meta.description,
+    robots: { index: true, follow: true },
     alternates: {
       canonical: siteUrl(canonicalPath),
       languages: languageAlternates("/privacy"),
@@ -38,17 +42,17 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale: localeDetails[locale].openGraphLocale,
-      siteName: "MusicPod",
+      siteName: SITE_NAME,
       title: messages.meta.title,
       description: messages.meta.description,
       url: siteUrl(canonicalPath),
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: messages.meta.title }],
+      images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: messages.meta.title, type: "image/png" }],
     },
     twitter: {
       card: "summary_large_image",
       title: messages.meta.title,
       description: messages.meta.description,
-      images: ["/og.png"],
+      images: [SITE_OG_IMAGE],
     },
   };
 }
@@ -77,10 +81,14 @@ export default async function PrivacyPage({
     author: DEVELOPER_SCHEMA,
     publisher: DEVELOPER_SCHEMA,
     isPartOf: {
-      "@type": "WebSite",
-      name: "MusicPod",
-      url: siteUrl(),
-      publisher: DEVELOPER_SCHEMA,
+      "@id": WEBSITE_SCHEMA_ID,
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: SITE_NAME, item: siteUrl(home) },
+        { "@type": "ListItem", position: 2, name: messages.pageLabel, item: privacyUrl },
+      ],
     },
   };
 
