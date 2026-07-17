@@ -45,6 +45,7 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /Coming soon on the/);
   assert.match(html, /app-store-badge-artwork/);
   assert.match(html, /class="theme-menu"/);
+  assert.match(html, /class="mobile-navigation"/);
   assert.match(html, /id="musicpod-theme"/);
   assert.match(html, /app-icon-dark\.png/);
   assert.match(html, /data-musicpod-theme-icon/);
@@ -214,8 +215,7 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(showcase, /#0082ce/);
   assert.match(showcase, /#52388b/);
   assert.match(showcase, /#cd2370/);
-  assert.match(showcase, /setInterval/);
-  assert.match(showcase, /}, 3000\);/);
+  assert.doesNotMatch(showcase, /setInterval/);
   assert.match(showcase, /personalization-carousel-track/);
   assert.match(showcase, /finishes\.map/);
   assert.match(showcase, /const navigationIcons = \[/);
@@ -230,7 +230,7 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.match(page, /CoverFlowShowcase/);
   assert.match(page, /StrandsShowcase/);
   assert.match(coverFlow, /rotateY\(\$\{-clamped \* 58\}deg\)/);
-  assert.match(coverFlow, /setInterval\(\(\) => move\(1\), 3000\)/);
+  assert.doesNotMatch(coverFlow, /setInterval/);
   assert.match(coverFlow, /data-flipped/);
   assert.match(coverFlow, /onPointerDown/);
   assert.match(coverFlow, /onPointerMove=\{handlePointerMove\}/);
@@ -242,6 +242,7 @@ test("ships the product media, internationalization source, and image sizing gua
   );
   assert.match(coverFlow, /ArrowLeft/);
   assert.match(strands, /ResizeObserver/);
+  assert.match(strands, /IntersectionObserver/);
   assert.match(strands, /frequency = 4\.25 \+ index \* 0\.8/);
   assert.match(strands, /velocity = 1\.55 \+ index \* 0\.95/);
   assert.match(strands, /smootherStep\(value \/ 0\.23\)/);

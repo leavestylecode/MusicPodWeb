@@ -2,7 +2,7 @@
 
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 type PersonalizationShowcaseProps = {
   combinationsLabel: string;
@@ -191,32 +191,13 @@ export function PersonalizationShowcase({
   presetNames,
 }: PersonalizationShowcaseProps) {
   const [selected, setSelected] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
   const total = finishes.length;
   const finish = finishes[selected];
 
   const goTo = (index: number) => setSelected((index + total) % total);
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-
-  useEffect(() => {
-    if (paused || reduceMotion) return;
-    const timer = window.setInterval(() => {
-      setSelected((current) => (current + 1) % total);
-    }, 3000);
-    return () => window.clearInterval(timer);
-  }, [paused, reduceMotion, total]);
-
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    setPaused(true);
     pointerStart.current = { id: event.pointerId, x: event.clientX };
     event.currentTarget.setPointerCapture(event.pointerId);
   };
@@ -230,7 +211,6 @@ export function PersonalizationShowcase({
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
     if (Math.abs(distance) > 42) goTo(selected + (distance < 0 ? 1 : -1));
-    setPaused(false);
   };
 
   const previousIndex = (selected - 1 + total) % total;
@@ -242,8 +222,6 @@ export function PersonalizationShowcase({
         aria-label={combinationsLabel}
         aria-roledescription="carousel"
         className="personalization-carousel"
-        onBlurCapture={() => setPaused(false)}
-        onFocusCapture={() => setPaused(true)}
         onKeyDown={(event) => {
           if (event.key === "ArrowLeft") {
             event.preventDefault();
@@ -254,8 +232,6 @@ export function PersonalizationShowcase({
             goTo(nextIndex);
           }
         }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
         role="region"
         tabIndex={0}
       >
@@ -263,7 +239,6 @@ export function PersonalizationShowcase({
           className="personalization-carousel-viewport"
           onPointerCancel={() => {
             pointerStart.current = null;
-            setPaused(false);
           }}
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
@@ -312,7 +287,7 @@ export function PersonalizationShowcase({
         <div className="personalization-control-heading">
           <span>{combinationsLabel}</span>
           <div>
-            <strong aria-atomic="true" aria-live={paused ? "polite" : "off"}>{presetNames[selected]}</strong>
+            <strong aria-atomic="true" aria-live="polite">{presetNames[selected]}</strong>
             <em>{String(selected + 1).padStart(2, "0")} / {total}</em>
           </div>
         </div>

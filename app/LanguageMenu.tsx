@@ -10,6 +10,7 @@ import {
   localizedHref,
   type Locale,
 } from "../lib/locales";
+import { useExclusiveDetails } from "../lib/use-exclusive-details";
 
 export function LanguageMenu({
   locale,
@@ -19,6 +20,7 @@ export function LanguageMenu({
   label: string;
 }) {
   const detailsRef = useRef<HTMLDetailsElement>(null);
+  useExclusiveDetails(detailsRef);
   const pathname = usePathname() ?? `/${locale}`;
   const [locationParts, setLocationParts] = useState({ search: "", hash: "" });
   const current = localeDetails[locale];

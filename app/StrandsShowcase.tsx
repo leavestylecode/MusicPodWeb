@@ -50,6 +50,8 @@ function StrandsMeter() {
     let width = 0;
     let height = 0;
     let pixelRatio = 1;
+    let isVisible = false;
+    let pageVisible = document.visibilityState === "visible";
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -134,26 +136,49 @@ function StrandsMeter() {
       context.fillStyle = "white";
       context.fill();
 
-      if (!motionQuery.matches) frame = window.requestAnimationFrame(render);
+      if (!motionQuery.matches && isVisible && pageVisible) {
+        frame = window.requestAnimationFrame(render);
+      }
+    };
+
+    const redraw = () => {
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+      render(performance.now());
     };
 
     const observer = new ResizeObserver(() => {
       resize();
-      if (motionQuery.matches) render(0);
+      if (motionQuery.matches || isVisible) redraw();
     });
     observer.observe(canvas);
+
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) redraw();
+      else window.cancelAnimationFrame(frame);
+    }, { rootMargin: "120px 0px" });
+    visibilityObserver.observe(canvas);
+
     resize();
     render(0);
 
     const handleMotionChange = () => {
-      window.cancelAnimationFrame(frame);
-      render(0);
+      redraw();
+    };
+    const handleVisibilityChange = () => {
+      pageVisible = document.visibilityState === "visible";
+      if (pageVisible && isVisible) redraw();
+      else window.cancelAnimationFrame(frame);
     };
     motionQuery.addEventListener("change", handleMotionChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       observer.disconnect();
+      visibilityObserver.disconnect();
       motionQuery.removeEventListener("change", handleMotionChange);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.cancelAnimationFrame(frame);
     };
   }, []);

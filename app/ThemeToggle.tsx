@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useExclusiveDetails } from "../lib/use-exclusive-details";
 
 type ThemePreference = "system" | "light" | "dark";
 type ResolvedTheme = "light" | "dark";
@@ -42,6 +43,7 @@ function applyTheme(preference: ThemePreference, systemDark: boolean) {
 
 export function ThemeToggle({ labels }: { labels: ThemeToggleLabels }) {
   const detailsRef = useRef<HTMLDetailsElement>(null);
+  useExclusiveDetails(detailsRef);
   const preferenceRef = useRef<ThemePreference>("system");
   const [preference, setPreference] = useState<ThemePreference>("system");
   const [resolved, setResolved] = useState<ResolvedTheme>("light");

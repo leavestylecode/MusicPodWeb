@@ -7,6 +7,7 @@ import { BrandIcon } from "../BrandIcon";
 import { ClickWheelDemo } from "../ClickWheelDemo";
 import { CoverFlowShowcase } from "../CoverFlowShowcase";
 import { LanguageMenu } from "../LanguageMenu";
+import { MobileNavigation } from "../MobileNavigation";
 import { PersonalizationShowcase } from "../PersonalizationShowcase";
 import { SpotlightCard } from "../SpotlightCard";
 import { StrandsShowcase } from "../StrandsShowcase";
@@ -70,6 +71,15 @@ export default async function MusicPodPage({
           <a href="#highlights">{messages.nav.highlights}</a>
           <a href="#personalize">{messages.nav.personalize}</a>
         </nav>
+
+        <MobileNavigation
+          items={[
+            { href: "#experience", label: messages.nav.experience },
+            { href: "#highlights", label: messages.nav.highlights },
+            { href: "#personalize", label: messages.nav.personalize },
+          ]}
+          label={messages.nav.label}
+        />
 
         <div className="header-actions">
           <ThemeToggle labels={messages.theme} />

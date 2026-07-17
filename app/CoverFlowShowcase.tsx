@@ -2,7 +2,7 @@
 
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   getCoverFlowGestureIntent,
   getCoverFlowSwipeDirection,
@@ -80,32 +80,14 @@ export function CoverFlowShowcase({
 }: CoverFlowShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(2);
   const [flipped, setFlipped] = useState(false);
-  const [focusWithin, setFocusWithin] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
   const activePointer = useRef<ActivePointer | null>(null);
   const suppressClick = useRef(false);
   const activeAlbum = albums[activeIndex];
 
-  const move = useCallback((direction: number) => {
+  const move = (direction: number) => {
     setFlipped(false);
     setActiveIndex((current) => (current + direction + albums.length) % albums.length);
-  }, []);
-
-  useEffect(() => {
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updateMotion = () => setReducedMotion(motionQuery.matches);
-    updateMotion();
-    motionQuery.addEventListener("change", updateMotion);
-    return () => motionQuery.removeEventListener("change", updateMotion);
-  }, []);
-
-  useEffect(() => {
-    if (focusWithin || hovered || flipped || reducedMotion) return;
-
-    const timer = window.setInterval(() => move(1), 3000);
-    return () => window.clearInterval(timer);
-  }, [flipped, focusWithin, hovered, move, reducedMotion]);
+  };
 
   function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     if (!event.isPrimary || event.button !== 0) return;
@@ -166,10 +148,6 @@ export function CoverFlowShowcase({
     <div
       aria-label={groupLabel}
       className="cover-flow-showcase"
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setFocusWithin(false);
-      }}
-      onFocus={() => setFocusWithin(true)}
       onKeyDown={(event) => {
         if (event.target !== event.currentTarget) return;
         if (event.key === "ArrowLeft") {
@@ -183,8 +161,6 @@ export function CoverFlowShowcase({
           setFlipped((current) => !current);
         }
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onPointerCancel={(event) => {
         activePointer.current = null;
         if (event.currentTarget.hasPointerCapture(event.pointerId)) {
