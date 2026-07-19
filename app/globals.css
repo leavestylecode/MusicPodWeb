@@ -1973,17 +1973,17 @@ html[lang^="zh"] .availability h2 {
   align-items: center;
   gap: clamp(55px, 8vw, 135px);
   min-height: 900px;
-  margin: var(--section-gutter);
+  margin: 0;
   padding-top: 110px;
   padding-bottom: 110px;
   overflow: hidden;
-  border: 1px solid var(--module-border);
-  border-radius: clamp(38px, 3.6vw, 54px);
+  border: 0;
+  border-radius: 0;
   background:
     radial-gradient(circle at 18% 48%, color-mix(in srgb, var(--personalize-glow) 78%, transparent), transparent 38%),
     radial-gradient(circle at 84% 10%, rgba(119, 80, 222, 0.07), transparent 28%),
     linear-gradient(135deg, var(--personalize-stage), var(--personalize-stage-end));
-  box-shadow: inset 0 1px var(--module-highlight), var(--module-shadow);
+  box-shadow: none;
   isolation: isolate;
 }
 
@@ -3063,7 +3063,7 @@ html[data-theme="dark"] .personalize {
     radial-gradient(circle at 18% 48%, rgba(255, 41, 56, 0.18), transparent 38%),
     radial-gradient(circle at 78% 18%, rgba(119, 80, 222, 0.055), transparent 27%),
     linear-gradient(135deg, var(--personalize-stage), var(--personalize-stage-end) 63%, #13080c 100%);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.035), var(--module-shadow);
+  box-shadow: none;
 }
 
 html[data-theme="dark"] .personalize-stats {
@@ -3438,8 +3438,7 @@ html[data-theme="dark"] .privacy-contact-card {
 
   .mantra h2 span { display: block; }
 
-  .wheel-section,
-  .personalize {
+  .wheel-section {
     margin: 10px;
     border-radius: 34px;
   }
