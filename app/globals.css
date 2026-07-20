@@ -1877,12 +1877,28 @@ html[lang^="zh"] .availability h2 {
   isolation: isolate;
 }
 
-.strands-artwork {
+.strands-showcase:focus-visible {
+  outline-color: var(--ink);
+  outline-offset: 8px;
+}
+
+.strands-artwork-stack {
+  position: absolute;
   z-index: -3;
+  inset: 0;
+}
+
+.strands-artwork {
   width: 100%;
   height: 100%;
+  opacity: 0;
   object-fit: cover;
-  object-position: center 58%;
+  transform: scale(1.07);
+  transition: opacity 520ms ease, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.strands-artwork[data-active] {
+  opacity: 1;
   transform: scale(1.01);
 }
 
@@ -1891,7 +1907,7 @@ html[lang^="zh"] .availability h2 {
   z-index: -2;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.42), transparent 27%, transparent 54%, rgba(0, 0, 0, 0.62)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.42), transparent 26%, transparent 42%, rgba(0, 0, 0, 0.88)),
     radial-gradient(circle at 16% 8%, rgba(30, 188, 221, 0.16), transparent 34%);
 }
 
@@ -1912,51 +1928,84 @@ html[lang^="zh"] .availability h2 {
 .strands-track-count strong { color: white; }
 .strands-track-count span:first-of-type { opacity: 0.5; }
 
-.strands-info-module {
+.strands-copy {
   position: absolute;
-  right: 14px;
-  bottom: 14px;
-  left: 14px;
+  z-index: 2;
+  right: 26px;
+  bottom: 104px;
+  left: 26px;
   min-width: 0;
-  padding: 20px 22px 13px;
-  border: 1px solid rgba(255, 255, 255, 0.19);
-  border-radius: 999px;
-  background: linear-gradient(145deg, rgba(25, 27, 32, 0.48), rgba(8, 8, 11, 0.34));
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.12), 0 15px 32px rgba(0, 0, 0, 0.19);
   color: white;
-  backdrop-filter: blur(24px) saturate(1.32);
 }
 
-.strands-info-module > strong {
+.strands-copy strong {
   display: block;
-  overflow: hidden;
-  font-size: 0.81rem;
-  letter-spacing: -0.018em;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  max-width: 460px;
+  font-size: clamp(2.35rem, 3.8vw, 3.45rem);
+  font-weight: 720;
+  letter-spacing: -0.062em;
+  line-height: 0.94;
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.62);
+  text-wrap: balance;
 }
 
-.strands-info-module > strong span { color: rgba(255, 255, 255, 0.52); }
-
-.strands-progress {
-  position: relative;
-  margin-top: 7px;
-}
-
-.strands-meter {
+.strands-copy span {
   display: block;
-  width: 100%;
-  height: 45px;
+  margin-top: 9px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.68);
+  text-transform: uppercase;
 }
 
-.strands-progress > div {
+.strands-cover-picker {
+  position: absolute;
+  z-index: 3;
+  right: 26px;
+  bottom: 22px;
+  left: 26px;
   display: flex;
-  justify-content: space-between;
-  margin-top: -10px;
-  color: rgba(255, 255, 255, 0.64);
-  font-size: 0.53rem;
-  font-variant-numeric: tabular-nums;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.strands-cover-picker button {
+  position: relative;
+  flex: 0 0 clamp(46px, 10.5%, 60px);
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  opacity: 0.66;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: #09090c;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transform: translateY(0);
+  transition: opacity 200ms ease, border-color 200ms ease, box-shadow 260ms ease, transform 260ms ease;
+}
+
+.strands-cover-picker button:hover {
+  opacity: 0.92;
+  transform: translateY(-3px);
+}
+
+.strands-cover-picker button[data-active] {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.36), 0 0 24px color-mix(in srgb, var(--strand-accent) 42%, transparent);
+  transform: translateY(-6px) scale(1.06);
+}
+
+.strands-cover-picker button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+
+.strands-cover-picker img {
+  object-fit: cover;
 }
 
 .personalize {
@@ -3541,15 +3590,11 @@ html[data-theme="dark"] .privacy-contact-card {
     border-radius: 30px;
   }
 
-  .strands-info-module {
-    right: 9px;
-    bottom: 9px;
-    left: 9px;
-    padding: 15px 17px 10px;
-  }
-
-  .strands-info-module > strong { font-size: 0.75rem; }
-  .strands-meter { height: 38px; }
+  .strands-track-count { top: 17px; }
+  .strands-copy { right: 18px; bottom: 87px; left: 18px; }
+  .strands-copy strong { font-size: clamp(2rem, 10vw, 2.7rem); }
+  .strands-cover-picker { right: 18px; bottom: 17px; left: 18px; gap: 8px; }
+  .strands-cover-picker button { flex: 1 1 0; max-width: 46px; border-radius: 10px; }
 
   .personalize {
     min-height: auto;
