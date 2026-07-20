@@ -1932,7 +1932,7 @@ html[lang^="zh"] .availability h2 {
   position: absolute;
   z-index: 2;
   right: 26px;
-  bottom: 104px;
+  bottom: 154px;
   left: 26px;
   min-width: 0;
   color: white;
@@ -1958,6 +1958,32 @@ html[lang^="zh"] .availability h2 {
   letter-spacing: 0.08em;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.68);
   text-transform: uppercase;
+}
+
+.strands-progress {
+  position: absolute;
+  z-index: 2;
+  right: 26px;
+  bottom: 93px;
+  left: 26px;
+  color: white;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.72);
+}
+
+.strands-meter {
+  display: block;
+  width: 100%;
+  height: 48px;
+}
+
+.strands-progress > div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -10px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.55rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 620;
 }
 
 .strands-cover-picker {
@@ -3591,8 +3617,10 @@ html[data-theme="dark"] .privacy-contact-card {
   }
 
   .strands-track-count { top: 17px; }
-  .strands-copy { right: 18px; bottom: 87px; left: 18px; }
+  .strands-copy { right: 18px; bottom: 115px; left: 18px; }
   .strands-copy strong { font-size: clamp(2rem, 10vw, 2.7rem); }
+  .strands-progress { right: 18px; bottom: 68px; left: 18px; }
+  .strands-meter { height: 40px; }
   .strands-cover-picker { right: 18px; bottom: 17px; left: 18px; gap: 8px; }
   .strands-cover-picker button { flex: 1 1 0; max-width: 46px; border-radius: 10px; }
 
