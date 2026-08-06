@@ -70,8 +70,8 @@ const zhCN: RewardMessages = {
   back: "MusicPod 首页",
   navLabel: "好评送终身会员",
   title: [
-    { before: "上传", accent: "五星好评", after: "截图。", tone: "rating" },
-    { before: "领取", accent: "终身", after: "会员。", tone: "lifetime" },
+    { before: "上传", accent: "五星好评", after: "截图", tone: "rating" },
+    { before: "领取", accent: "终身", after: "会员", tone: "lifetime" },
   ],
   review: "前往 App Store 评价",
   uploadTitle: "上传五星好评截图",
@@ -101,8 +101,8 @@ const zhTW: RewardMessages = {
   back: "MusicPod 首頁",
   navLabel: "好評送終身會員",
   title: [
-    { before: "上傳", accent: "五星好評", after: "截圖。", tone: "rating" },
-    { before: "領取", accent: "終身", after: "會員。", tone: "lifetime" },
+    { before: "上傳", accent: "五星好評", after: "截圖", tone: "rating" },
+    { before: "領取", accent: "終身", after: "會員", tone: "lifetime" },
   ],
   review: "前往 App Store 評價",
   uploadTitle: "上傳五星好評截圖",

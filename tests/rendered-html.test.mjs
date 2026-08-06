@@ -92,6 +92,7 @@ test("server-renders the localized review reward page", async () => {
   assert.match(html, /会员/);
   assert.match(html, /reward-title-accent rating/);
   assert.match(html, /reward-title-accent lifetime/);
+  assert.doesNotMatch(html, /截图。|会员。/);
   assert.doesNotMatch(html, /截图需包含 MusicPod 名称和已点亮的五颗星/);
   assert.match(html, /点击选择，或拖入截图/);
   assert.match(html, /验证未通过/);
