@@ -2762,33 +2762,38 @@ a.footer-link:hover {
 }
 
 .reward-hero-copy {
-  max-width: 900px;
+  max-width: 1080px;
   margin: 0 auto;
 }
 
 .reward-hero-copy h1 {
   margin: 0;
-  font-size: clamp(3.2rem, 6.4vw, 5.8rem);
-  font-weight: 740;
-  letter-spacing: -0.06em;
-  line-height: 0.98;
+  font-size: clamp(2.8rem, 4.5vw, 4.65rem);
+  font-weight: 660;
+  letter-spacing: -0.045em;
+  line-height: 1.12;
   text-wrap: balance;
 }
 
 .reward-hero-copy h1 > span {
   display: block;
+  white-space: nowrap;
+}
+
+.reward-hero-copy h1 > span + span {
+  margin-top: 0.08em;
 }
 
 .reward-title-accent {
   font-style: normal;
 }
 
-.reward-title-accent.rating { color: #0a84ff; }
-.reward-title-accent.lifetime { color: var(--red); }
+.reward-title-accent.rating { color: #1677c8; }
+.reward-title-accent.lifetime { color: #d93845; }
 
 html[lang^="zh"] .reward-hero-copy h1 {
   letter-spacing: -0.04em;
-  line-height: 1.02;
+  line-height: 1.12;
 }
 
 .reward-store-link {
@@ -3088,11 +3093,10 @@ html[lang^="zh"] .reward-hero-copy h1 {
   .reward-main { padding: 112px 20px 58px; }
 
   .reward-hero-copy h1 {
-    margin-top: 18px;
-    font-size: clamp(2.65rem, 12.5vw, 3.8rem);
+    font-size: clamp(1.85rem, 8.8vw, 3rem);
   }
 
-  html[lang^="zh"] .reward-hero-copy h1 { font-size: clamp(2.55rem, 12vw, 3.65rem); }
+  html[lang^="zh"] .reward-hero-copy h1 { font-size: clamp(1.85rem, 8.8vw, 3rem); }
 
   .reward-upload-card,
   .reward-result {
