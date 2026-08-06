@@ -181,14 +181,6 @@ export default async function MusicPodPage({
           </div>
         </section>
 
-        <section className="reward-promo section-pad" aria-label={rewardMessages.navLabel}>
-          <Link className="reward-promo-link" href={rewardHref}>
-            <span className="reward-promo-stars" aria-hidden="true">★★★★★</span>
-            <strong>{rewardMessages.navLabel}</strong>
-            <span className="reward-promo-arrow" aria-hidden="true">→</span>
-          </Link>
-        </section>
-
         <section aria-label={messages.mantra.label} className="mantra section-pad">
           <p className="section-kicker">{messages.mantra.eyebrow}</p>
           <h2>{messages.mantra.words.map((word) => <span key={word}>{word}</span>)}</h2>

@@ -48,6 +48,7 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /href="\/en\/reward"/);
   assert.match(html, /Lifetime reward/);
   assert.match(html, /<a(?=[^>]*class="hero-reward-button")(?=[^>]*href="\/en\/reward")[^>]*>/);
+  assert.doesNotMatch(html, /reward-promo/);
   assert.match(html, /class="theme-menu"/);
   assert.match(html, /class="mobile-navigation"/);
   assert.match(html, /id="musicpod-theme"/);

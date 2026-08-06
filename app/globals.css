@@ -2682,54 +2682,6 @@ a.footer-link:hover {
   color: var(--ink);
 }
 
-.reward-promo {
-  padding-top: 22px;
-  padding-bottom: 22px;
-  border-top: 1px solid var(--line);
-  background: var(--paper);
-}
-
-.reward-promo-link {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 18px;
-  max-width: 1100px;
-  min-height: 76px;
-  margin: 0 auto;
-  padding: 0 27px;
-  border: 1px solid rgba(255, 41, 56, 0.16);
-  border-radius: 23px;
-  background:
-    radial-gradient(circle at 9% 50%, rgba(255, 41, 56, 0.11), transparent 30%),
-    var(--surface);
-  box-shadow: 0 16px 44px rgba(29, 29, 31, 0.06);
-  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
-}
-
-.reward-promo-link:hover {
-  border-color: rgba(255, 41, 56, 0.34);
-  box-shadow: 0 20px 52px rgba(29, 29, 31, 0.1);
-  transform: translateY(-2px);
-}
-
-.reward-promo-stars {
-  color: var(--red);
-  font-size: 0.79rem;
-  letter-spacing: 0.11em;
-}
-
-.reward-promo-link strong {
-  font-size: 1rem;
-  font-weight: 690;
-  letter-spacing: -0.025em;
-}
-
-.reward-promo-arrow {
-  color: var(--faint-text);
-  font-size: 1.15rem;
-}
-
 .reward-shell {
   min-width: 320px;
   min-height: 100svh;
@@ -3083,18 +3035,6 @@ html[lang^="zh"] .reward-hero-copy h1 {
 }
 
 @media (max-width: 620px) {
-  .reward-promo { padding-top: 14px; padding-bottom: 14px; }
-
-  .reward-promo-link {
-    gap: 11px;
-    min-height: 66px;
-    padding: 0 17px;
-    border-radius: 19px;
-  }
-
-  .reward-promo-stars { font-size: 0.62rem; }
-  .reward-promo-link strong { font-size: 0.88rem; }
-
   .reward-header { grid-template-columns: 1fr auto; }
   .reward-header-back { display: none; }
   .reward-main { padding: 112px 20px 58px; }
