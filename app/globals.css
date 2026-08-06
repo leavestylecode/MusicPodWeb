@@ -872,7 +872,6 @@ html[lang="ko"] .hero-title {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
   min-height: 48px;
   padding: 0 19px;
   border-radius: 12px;
@@ -883,11 +882,6 @@ html[lang="ko"] .hero-title {
   font-weight: 680;
   white-space: nowrap;
   transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.hero-reward-button span {
-  font-size: 0.57rem;
-  letter-spacing: 0.06em;
 }
 
 .hero-reward-button:hover {

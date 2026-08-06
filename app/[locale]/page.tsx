@@ -146,7 +146,6 @@ export default async function MusicPodPage({
                 <AppStoreBadge locale={locale} />
               </a>
               <Link className="hero-reward-button" href={rewardHref}>
-                <span aria-hidden="true">★★★★★</span>
                 {rewardMessages.navLabel}
               </Link>
             </div>
