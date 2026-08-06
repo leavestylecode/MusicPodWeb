@@ -5,6 +5,7 @@ import { languageAlternates, SITE_CONTENT_UPDATED, siteUrl } from "../lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   const homeLanguages = languageAlternates();
   const privacyLanguages = languageAlternates("/privacy");
+  const rewardLanguages = languageAlternates("/reward");
 
   return [
     ...locales.map((locale) => ({
@@ -20,6 +21,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: locale === "en" ? 0.5 : 0.4,
       alternates: { languages: privacyLanguages },
+    })),
+    ...locales.map((locale) => ({
+      url: siteUrl(localePath(locale, "/reward")),
+      lastModified: new Date(SITE_CONTENT_UPDATED),
+      changeFrequency: "weekly" as const,
+      priority: locale === "zh-cn" ? 0.8 : 0.7,
+      alternates: { languages: rewardLanguages },
     })),
   ];
 }

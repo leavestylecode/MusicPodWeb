@@ -41,9 +41,12 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /<title>MusicPod — Your music\. Your iPod\.<\/title>/);
   assert.match(html, /Your music\./);
   assert.match(html, /The click wheel is back\./);
-  assert.match(html, /Coming to App Store\./);
-  assert.match(html, /Coming soon on the/);
+  assert.match(html, /Download MusicPod\./);
+  assert.match(html, /Download on the/);
   assert.match(html, /app-store-badge-artwork/);
+  assert.match(html, /href="https:\/\/apps\.apple\.com\/us\/app\/musicpod-classic-music-player\/id6784645886"/);
+  assert.match(html, /href="\/en\/reward"/);
+  assert.match(html, /Lifetime reward/);
   assert.match(html, /class="theme-menu"/);
   assert.match(html, /class="mobile-navigation"/);
   assert.match(html, /id="musicpod-theme"/);
@@ -73,6 +76,19 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /"@type":"SoftwareApplication"/);
   assert.match(html, /"featureList"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|\/_vinext\/image/i);
+});
+
+test("server-renders the localized review reward page", async () => {
+  const response = await render("/zh-cn/reward");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>好评送终身会员 — MusicPod<\/title>/);
+  assert.match(html, /五星好评，终身会员/);
+  assert.match(html, /截图只在当前设备识别，不会上传/);
+  assert.match(html, /class="reward-upload-card"/);
+  assert.match(html, /href="https:\/\/apps\.apple\.com\/cn\/app\/musicpod-[^"]+\/id6784645886\?action=write-review"/);
+  assert.match(html, /rel="canonical" href="https:\/\/www\.musicpod\.app\/zh-cn\/reward"/);
 });
 
 test("ships localized HTML and metadata for every supported market", async () => {
@@ -170,9 +186,10 @@ test("publishes international discovery metadata", async () => {
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en\/privacy/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br\/privacy/);
+  assert.match(sitemap, /https:\/\/www\.musicpod\.app\/zh-cn\/reward/);
   assert.match(sitemap, /hreflang="ja"/);
   assert.match(sitemap, /hreflang="x-default"/);
-  assert.match(sitemap, /<lastmod>2026-07-17T00:00:00\.000Z<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-08-06T00:00:00\.000Z<\/lastmod>/);
   assert.match(robots, /Sitemap: https:\/\/www\.musicpod\.app\/sitemap\.xml/i);
   assert.match(robots, /Host: https:\/\/www\.musicpod\.app\//i);
   assert.match(manifestResponse.headers.get("content-type") ?? "", /^application\/manifest\+json\b/i);

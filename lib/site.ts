@@ -11,7 +11,7 @@ export const SITE_NAME = "MusicPod";
 export const SITE_DESCRIPTION =
   "A tactile music player for iPhone, built around the click wheel and your Apple Music library.";
 export const SITE_OG_IMAGE = "/og.png";
-export const SITE_CONTENT_UPDATED = "2026-07-17";
+export const SITE_CONTENT_UPDATED = "2026-08-06";
 export const DEVELOPER_NAME = "Leavestylecode";
 export const DEVELOPER_BRAND = "LeaveStyle";
 export const DEVELOPER_URL = "https://leavestyle.com/";

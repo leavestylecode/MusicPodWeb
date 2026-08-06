@@ -20,10 +20,12 @@
     "negotiator": "^1.0.0",
     "next": "16.2.10",
     "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "react-dom": "19.2.7",
+    "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",
+    "@cloudflare/workers-types": "^4.20260702.1",
     "@tailwindcss/postcss": "4.2.1",
     "@types/negotiator": "^0.6.4",
     "@types/node": "22.19.19",

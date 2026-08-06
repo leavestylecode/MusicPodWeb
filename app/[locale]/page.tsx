@@ -12,8 +12,10 @@ import { PersonalizationShowcase } from "../PersonalizationShowcase";
 import { SpotlightCard } from "../SpotlightCard";
 import { StrandsShowcase } from "../StrandsShowcase";
 import { ThemeToggle } from "../ThemeToggle";
+import { appStoreUrl } from "../../lib/app-store";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localeDetails, localePath } from "../../lib/locales";
+import { getRewardDictionary } from "../../lib/reward-dictionaries";
 import {
   DEVELOPER_BRAND,
   DEVELOPER_SCHEMA,
@@ -42,7 +44,10 @@ export default async function MusicPodPage({
 
   const locale = rawLocale;
   const messages = getDictionary(locale);
+  const rewardMessages = getRewardDictionary(locale);
   const home = localePath(locale);
+  const rewardHref = localePath(locale, "/reward");
+  const downloadHref = appStoreUrl(locale);
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -105,6 +110,7 @@ export default async function MusicPodPage({
             { href: "#experience", label: messages.nav.experience },
             { href: "#highlights", label: messages.nav.highlights },
             { href: "#personalize", label: messages.nav.personalize },
+            { href: rewardHref, label: rewardMessages.navLabel },
           ]}
           label={messages.nav.label}
         />
@@ -112,10 +118,10 @@ export default async function MusicPodPage({
         <div className="header-actions">
           <ThemeToggle labels={messages.theme} />
           <LanguageMenu label={messages.nav.language} locale={locale} />
-          <a className="header-status" href="#availability">
+          <Link className="header-status" href={rewardHref}>
             <span className="status-dot" aria-hidden="true" />
-            {messages.nav.soon}
-          </a>
+            {rewardMessages.navLabel}
+          </Link>
         </div>
       </header>
 
@@ -133,7 +139,9 @@ export default async function MusicPodPage({
               <a
                 aria-label={`${messages.hero.primaryKicker} ${messages.hero.primary}`}
                 className="store-button"
-                href="#availability"
+                href={downloadHref}
+                rel="external noopener"
+                target="_blank"
               >
                 <AppStoreBadge locale={locale} />
               </a>
@@ -171,6 +179,14 @@ export default async function MusicPodPage({
               <figcaption><span>{messages.hero.actual}</span><span>{messages.hero.native}</span></figcaption>
             </figure>
           </div>
+        </section>
+
+        <section className="reward-promo section-pad" aria-label={rewardMessages.navLabel}>
+          <Link className="reward-promo-link" href={rewardHref}>
+            <span className="reward-promo-stars" aria-hidden="true">★★★★★</span>
+            <strong>{rewardMessages.navLabel}</strong>
+            <span className="reward-promo-arrow" aria-hidden="true">→</span>
+          </Link>
         </section>
 
         <section aria-label={messages.mantra.label} className="mantra section-pad">
@@ -278,9 +294,15 @@ export default async function MusicPodPage({
           <p className="section-kicker">{messages.availability.kicker}</p>
           <h2>{messages.availability.title}</h2>
           <p>{messages.availability.body}</p>
-          <div aria-label={`${messages.availability.badgeKicker} ${messages.availability.badge}`} className="availability-badge">
+          <a
+            aria-label={`${messages.availability.badgeKicker} ${messages.availability.badge}`}
+            className="availability-badge"
+            href={downloadHref}
+            rel="external noopener"
+            target="_blank"
+          >
             <AppStoreBadge locale={locale} />
-          </div>
+          </a>
           <small>{messages.availability.requirement}</small>
         </section>
       </main>
