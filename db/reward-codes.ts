@@ -1,6 +1,12 @@
-import { getRuntimeDatabase } from "../lib/runtime-env";
+import { decryptRewardPayload } from "../lib/reward-code-crypto.mjs";
+import { getRewardCodeKey, getRuntimeDatabase } from "../lib/runtime-env";
 
 type ClaimedCode = {
+  code: string;
+  redemptionUrl: string;
+};
+
+type StoredCode = {
   code: string;
   redemptionUrl: string | null;
 };
@@ -32,13 +38,20 @@ async function ensureRewardCodesTable() {
   await initialization;
 }
 
+async function decodeStoredCode(stored: StoredCode): Promise<ClaimedCode> {
+  if (stored.redemptionUrl) {
+    return { code: stored.code, redemptionUrl: stored.redemptionUrl };
+  }
+  return decryptRewardPayload(stored.code, getRewardCodeKey());
+}
+
 async function findClaimByProof(proofHash: string): Promise<ClaimedCode | null> {
   const row = await database()
     .prepare("SELECT code, redemption_url AS redemptionUrl FROM reward_codes WHERE proof_hash = ? LIMIT 1")
     .bind(proofHash)
-    .first<ClaimedCode>();
+    .first<StoredCode>();
 
-  return row ?? null;
+  return row ? decodeStoredCode(row) : null;
 }
 
 export async function claimRewardCode(proofHash: string): Promise<ClaimedCode | null> {
@@ -61,9 +74,19 @@ export async function claimRewardCode(proofHash: string): Promise<ClaimedCode | 
         RETURNING code, redemption_url AS redemptionUrl
       `)
       .bind(proofHash)
-      .first<ClaimedCode>();
+      .first<StoredCode>();
 
-    return claimed ?? null;
+    if (!claimed) return null;
+
+    try {
+      return await decodeStoredCode(claimed);
+    } catch (error) {
+      await database()
+        .prepare("UPDATE reward_codes SET claimed_at = NULL, proof_hash = NULL WHERE proof_hash = ?")
+        .bind(proofHash)
+        .run();
+      throw error;
+    }
   } catch (error) {
     const claimedByConcurrentRequest = await findClaimByProof(proofHash);
     if (claimedByConcurrentRequest) return claimedByConcurrentRequest;

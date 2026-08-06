@@ -3056,13 +3056,20 @@ html[lang^="zh"] .reward-hero-copy h1 {
   text-transform: uppercase;
 }
 
-.reward-code-block strong {
+.reward-code-block > a {
   grid-column: 1;
   margin-top: 5px;
   overflow-wrap: anywhere;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 1.12rem;
-  letter-spacing: 0.05em;
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 680;
+  text-decoration: none;
+}
+
+.reward-code-block > a span {
+  margin-left: 7px;
+  color: var(--faint-text);
+  font-size: 0.85em;
 }
 
 .reward-code-block button {

@@ -7,7 +7,7 @@ import { detectSelectedStarsFromPixels } from "../lib/reward-star-detection.mjs"
 
 type Reward = {
   code: string;
-  redemptionUrl: string | null;
+  redemptionUrl: string;
 };
 
 type Status = "idle" | "checking" | "success" | "error";
@@ -177,9 +177,9 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
     }
   };
 
-  const copyCode = async () => {
+  const copyRedemptionLink = async () => {
     if (!reward) return;
-    await navigator.clipboard.writeText(reward.code);
+    await navigator.clipboard.writeText(reward.redemptionUrl);
     setCopied(true);
   };
 
@@ -191,12 +191,14 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
         <p>{messages.successBody}</p>
         <div className="reward-code-block">
           <span>{messages.codeLabel}</span>
-          <strong>{reward.code}</strong>
-          <button type="button" onClick={copyCode}>{copied ? messages.copied : messages.copy}</button>
+          <a href={reward.redemptionUrl} rel="external noopener" target="_blank">
+            apps.apple.com/redeem<span aria-hidden="true">↗</span>
+          </a>
+          <button type="button" onClick={copyRedemptionLink}>{copied ? messages.copied : messages.copy}</button>
         </div>
         <a
           className="reward-primary-button"
-          href={reward.redemptionUrl ?? "https://apps.apple.com/redeem"}
+          href={reward.redemptionUrl}
           rel="external noopener"
           target="_blank"
         >
