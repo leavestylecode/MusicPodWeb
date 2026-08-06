@@ -84,9 +84,10 @@ test("server-renders the localized review reward page", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>好评送终身会员 — MusicPod<\/title>/);
-  assert.match(html, /五星好评，终身会员/);
-  assert.match(html, /截图只在当前设备识别，不会上传/);
+  assert.match(html, /上传五星好评截图，领取终身会员/);
+  assert.match(html, /图片仅在本机识别，不会上传/);
   assert.match(html, /class="reward-upload-card"/);
+  assert.doesNotMatch(html, /reward-review-step|reward-upload-heading/);
   assert.match(html, /href="https:\/\/apps\.apple\.com\/cn\/app\/musicpod-[^"]+\/id6784645886\?action=write-review"/);
   assert.match(html, /rel="canonical" href="https:\/\/www\.musicpod\.app\/zh-cn\/reward"/);
 });

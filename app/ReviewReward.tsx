@@ -212,15 +212,7 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
   }
 
   return (
-    <section className="reward-upload-card">
-      <div className="reward-upload-heading">
-        <span aria-hidden="true">02</span>
-        <div>
-          <h2>{messages.uploadTitle}</h2>
-          <p>{messages.uploadHint}</p>
-        </div>
-      </div>
-
+    <section aria-label={messages.uploadTitle} className="reward-upload-card">
       <input
         accept="image/*"
         className="reward-file-input"

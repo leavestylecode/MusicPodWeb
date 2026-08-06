@@ -78,26 +78,18 @@ export default async function RewardPage({
       <main className="reward-main">
         <section className="reward-hero">
           <div className="reward-hero-copy">
-            <p className="kicker"><span className="kicker-line" aria-hidden="true" />{messages.eyebrow}</p>
+            <div className="reward-stars" aria-hidden="true">★★★★★</div>
             <h1>{messages.title}</h1>
             <p>{messages.body}</p>
-          </div>
-
-          <div className="reward-review-step">
-            <span className="reward-step-number" aria-hidden="true">01</span>
-            <div>
-              <div className="reward-stars" aria-hidden="true">★★★★★</div>
-              <a
-                aria-label={messages.review}
-                className="reward-store-link"
-                href={appStoreReviewUrl(locale)}
-                rel="external noopener"
-                target="_blank"
-              >
-                <AppStoreBadge locale={locale} />
-              </a>
-              <p>{messages.review}<span aria-hidden="true"> ↗</span></p>
-            </div>
+            <a
+              aria-label={messages.review}
+              className="reward-store-link"
+              href={appStoreReviewUrl(locale)}
+              rel="external noopener"
+              target="_blank"
+            >
+              <AppStoreBadge locale={locale} />
+            </a>
           </div>
         </section>
 
