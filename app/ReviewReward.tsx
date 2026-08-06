@@ -233,7 +233,7 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
         <div className="reward-code-block">
           <span>{messages.codeLabel}</span>
           <a href={reward.redemptionUrl} rel="external noopener" target="_blank">
-            apps.apple.com/redeem<span aria-hidden="true">↗</span>
+            {reward.redemptionUrl}<span aria-hidden="true">↗</span>
           </a>
           <button type="button" onClick={copyRedemptionLink}>{copied ? messages.copied : messages.copy}</button>
         </div>

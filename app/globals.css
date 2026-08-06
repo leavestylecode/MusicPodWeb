@@ -3038,8 +3038,9 @@ html[lang^="zh"] .reward-hero-copy h1 {
   margin-top: 5px;
   overflow-wrap: anywhere;
   color: var(--ink);
-  font-size: 1.05rem;
-  font-weight: 680;
+  font-size: 0.82rem;
+  font-weight: 620;
+  line-height: 1.55;
   text-decoration: none;
 }
 

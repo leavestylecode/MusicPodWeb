@@ -114,6 +114,8 @@ test("supports dropping a screenshot onto the reward uploader", async () => {
   assert.match(source, /is-dragging/);
   assert.match(source, /onClick=\{clearFile\}/);
   assert.match(source, /inputRef\.current\.value = ""/);
+  assert.match(source, /\{reward\.redemptionUrl\}<span aria-hidden="true">↗<\/span>/);
+  assert.doesNotMatch(source, />\s*apps\.apple\.com\/redeem<span/);
   assert.doesNotMatch(source, /messages\.(?:nameMissing|starsMissing)/);
 });
 
