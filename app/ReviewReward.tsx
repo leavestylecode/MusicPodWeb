@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { type DragEvent, useEffect, useRef, useState } from "react";
 import type { RewardMessages } from "../lib/reward-dictionaries";
 import { detectSelectedStarsFromPixels } from "../lib/reward-star-detection.mjs";
 
@@ -90,6 +90,7 @@ async function sha256(file: File) {
 export function ReviewReward({ messages }: { messages: RewardMessages }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const previewRef = useRef("");
+  const dragDepthRef = useRef(0);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [status, setStatus] = useState<Status>("idle");
@@ -97,12 +98,15 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
   const [error, setError] = useState("");
   const [reward, setReward] = useState<Reward | null>(null);
   const [copied, setCopied] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => () => {
     if (previewRef.current) URL.revokeObjectURL(previewRef.current);
   }, []);
 
   const selectFile = (nextFile?: File) => {
+    dragDepthRef.current = 0;
+    setIsDragging(false);
     if (previewRef.current) URL.revokeObjectURL(previewRef.current);
     previewRef.current = "";
     setPreview("");
@@ -128,6 +132,28 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
     previewRef.current = URL.createObjectURL(nextFile);
     setPreview(previewRef.current);
     setStatus("idle");
+  };
+
+  const dragEnter = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    dragDepthRef.current += 1;
+    setIsDragging(true);
+  };
+
+  const dragLeave = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    dragDepthRef.current = Math.max(0, dragDepthRef.current - 1);
+    if (dragDepthRef.current === 0) setIsDragging(false);
+  };
+
+  const dragOver = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+  };
+
+  const dropFile = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    selectFile(event.dataTransfer.files[0]);
   };
 
   const checkScreenshot = async () => {
@@ -227,7 +253,14 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
           <Image alt="" fill sizes="(max-width: 700px) 88vw, 520px" src={preview} unoptimized />
         </div>
       ) : (
-        <label className="reward-dropzone" htmlFor="reward-screenshot">
+        <label
+          className={`reward-dropzone${isDragging ? " is-dragging" : ""}`}
+          htmlFor="reward-screenshot"
+          onDragEnter={dragEnter}
+          onDragLeave={dragLeave}
+          onDragOver={dragOver}
+          onDrop={dropFile}
+        >
           <span className="reward-upload-icon" aria-hidden="true">↑</span>
           <strong>{messages.choose}</strong>
           <small>PNG · JPG · HEIC</small>

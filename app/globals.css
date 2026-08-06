@@ -2863,11 +2863,17 @@ html[lang^="zh"] .reward-hero-copy h1 {
   gap: 11px;
   color: var(--control-text);
   cursor: pointer;
-  transition: border-color 180ms ease, background-color 180ms ease;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
 }
 
 .reward-dropzone:hover {
   border-color: rgba(255, 41, 56, 0.45);
+}
+
+.reward-dropzone.is-dragging {
+  border-color: #1677c8;
+  background-color: rgba(22, 119, 200, 0.05);
+  transform: scale(1.006);
 }
 
 .reward-upload-icon {
