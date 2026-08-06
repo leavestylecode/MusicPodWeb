@@ -1,5 +1,6 @@
 import { decryptRewardPayload } from "../lib/reward-code-crypto.mjs";
-import { getRewardCodeKey, getRuntimeDatabase } from "../lib/runtime-env";
+import { claimSupabaseRewardCode } from "../lib/supabase-reward-codes.mjs";
+import { getRewardCodeKey, getRuntimeDatabase, getSupabaseConfig } from "../lib/runtime-env";
 
 type ClaimedCode = {
   code: string;
@@ -54,7 +55,7 @@ async function findClaimByProof(proofHash: string): Promise<ClaimedCode | null> 
   return row ? decodeStoredCode(row) : null;
 }
 
-export async function claimRewardCode(proofHash: string): Promise<ClaimedCode | null> {
+async function claimD1RewardCode(proofHash: string): Promise<ClaimedCode | null> {
   await ensureRewardCodesTable();
 
   const existing = await findClaimByProof(proofHash);
@@ -92,4 +93,17 @@ export async function claimRewardCode(proofHash: string): Promise<ClaimedCode | 
     if (claimedByConcurrentRequest) return claimedByConcurrentRequest;
     throw error;
   }
+}
+
+export async function claimRewardCode(proofHash: string): Promise<ClaimedCode | null> {
+  const supabase = getSupabaseConfig();
+  if (supabase) {
+    return claimSupabaseRewardCode({
+      ...supabase,
+      proofHash,
+      rewardCodeKey: getRewardCodeKey(),
+    });
+  }
+
+  return claimD1RewardCode(proofHash);
 }

@@ -25,3 +25,17 @@ node --test tests/rendered-html.test.mjs
 
 `npm run build` 生成 Sites/Vinext 的 `dist` 构建；Vercel 会根据
 `vercel.json` 执行 `npm run build:vercel`，生成原生 Next.js 的 `.next` 构建。
+
+## Supabase 兑换码
+
+Vercel 生产环境使用 Supabase 发放兑换码，Sites 环境保留 D1 兼容路径。
+
+1. 在 Supabase SQL Editor 执行 `supabase/migrations/0001_musicpod_reward_codes.sql`。
+2. 将 `.env.example` 复制为 `.env.local`，配置 `SUPABASE_URL`、`SUPABASE_SECRET_KEY` 和 32 字节 Base64URL 格式的 `REWARD_CODE_KEY`。
+3. 导入 App Store 兑换码：
+
+```bash
+node --env-file=.env.local scripts/import-reward-codes-to-supabase.mjs --input /absolute/path/to/codes.csv
+```
+
+同样的三个变量必须配置在 Vercel Production 环境中。Supabase 表不允许浏览器匿名访问；领取通过服务端数据库函数原子完成。

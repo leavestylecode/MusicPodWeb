@@ -12,7 +12,8 @@
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "npm run build && node --test tests/*.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "reward:import:supabase": "node scripts/import-reward-codes-to-supabase.mjs"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.8.12",

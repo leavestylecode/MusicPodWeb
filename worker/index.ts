@@ -7,6 +7,8 @@ interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
   REWARD_CODE_KEY: string;
+  SUPABASE_URL?: string;
+  SUPABASE_SECRET_KEY?: string;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
