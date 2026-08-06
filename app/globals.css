@@ -868,6 +868,38 @@ html[lang="ko"] .hero-title {
   outline-offset: 4px;
 }
 
+.hero-reward-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 19px;
+  border-radius: 12px;
+  background: var(--red);
+  box-shadow: 0 9px 24px rgba(255, 41, 56, 0.2);
+  color: #fff;
+  font-size: 0.83rem;
+  font-weight: 680;
+  white-space: nowrap;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.hero-reward-button span {
+  font-size: 0.57rem;
+  letter-spacing: 0.06em;
+}
+
+.hero-reward-button:hover {
+  box-shadow: 0 12px 30px rgba(255, 41, 56, 0.27);
+  transform: translateY(-1px);
+}
+
+.hero-reward-button:focus-visible {
+  outline: 3px solid rgba(255, 41, 56, 0.32);
+  outline-offset: 4px;
+}
+
 .app-store-badge-artwork {
   display: inline-block;
   height: 48px;
@@ -3924,7 +3956,7 @@ html[data-theme="dark"] .privacy-contact-card {
     width: auto;
   }
 
-  .text-button { min-height: 48px; }
+  .hero-reward-button { min-width: 215px; }
   .hero-badges { gap: 6px; margin-top: 20px; }
   .hero-badges li { font-size: 0.68rem; }
   .hero-product { min-height: 510px; margin-top: 20px; }
