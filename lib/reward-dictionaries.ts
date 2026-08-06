@@ -17,7 +17,7 @@ export type RewardMessages = {
   uploadTitle: string;
   localOnly: string;
   choose: string;
-  replace: string;
+  clear: string;
   analyze: string;
   analyzing: string;
   success: string;
@@ -29,8 +29,7 @@ export type RewardMessages = {
   retry: string;
   invalidFile: string;
   tooLarge: string;
-  nameMissing: string;
-  starsMissing: string;
+  validationFailed: string;
   codesUnavailable: string;
   serviceUnavailable: string;
 };
@@ -48,7 +47,7 @@ const en: RewardMessages = {
   uploadTitle: "Upload a 5-star review screenshot",
   localOnly: "Checked on this device. The image is never uploaded.",
   choose: "Click or drop screenshot",
-  replace: "Choose another",
+  clear: "Clear image",
   analyze: "Verify and claim",
   analyzing: "Verifying…",
   success: "Lifetime access claimed",
@@ -60,8 +59,7 @@ const en: RewardMessages = {
   retry: "Upload another screenshot",
   invalidFile: "Please choose an image.",
   tooLarge: "Please choose an image smaller than 15 MB.",
-  nameMissing: "MusicPod wasn’t found in this screenshot. Please upload the complete review screen.",
-  starsMissing: "Five selected stars weren’t found. Please choose five stars and take another screenshot.",
+  validationFailed: "Verification unsuccessful",
   codesUnavailable: "The next batch of codes is being prepared. Please try again later.",
   serviceUnavailable: "The reward service is temporarily unavailable. Please try again.",
 };
@@ -79,7 +77,7 @@ const zhCN: RewardMessages = {
   uploadTitle: "上传五星好评截图",
   localOnly: "图片仅在本机识别，不会上传。",
   choose: "点击选择，或拖入截图",
-  replace: "重新选择",
+  clear: "清空图片",
   analyze: "验证并领取",
   analyzing: "正在验证…",
   success: "领取成功",
@@ -91,8 +89,7 @@ const zhCN: RewardMessages = {
   retry: "重新上传",
   invalidFile: "请选择图片文件。",
   tooLarge: "请选择小于 15 MB 的图片。",
-  nameMissing: "截图中没有识别到 MusicPod，请上传完整的评价页面。",
-  starsMissing: "没有识别到已点亮的五颗星，请选择五星后重新截图。",
+  validationFailed: "验证未通过",
   codesUnavailable: "新一批兑换码正在补充，请稍后再试。",
   serviceUnavailable: "兑换服务暂时不可用，请稍后再试。",
 };
@@ -111,7 +108,7 @@ const zhTW: RewardMessages = {
   uploadTitle: "上傳五星好評截圖",
   localOnly: "圖片僅在本機辨識，不會上傳。",
   choose: "點擊選擇，或拖入截圖",
-  replace: "重新選擇",
+  clear: "清空圖片",
   analyze: "驗證並領取",
   analyzing: "正在驗證…",
   success: "領取成功",
@@ -123,8 +120,7 @@ const zhTW: RewardMessages = {
   retry: "重新上傳",
   invalidFile: "請選擇圖片檔案。",
   tooLarge: "請選擇小於 15 MB 的圖片。",
-  nameMissing: "截圖中沒有辨識到 MusicPod，請上傳完整的評價頁面。",
-  starsMissing: "沒有辨識到已點亮的五顆星，請選擇五星後重新截圖。",
+  validationFailed: "驗證未通過",
   codesUnavailable: "新一批兌換碼正在補充，請稍後再試。",
   serviceUnavailable: "兌換服務暫時無法使用，請稍後再試。",
 };
@@ -141,9 +137,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     uploadTitle: "レビュー画面をアップロード",
     localOnly: "画像はこのデバイス内だけで確認され、アップロードされません。",
     choose: "クリックまたはドラッグして選択",
-    replace: "別の画像を選ぶ",
+    clear: "画像を消去",
     analyze: "画像を確認",
     analyzing: "確認中…",
+    validationFailed: "確認できませんでした",
     success: "永久アクセスコードを取得しました",
     redeem: "永久アクセスを引き換える",
     retry: "別の画像を試す",
@@ -159,9 +156,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     uploadTitle: "리뷰 스크린샷 업로드",
     localOnly: "이미지는 이 기기에서만 확인되며 업로드되지 않습니다.",
     choose: "클릭하거나 스크린샷 끌어 놓기",
-    replace: "다른 이미지 선택",
+    clear: "이미지 지우기",
     analyze: "스크린샷 확인",
     analyzing: "확인 중…",
+    validationFailed: "확인하지 못했습니다",
     success: "평생 이용 코드가 준비되었습니다",
     redeem: "평생 이용권 교환",
     retry: "다른 스크린샷 사용",
@@ -177,9 +175,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     uploadTitle: "Sube la captura de tu reseña",
     localOnly: "La imagen se comprueba en este dispositivo y nunca se sube.",
     choose: "Haz clic o arrastra la captura",
-    replace: "Elegir otra",
+    clear: "Quitar imagen",
     analyze: "Comprobar captura",
     analyzing: "Comprobando…",
+    validationFailed: "No se pudo verificar",
     success: "Tu código de por vida está listo",
     redeem: "Canjear acceso de por vida",
     retry: "Probar otra captura",
@@ -195,9 +194,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     uploadTitle: "Importez la capture de votre avis",
     localOnly: "L’image est vérifiée sur cet appareil et n’est jamais envoyée.",
     choose: "Cliquez ou déposez la capture",
-    replace: "En choisir une autre",
+    clear: "Effacer l’image",
     analyze: "Vérifier la capture",
     analyzing: "Vérification…",
+    validationFailed: "Échec de la vérification",
     success: "Votre code à vie est prêt",
     redeem: "Activer l’accès à vie",
     retry: "Essayer une autre capture",
@@ -213,9 +213,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     uploadTitle: "Bewertungs-Screenshot hochladen",
     localOnly: "Das Bild wird nur auf diesem Gerät geprüft und nicht hochgeladen.",
     choose: "Klicken oder Screenshot ablegen",
-    replace: "Anderen wählen",
+    clear: "Bild entfernen",
     analyze: "Screenshot prüfen",
     analyzing: "Wird geprüft…",
+    validationFailed: "Überprüfung nicht erfolgreich",
     success: "Dein dauerhafter Zugangscode ist bereit",
     redeem: "Dauerhaften Zugang einlösen",
     retry: "Anderen Screenshot versuchen",
@@ -231,9 +232,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     uploadTitle: "Envie a captura da avaliação",
     localOnly: "A imagem é verificada neste aparelho e nunca é enviada.",
     choose: "Clique ou arraste a captura",
-    replace: "Escolher outra",
+    clear: "Limpar imagem",
     analyze: "Verificar captura",
     analyzing: "Verificando…",
+    validationFailed: "Não foi possível verificar",
     success: "Seu código vitalício está pronto",
     redeem: "Resgatar acesso vitalício",
     retry: "Tentar outra captura",

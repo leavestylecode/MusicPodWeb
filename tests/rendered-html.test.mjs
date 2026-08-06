@@ -94,6 +94,9 @@ test("server-renders the localized review reward page", async () => {
   assert.match(html, /reward-title-accent lifetime/);
   assert.doesNotMatch(html, /截图需包含 MusicPod 名称和已点亮的五颗星/);
   assert.match(html, /点击选择，或拖入截图/);
+  assert.match(html, /验证未通过/);
+  assert.match(html, /清空图片/);
+  assert.doesNotMatch(html, /没有识别到|没有找到|五颗星，请|MusicPod wasn’t found|Five selected stars weren’t found/);
   assert.match(html, /图片仅在本机识别，不会上传/);
   assert.match(html, /class="reward-upload-card"/);
   assert.doesNotMatch(html, /reward-review-step|reward-upload-heading/);
@@ -108,6 +111,9 @@ test("supports dropping a screenshot onto the reward uploader", async () => {
   assert.match(source, /onDrop=\{dropFile\}/);
   assert.match(source, /event\.dataTransfer\.files\[0\]/);
   assert.match(source, /is-dragging/);
+  assert.match(source, /onClick=\{clearFile\}/);
+  assert.match(source, /inputRef\.current\.value = ""/);
+  assert.doesNotMatch(source, /messages\.(?:nameMissing|starsMissing)/);
 });
 
 test("ships localized HTML and metadata for every supported market", async () => {

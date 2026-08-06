@@ -156,6 +156,21 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
     selectFile(event.dataTransfer.files[0]);
   };
 
+  const clearFile = () => {
+    if (previewRef.current) URL.revokeObjectURL(previewRef.current);
+    previewRef.current = "";
+    if (inputRef.current) inputRef.current.value = "";
+    dragDepthRef.current = 0;
+    setFile(null);
+    setPreview("");
+    setStatus("idle");
+    setProgress(0);
+    setError("");
+    setReward(null);
+    setCopied(false);
+    setIsDragging(false);
+  };
+
   const checkScreenshot = async () => {
     if (!file || status === "checking") return;
     setStatus("checking");
@@ -168,14 +183,14 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
 
       if (detectSelectedStars(canvas) !== 5) {
         setStatus("error");
-        setError(messages.starsMissing);
+        setError(messages.validationFailed);
         return;
       }
 
       setProgress(0.25);
       if (!await recognizeProductName(canvas, setProgress)) {
         setStatus("error");
-        setError(messages.nameMissing);
+        setError(messages.validationFailed);
         return;
       }
 
@@ -230,7 +245,7 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
         >
           {messages.redeem}<span aria-hidden="true">↗</span>
         </a>
-        <button className="reward-retry-button" type="button" onClick={() => setStatus("idle")}>
+        <button className="reward-retry-button" type="button" onClick={clearFile}>
           {messages.retry}
         </button>
       </section>
@@ -273,8 +288,8 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
 
       <div className="reward-upload-actions">
         {file ? (
-          <button className="reward-secondary-button" disabled={status === "checking"} onClick={() => inputRef.current?.click()} type="button">
-            {messages.replace}
+          <button className="reward-secondary-button" disabled={status === "checking"} onClick={clearFile} type="button">
+            {messages.clear}
           </button>
         ) : null}
         <button className="reward-primary-button" disabled={!file || status === "checking"} onClick={checkScreenshot} type="button">
