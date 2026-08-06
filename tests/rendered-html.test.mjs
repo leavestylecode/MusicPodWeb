@@ -85,7 +85,14 @@ test("server-renders the localized review reward page", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>好评送终身会员 — MusicPod<\/title>/);
-  assert.match(html, /上传五星好评截图，领取终身会员/);
+  assert.match(html, /上传/);
+  assert.match(html, /五星/);
+  assert.match(html, /好评截图/);
+  assert.match(html, /终身/);
+  assert.match(html, /会员/);
+  assert.match(html, /reward-title-accent rating/);
+  assert.match(html, /reward-title-accent lifetime/);
+  assert.doesNotMatch(html, /截图需包含 MusicPod 名称和已点亮的五颗星/);
   assert.match(html, /图片仅在本机识别，不会上传/);
   assert.match(html, /class="reward-upload-card"/);
   assert.doesNotMatch(html, /reward-review-step|reward-upload-heading/);

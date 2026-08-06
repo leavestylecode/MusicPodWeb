@@ -1,16 +1,20 @@
 import type { Locale } from "./locales";
 
+type RewardTitleLine = {
+  before: string;
+  accent: string;
+  after: string;
+  tone: "rating" | "lifetime";
+};
+
 export type RewardMessages = {
   metaTitle: string;
   metaDescription: string;
   back: string;
   navLabel: string;
-  eyebrow: string;
-  title: string;
-  body: string;
+  title: readonly [RewardTitleLine, RewardTitleLine];
   review: string;
   uploadTitle: string;
-  uploadHint: string;
   localOnly: string;
   choose: string;
   replace: string;
@@ -36,12 +40,12 @@ const en: RewardMessages = {
   metaDescription: "Review MusicPod on the App Store and claim lifetime access.",
   back: "MusicPod home",
   navLabel: "Lifetime reward",
-  eyebrow: "MusicPod review reward",
-  title: "Upload a 5-star review. Get lifetime access.",
-  body: "Your screenshot must show MusicPod and five selected stars.",
+  title: [
+    { before: "Upload a ", accent: "5-star", after: " review screenshot.", tone: "rating" },
+    { before: "Get ", accent: "lifetime", after: " access.", tone: "lifetime" },
+  ],
   review: "Review on the App Store",
   uploadTitle: "Upload a 5-star review screenshot",
-  uploadHint: "The screenshot must show MusicPod and five selected stars.",
   localOnly: "Checked on this device. The image is never uploaded.",
   choose: "Upload screenshot",
   replace: "Choose another",
@@ -67,12 +71,12 @@ const zhCN: RewardMessages = {
   metaDescription: "在 App Store 为 MusicPod 五星好评，上传截图领取终身会员兑换码。",
   back: "MusicPod 首页",
   navLabel: "好评送终身会员",
-  eyebrow: "MusicPod 好评回馈",
-  title: "上传五星好评截图，领取终身会员",
-  body: "截图需包含 MusicPod 名称和已点亮的五颗星。",
+  title: [
+    { before: "上传", accent: "五星", after: "好评截图。", tone: "rating" },
+    { before: "领取", accent: "终身", after: "会员。", tone: "lifetime" },
+  ],
   review: "前往 App Store 评价",
   uploadTitle: "上传五星好评截图",
-  uploadHint: "截图需包含 MusicPod 名称和已点亮的五颗星。",
   localOnly: "图片仅在本机识别，不会上传。",
   choose: "上传好评截图",
   replace: "重新选择",
@@ -99,12 +103,12 @@ const zhTW: RewardMessages = {
   metaDescription: "在 App Store 為 MusicPod 五星好評，上傳截圖領取終身會員兌換碼。",
   back: "MusicPod 首頁",
   navLabel: "好評送終身會員",
-  eyebrow: "MusicPod 好評回饋",
-  title: "上傳五星好評截圖，領取終身會員",
-  body: "截圖需包含 MusicPod 名稱和已點亮的五顆星。",
+  title: [
+    { before: "上傳", accent: "五星", after: "好評截圖。", tone: "rating" },
+    { before: "領取", accent: "終身", after: "會員。", tone: "lifetime" },
+  ],
   review: "前往 App Store 評價",
   uploadTitle: "上傳五星好評截圖",
-  uploadHint: "截圖需包含 MusicPod 名稱和已點亮的五顆星。",
   localOnly: "圖片僅在本機辨識，不會上傳。",
   choose: "上傳好評截圖",
   replace: "重新選擇",
@@ -129,12 +133,12 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
   ja: {
     back: "MusicPod ホーム",
     navLabel: "レビューで永久アクセス",
-    eyebrow: "MusicPod からのお礼",
-    title: "星5つで、永久アクセス。",
-    body: "App Store で MusicPod を星5つで評価し、スクリーンショットをアップロードしてください。",
+    title: [
+      { before: "", accent: "星5つ", after: "のレビュー画面をアップロード。", tone: "rating" },
+      { before: "", accent: "永久", after: "アクセスを受け取る。", tone: "lifetime" },
+    ],
     review: "App Store でレビュー",
     uploadTitle: "レビュー画面をアップロード",
-    uploadHint: "MusicPod の名前と選択された5つの星が見える画面を選んでください。",
     localOnly: "画像はこのデバイス内だけで確認され、アップロードされません。",
     choose: "画像を選ぶ",
     replace: "別の画像を選ぶ",
@@ -147,9 +151,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
   ko: {
     back: "MusicPod 홈",
     navLabel: "리뷰하고 평생 이용",
-    eyebrow: "MusicPod 감사 혜택",
-    title: "별 다섯 개, 평생 이용.",
-    body: "App Store에서 MusicPod에 별 다섯 개 리뷰를 남기고 스크린샷을 올려 주세요.",
+    title: [
+      { before: "", accent: "별 다섯 개", after: " 리뷰 화면을 업로드하세요.", tone: "rating" },
+      { before: "", accent: "평생", after: " 이용권을 받으세요.", tone: "lifetime" },
+    ],
     review: "App Store에서 리뷰하기",
     uploadTitle: "리뷰 스크린샷 업로드",
     localOnly: "이미지는 이 기기에서만 확인되며 업로드되지 않습니다.",
@@ -164,9 +169,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
   es: {
     back: "Inicio de MusicPod",
     navLabel: "Reseña por acceso de por vida",
-    eyebrow: "Un agradecimiento de MusicPod",
-    title: "Cinco estrellas. Acceso de por vida.",
-    body: "Deja una reseña de cinco estrellas en App Store y sube una captura para recibir tu código.",
+    title: [
+      { before: "Sube una captura de tu reseña de ", accent: "cinco estrellas", after: ".", tone: "rating" },
+      { before: "Obtén acceso ", accent: "de por vida", after: ".", tone: "lifetime" },
+    ],
     review: "Valorar en App Store",
     uploadTitle: "Sube la captura de tu reseña",
     localOnly: "La imagen se comprueba en este dispositivo y nunca se sube.",
@@ -181,9 +187,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
   fr: {
     back: "Accueil MusicPod",
     navLabel: "Avis contre accès à vie",
-    eyebrow: "Un merci de MusicPod",
-    title: "Cinq étoiles. Accès à vie.",
-    body: "Laissez un avis cinq étoiles sur l’App Store, puis importez une capture pour recevoir votre code.",
+    title: [
+      { before: "Importez une capture de votre avis ", accent: "cinq étoiles", after: ".", tone: "rating" },
+      { before: "Obtenez un accès ", accent: "à vie", after: ".", tone: "lifetime" },
+    ],
     review: "Noter sur l’App Store",
     uploadTitle: "Importez la capture de votre avis",
     localOnly: "L’image est vérifiée sur cet appareil et n’est jamais envoyée.",
@@ -198,9 +205,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
   de: {
     back: "MusicPod Startseite",
     navLabel: "Bewerten und dauerhaft nutzen",
-    eyebrow: "Ein Dankeschön von MusicPod",
-    title: "Fünf Sterne. Dauerhafter Zugang.",
-    body: "Bewerte MusicPod im App Store mit fünf Sternen und lade einen Screenshot hoch.",
+    title: [
+      { before: "Lade einen Screenshot deiner ", accent: "Fünf-Sterne", after: "-Bewertung hoch.", tone: "rating" },
+      { before: "Erhalte ", accent: "dauerhaften", after: " Zugang.", tone: "lifetime" },
+    ],
     review: "Im App Store bewerten",
     uploadTitle: "Bewertungs-Screenshot hochladen",
     localOnly: "Das Bild wird nur auf diesem Gerät geprüft und nicht hochgeladen.",
@@ -215,9 +223,10 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
   "pt-br": {
     back: "Início do MusicPod",
     navLabel: "Avalie e ganhe acesso vitalício",
-    eyebrow: "Um agradecimento do MusicPod",
-    title: "Cinco estrelas. Acesso vitalício.",
-    body: "Avalie o MusicPod com cinco estrelas na App Store e envie uma captura para receber seu código.",
+    title: [
+      { before: "Envie uma captura da avaliação de ", accent: "cinco estrelas", after: ".", tone: "rating" },
+      { before: "Receba acesso ", accent: "vitalício", after: ".", tone: "lifetime" },
+    ],
     review: "Avaliar na App Store",
     uploadTitle: "Envie a captura da avaliação",
     localOnly: "A imagem é verificada neste aparelho e nunca é enviada.",

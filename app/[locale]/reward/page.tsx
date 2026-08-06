@@ -78,9 +78,13 @@ export default async function RewardPage({
       <main className="reward-main">
         <section className="reward-hero">
           <div className="reward-hero-copy">
-            <div className="reward-stars" aria-hidden="true">★★★★★</div>
-            <h1>{messages.title}</h1>
-            <p>{messages.body}</p>
+            <h1>
+              {messages.title.map((line) => (
+                <span key={line.tone}>
+                  {line.before}<em className={`reward-title-accent ${line.tone}`}>{line.accent}</em>{line.after}
+                </span>
+              ))}
+            </h1>
             <a
               aria-label={messages.review}
               className="reward-store-link"

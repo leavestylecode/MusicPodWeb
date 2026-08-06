@@ -2767,7 +2767,7 @@ a.footer-link:hover {
 }
 
 .reward-hero-copy h1 {
-  margin: 20px 0 22px;
+  margin: 0;
   font-size: clamp(3.2rem, 6.4vw, 5.8rem);
   font-weight: 740;
   letter-spacing: -0.06em;
@@ -2775,25 +2775,20 @@ a.footer-link:hover {
   text-wrap: balance;
 }
 
+.reward-hero-copy h1 > span {
+  display: block;
+}
+
+.reward-title-accent {
+  font-style: normal;
+}
+
+.reward-title-accent.rating { color: #0a84ff; }
+.reward-title-accent.lifetime { color: var(--red); }
+
 html[lang^="zh"] .reward-hero-copy h1 {
   letter-spacing: -0.04em;
   line-height: 1.02;
-}
-
-.reward-hero-copy > p:last-child {
-  max-width: 580px;
-  margin: 0 auto;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.4vw, 1.16rem);
-  letter-spacing: -0.02em;
-  line-height: 1.55;
-}
-
-.reward-stars {
-  margin-bottom: 0;
-  color: #0a84ff;
-  font-size: clamp(1.15rem, 2vw, 1.55rem);
-  letter-spacing: 0.1em;
 }
 
 .reward-store-link {
