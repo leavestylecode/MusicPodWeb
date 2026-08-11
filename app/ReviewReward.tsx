@@ -41,47 +41,6 @@ async function imageCanvas(file: File) {
   }
 }
 
-function highContrastTop(canvas: HTMLCanvasElement) {
-  const crop = document.createElement("canvas");
-  crop.width = canvas.width;
-  crop.height = Math.max(1, Math.round(canvas.height * 0.58));
-  const context = crop.getContext("2d", { willReadFrequently: true });
-  if (!context) throw new Error("canvas_unavailable");
-  context.drawImage(canvas, 0, 0, crop.width, crop.height, 0, 0, crop.width, crop.height);
-
-  const image = context.getImageData(0, 0, crop.width, crop.height);
-  for (let offset = 0; offset < image.data.length; offset += 4) {
-    const luminance = image.data[offset] * 0.2126 + image.data[offset + 1] * 0.7152 + image.data[offset + 2] * 0.0722;
-    const value = luminance >= 118 ? 0 : 255;
-    image.data[offset] = value;
-    image.data[offset + 1] = value;
-    image.data[offset + 2] = value;
-  }
-  context.putImageData(image, 0, 0);
-  return crop;
-}
-
-function containsMusicPod(text: string) {
-  const normalized = text.toLowerCase().replace(/[^a-z0-9]/g, "");
-  return normalized.includes("musicpod") || normalized.includes("musicp0d") || normalized.includes("rnusicpod");
-}
-
-async function recognizeProductName(canvas: HTMLCanvasElement, onProgress: (value: number) => void) {
-  const { createWorker } = await import("tesseract.js");
-  const worker = await createWorker("eng", 1, {
-    logger(message) {
-      if (message.status === "recognizing text") onProgress(0.26 + message.progress * 0.68);
-    },
-  });
-
-  try {
-    const result = await worker.recognize(highContrastTop(canvas));
-    return containsMusicPod(result.data.text);
-  } finally {
-    await worker.terminate();
-  }
-}
-
 async function sha256(file: File) {
   const digest = await crypto.subtle.digest("SHA-256", await file.arrayBuffer());
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
@@ -187,14 +146,7 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
         return;
       }
 
-      setProgress(0.25);
-      if (!await recognizeProductName(canvas, setProgress)) {
-        setStatus("error");
-        setError(messages.validationFailed);
-        return;
-      }
-
-      setProgress(0.96);
+      setProgress(0.9);
       const response = await fetch("/api/reward/claim", {
         body: JSON.stringify({ proofHash }),
         headers: { "Content-Type": "application/json" },

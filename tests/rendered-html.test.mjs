@@ -118,6 +118,8 @@ test("supports dropping a screenshot onto the reward uploader", async () => {
   assert.match(source, /\{reward\.redemptionUrl\}<span aria-hidden="true">↗<\/span>/);
   assert.doesNotMatch(source, />\s*apps\.apple\.com\/redeem<span/);
   assert.doesNotMatch(source, /messages\.(?:nameMissing|starsMissing)/);
+  assert.doesNotMatch(source, /tesseract|recognizeProductName|containsMusicPod|highContrastTop/i);
+  assert.match(source, /detectSelectedStars\(canvas\) !== 5/);
 });
 
 test("ships localized HTML and metadata for every supported market", async () => {
