@@ -13,6 +13,7 @@ import {
   siteUrl,
 } from "../../lib/site";
 import { ThemeScript } from "../ThemeScript";
+import { WeChatAppStoreGuard } from "../WeChatAppStoreGuard";
 import "../globals.css";
 
 export const viewport: Viewport = {
@@ -108,7 +109,10 @@ export default async function LocaleLayout({
         <link href="/app-icon.png" rel="apple-touch-icon" />
         <ThemeScript />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <WeChatAppStoreGuard />
+      </body>
     </html>
   );
 }
