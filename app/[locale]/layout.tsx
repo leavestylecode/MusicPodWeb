@@ -36,7 +36,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
-  if (!isLocale(rawLocale)) notFound();
+  if (!isLocale(rawLocale)) {
+    // vinext does not route notFound() thrown while resolving metadata to the
+    // not-found boundary, so the render-phase throw in the layout below is the
+    // one that produces the branded 404 page.
+    return {
+      metadataBase: SITE_METADATA_BASE,
+      title: "Page not found — MusicPod",
+      robots: { index: false, follow: false },
+    };
+  }
 
   const locale: Locale = rawLocale;
   const messages = getDictionary(locale);

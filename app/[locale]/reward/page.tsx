@@ -10,7 +10,7 @@ import { appStoreReviewUrl } from "../../../lib/app-store";
 import { getDictionary } from "../../../lib/dictionaries";
 import { isLocale, localeDetails, localePath, locales, type Locale } from "../../../lib/locales";
 import { getRewardDictionary } from "../../../lib/reward-dictionaries";
-import { languageAlternates, SITE_METADATA_BASE, siteUrl } from "../../../lib/site";
+import { languageAlternates, SITE_METADATA_BASE, SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -22,7 +22,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
-  if (!isLocale(rawLocale)) notFound();
+  if (!isLocale(rawLocale)) {
+    // Keep notFound() out of metadata resolution; the render-phase throw in the
+    // page below reaches the branded not-found boundary.
+    return {
+      title: "Page not found — MusicPod",
+      robots: { index: false, follow: false },
+    };
+  }
   const messages = getRewardDictionary(rawLocale);
   const canonicalPath = localePath(rawLocale, "/reward");
 
@@ -30,6 +37,10 @@ export async function generateMetadata({
     metadataBase: SITE_METADATA_BASE,
     title: messages.metaTitle,
     description: messages.metaDescription,
+    robots: {
+      index: false,
+      follow: false,
+    },
     alternates: {
       canonical: siteUrl(canonicalPath),
       languages: languageAlternates("/reward"),
@@ -40,6 +51,13 @@ export async function generateMetadata({
       title: messages.metaTitle,
       description: messages.metaDescription,
       url: siteUrl(canonicalPath),
+      images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: messages.metaTitle, type: "image/png" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: messages.metaTitle,
+      description: messages.metaDescription,
+      images: [SITE_OG_IMAGE],
     },
   };
 }

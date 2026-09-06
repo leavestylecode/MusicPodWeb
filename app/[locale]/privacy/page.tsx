@@ -25,7 +25,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
-  if (!isLocale(rawLocale)) notFound();
+  if (!isLocale(rawLocale)) {
+    // Keep notFound() out of metadata resolution; the render-phase throw in the
+    // page below reaches the branded not-found boundary.
+    return {
+      title: "Page not found — MusicPod",
+      robots: { index: false, follow: false },
+    };
+  }
 
   const locale: Locale = rawLocale;
   const messages = getPrivacyDictionary(locale);

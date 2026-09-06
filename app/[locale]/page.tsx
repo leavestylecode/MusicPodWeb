@@ -17,6 +17,7 @@ import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localeDetails, localePath } from "../../lib/locales";
 import { getRewardDictionary } from "../../lib/reward-dictionaries";
 import {
+  APP_STORE_RATING,
   DEVELOPER_BRAND,
   DEVELOPER_SCHEMA,
   DEVELOPER_URL,
@@ -68,6 +69,7 @@ export default async function MusicPodPage({
         applicationCategory: "MultimediaApplication",
         operatingSystem: "iOS 17 or later",
         url: siteUrl(home),
+        downloadUrl: downloadHref,
         image: siteUrl(SITE_OG_IMAGE),
         screenshot: siteUrl("/product/musicpod-home.webp"),
         inLanguage: localeDetails[locale].htmlLang,
@@ -80,6 +82,27 @@ export default async function MusicPodPage({
         author: { "@id": DEVELOPER_SCHEMA["@id"] },
         publisher: { "@id": DEVELOPER_SCHEMA["@id"] },
         isPartOf: { "@id": WEBSITE_SCHEMA_ID },
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: APP_STORE_RATING.value,
+          ratingCount: APP_STORE_RATING.count,
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${siteUrl(home)}#faq`,
+        inLanguage: localeDetails[locale].htmlLang,
+        isPartOf: { "@id": WEBSITE_SCHEMA_ID },
+        mainEntity: messages.faq.items.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
       },
     ],
   };
@@ -279,6 +302,24 @@ export default async function MusicPodPage({
               <li key={technology}><span>0{index + 1}</span><strong>{technology}</strong></li>
             ))}
           </ul>
+        </section>
+
+        <section aria-labelledby="faq-title" className="faq-section section-pad" id="faq">
+          <div className="faq-heading reveal">
+            <p className="section-kicker">05 · {messages.faq.kicker}</p>
+            <h2 id="faq-title">{messages.faq.title}</h2>
+          </div>
+          <div className="faq-list reveal">
+            {messages.faq.items.map((item) => (
+              <details className="faq-item" key={item.question}>
+                <summary className="faq-question">
+                  <h3>{item.question}</h3>
+                  <span aria-hidden="true" className="faq-toggle" />
+                </summary>
+                <p className="faq-answer">{item.answer}</p>
+              </details>
+            ))}
+          </div>
         </section>
 
         <section className="availability section-pad" id="availability">

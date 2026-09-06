@@ -77,6 +77,15 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /"@type":"WebSite"/);
   assert.match(html, /"@type":"SoftwareApplication"/);
   assert.match(html, /"featureList"/);
+  assert.match(html, /"offers":\{"@type":"Offer","price":"0"/);
+  assert.match(html, /"aggregateRating":\{"@type":"AggregateRating","ratingValue":4\.2,"ratingCount":5\}/);
+  assert.match(html, /"downloadUrl":"https:\/\/apps\.apple\.com\/us\/app\/[^"]+"/);
+  assert.match(html, /"@type":"FAQPage"/);
+  assert.match(html, /"@type":"Question","name":"Is MusicPod free\?"/);
+  assert.match(html, /id="faq"/);
+  assert.match(html, /Questions, answered\./);
+  assert.match(html, /Is MusicPod free\?/);
+  assert.match(html, /Do I need an Apple Music subscription\?/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|\/_vinext\/image/i);
 });
 
@@ -104,6 +113,22 @@ test("server-renders the localized review reward page", async () => {
   assert.doesNotMatch(html, /reward-review-step|reward-upload-heading/);
   assert.match(html, /href="https:\/\/apps\.apple\.com\/cn\/app\/musicpod-[^"]+\/id6784645886\?action=write-review"/);
   assert.match(html, /rel="canonical" href="https:\/\/www\.musicpod\.app\/zh-cn\/reward"/);
+  assert.match(html, /name="robots" content="noindex, nofollow"/i);
+  assert.match(html, /property="og:image" content="https:\/\/www\.musicpod\.app\/og\.png"/i);
+});
+
+test("renders a branded 404 page for unknown routes", async () => {
+  const expectations = ["/xyz", "/en/unknown", "/en/privacy/extra"];
+
+  await Promise.all(expectations.map(async (pathname) => {
+    const response = await render(pathname);
+    assert.equal(response.status, 404, pathname);
+
+    const html = await response.text();
+    assert.match(html, /This page could not be found\./, pathname);
+    assert.match(html, /Back to MusicPod/, pathname);
+    assert.match(html, /not-found-shell/, pathname);
+  }));
 });
 
 test("supports dropping a screenshot onto the reward uploader", async () => {
@@ -217,7 +242,8 @@ test("publishes international discovery metadata", async () => {
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en\/privacy/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br\/privacy/);
-  assert.match(sitemap, /https:\/\/www\.musicpod\.app\/zh-cn\/reward/);
+  assert.match(sitemap, /https:\/\/www\.musicpod\.app\/zh-cn\/privacy/);
+  assert.doesNotMatch(sitemap, /reward/);
   assert.match(sitemap, /hreflang="ja"/);
   assert.match(sitemap, /hreflang="x-default"/);
   assert.match(sitemap, /<lastmod>2026-08-06T00:00:00\.000Z<\/lastmod>/);

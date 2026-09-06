@@ -29,6 +29,18 @@ interface ExecutionContext {
 // dangerouslyAllowSVG: true in next.config.js and uncomment below:
 // const imageConfig: ImageConfig = { dangerouslyAllowSVG: true };
 
+// vinext 0.0.50 does not route notFound() thrown on a matched dynamic route
+// (e.g. an invalid /:locale) to the not-found boundary, so the rejection
+// escapes handler.fetch. Re-dispatching to a guaranteed-unmatched path lets the
+// normal unmatched-route fallback render the branded 404 page with status 404.
+const NOT_FOUND_RENDER_PATH = "/en/__not-found__";
+
+function isNotFoundRejection(error: unknown): boolean {
+  if (typeof error !== "object" || error === null || !("digest" in error)) return false;
+  const digest = String((error as { digest: unknown }).digest);
+  return digest === "NEXT_NOT_FOUND" || digest === "NEXT_HTTP_ERROR_FALLBACK;404";
+}
+
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     setRuntimeBindings(env);
@@ -45,7 +57,14 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    try {
+      return await handler.fetch(request, env, ctx);
+    } catch (error) {
+      if (isNotFoundRejection(error) && url.pathname !== NOT_FOUND_RENDER_PATH) {
+        return handler.fetch(new Request(new URL(NOT_FOUND_RENDER_PATH, request.url), request), env, ctx);
+      }
+      throw error;
+    }
   },
 };
 

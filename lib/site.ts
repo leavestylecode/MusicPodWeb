@@ -16,6 +16,15 @@ export const DEVELOPER_NAME = "Leavestylecode";
 export const DEVELOPER_BRAND = "LeaveStyle";
 export const DEVELOPER_URL = "https://leavestyle.com/";
 
+/**
+ * Mirrored from the App Store listing (itunes lookup API, 2026-09). Update
+ * manually when the listing changes so the structured data stays truthful.
+ */
+export const APP_STORE_RATING = {
+  value: 4.2,
+  count: 5,
+} as const;
+
 export const DEVELOPER_SCHEMA = {
   "@type": "Organization",
   "@id": `${DEVELOPER_URL}#organization`,
