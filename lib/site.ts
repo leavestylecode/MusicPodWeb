@@ -31,6 +31,12 @@ export const DEVELOPER_SCHEMA = {
   name: DEVELOPER_NAME,
   alternateName: DEVELOPER_BRAND,
   url: DEVELOPER_URL,
+  founder: {
+    "@type": "Person",
+    name: "Huixin Jia",
+    alternateName: ["贾慧鑫", "Jia Huixin"],
+    sameAs: ["https://www.linkedin.com/in/huixin-jia-8903b3154/"],
+  },
 } as const;
 
 export const WEBSITE_SCHEMA_ID = `${SITE_ORIGIN}/#website`;
