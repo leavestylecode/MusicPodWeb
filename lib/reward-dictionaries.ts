@@ -20,6 +20,8 @@ export type RewardMessages = {
   clear: string;
   analyze: string;
   analyzing: string;
+  claimDirectly: string;
+  claiming: string;
   success: string;
   successBody: string;
   codeLabel: string;
@@ -50,6 +52,8 @@ const en: RewardMessages = {
   clear: "Clear image",
   analyze: "Verify and claim",
   analyzing: "Verifying…",
+  claimDirectly: "Skip the review — claim directly",
+  claiming: "Claiming…",
   success: "Lifetime access claimed",
   successBody: "Open the link below to automatically redeem lifetime access.",
   codeLabel: "App Store redemption link",
@@ -80,6 +84,8 @@ const zhCN: RewardMessages = {
   clear: "清空图片",
   analyze: "验证并领取",
   analyzing: "正在验证…",
+  claimDirectly: "不想评价？直接领取",
+  claiming: "正在领取…",
   success: "领取成功",
   successBody: "打开下方链接，即可自动领取终身会员",
   codeLabel: "App Store 兑换链接",
@@ -111,6 +117,8 @@ const zhTW: RewardMessages = {
   clear: "清空圖片",
   analyze: "驗證並領取",
   analyzing: "正在驗證…",
+  claimDirectly: "不想評價？直接領取",
+  claiming: "正在領取…",
   success: "領取成功",
   successBody: "開啟下方連結，即可自動領取終身會員",
   codeLabel: "App Store 兌換連結",
@@ -140,6 +148,8 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     clear: "画像を消去",
     analyze: "画像を確認",
     analyzing: "確認中…",
+    claimDirectly: "レビューせずに直接受け取る",
+    claiming: "取得中…",
     validationFailed: "確認できませんでした",
     success: "永久アクセスコードを取得しました",
     redeem: "永久アクセスを引き換える",
@@ -159,6 +169,8 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     clear: "이미지 지우기",
     analyze: "스크린샷 확인",
     analyzing: "확인 중…",
+    claimDirectly: "리뷰 없이 바로 받기",
+    claiming: "받는 중…",
     validationFailed: "확인하지 못했습니다",
     success: "평생 이용 코드가 준비되었습니다",
     redeem: "평생 이용권 교환",
@@ -178,6 +190,8 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     clear: "Quitar imagen",
     analyze: "Comprobar captura",
     analyzing: "Comprobando…",
+    claimDirectly: "Canjear sin reseña",
+    claiming: "Canjeando…",
     validationFailed: "No se pudo verificar",
     success: "Tu código de por vida está listo",
     redeem: "Canjear acceso de por vida",
@@ -197,6 +211,8 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     clear: "Effacer l’image",
     analyze: "Vérifier la capture",
     analyzing: "Vérification…",
+    claimDirectly: "Obtenir le code sans avis",
+    claiming: "Récupération…",
     validationFailed: "Échec de la vérification",
     success: "Votre code à vie est prêt",
     redeem: "Activer l’accès à vie",
@@ -216,6 +232,8 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     clear: "Bild entfernen",
     analyze: "Screenshot prüfen",
     analyzing: "Wird geprüft…",
+    claimDirectly: "Ohne Bewertung direkt einlösen",
+    claiming: "Wird eingelöst…",
     validationFailed: "Überprüfung nicht erfolgreich",
     success: "Dein dauerhafter Zugangscode ist bereit",
     redeem: "Dauerhaften Zugang einlösen",
@@ -235,6 +253,8 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     clear: "Limpar imagem",
     analyze: "Verificar captura",
     analyzing: "Verificando…",
+    claimDirectly: "Resgatar sem avaliação",
+    claiming: "Resgatando…",
     validationFailed: "Não foi possível verificar",
     success: "Seu código vitalício está pronto",
     redeem: "Resgatar acesso vitalício",

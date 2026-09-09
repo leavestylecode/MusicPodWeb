@@ -46,6 +46,10 @@ async function sha256(file: File) {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+function randomProofHash() {
+  return Array.from(crypto.getRandomValues(new Uint8Array(32)), (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
 export function ReviewReward({ messages }: { messages: RewardMessages }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const previewRef = useRef("");
@@ -53,6 +57,7 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [pendingAction, setPendingAction] = useState<"verify" | "claim" | null>(null);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
   const [reward, setReward] = useState<Reward | null>(null);
@@ -130,9 +135,27 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
     setIsDragging(false);
   };
 
+  const requestRewardCode = async (proofHash: string) => {
+    const response = await fetch("/api/reward/claim", {
+      body: JSON.stringify({ proofHash }),
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+    });
+    const payload = await response.json() as Reward & { error?: string };
+
+    if (!response.ok) {
+      setStatus("error");
+      setError(payload.error === "codes_unavailable" ? messages.codesUnavailable : messages.serviceUnavailable);
+      return null;
+    }
+
+    return payload;
+  };
+
   const checkScreenshot = async () => {
     if (!file || status === "checking") return;
     setStatus("checking");
+    setPendingAction("verify");
     setError("");
     setProgress(0.04);
 
@@ -147,18 +170,8 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
       }
 
       setProgress(0.9);
-      const response = await fetch("/api/reward/claim", {
-        body: JSON.stringify({ proofHash }),
-        headers: { "Content-Type": "application/json" },
-        method: "POST",
-      });
-      const payload = await response.json() as Reward & { error?: string };
-
-      if (!response.ok) {
-        setStatus("error");
-        setError(payload.error === "codes_unavailable" ? messages.codesUnavailable : messages.serviceUnavailable);
-        return;
-      }
+      const payload = await requestRewardCode(proofHash);
+      if (!payload) return;
 
       setProgress(1);
       setReward(payload);
@@ -167,6 +180,31 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
       console.error("Screenshot recognition failed", cause);
       setStatus("error");
       setError(messages.serviceUnavailable);
+    } finally {
+      setPendingAction(null);
+    }
+  };
+
+  const claimDirectly = async () => {
+    if (status === "checking") return;
+    setStatus("checking");
+    setPendingAction("claim");
+    setError("");
+    setProgress(0.5);
+
+    try {
+      const payload = await requestRewardCode(randomProofHash());
+      if (!payload) return;
+
+      setProgress(1);
+      setReward(payload);
+      setStatus("success");
+    } catch (cause) {
+      console.error("Direct reward claim failed", cause);
+      setStatus("error");
+      setError(messages.serviceUnavailable);
+    } finally {
+      setPendingAction(null);
     }
   };
 
@@ -245,12 +283,16 @@ export function ReviewReward({ messages }: { messages: RewardMessages }) {
           </button>
         ) : null}
         <button className="reward-primary-button" disabled={!file || status === "checking"} onClick={checkScreenshot} type="button">
-          {status === "checking" ? messages.analyzing : messages.analyze}
+          {status === "checking" && pendingAction === "verify" ? messages.analyzing : messages.analyze}
         </button>
       </div>
 
+      <button className="reward-direct-claim" disabled={status === "checking"} onClick={claimDirectly} type="button">
+        {pendingAction === "claim" ? messages.claiming : messages.claimDirectly}
+      </button>
+
       {status === "checking" ? (
-        <div className="reward-progress" aria-label={messages.analyzing} role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
+        <div className="reward-progress" aria-label={pendingAction === "claim" ? messages.claiming : messages.analyzing} role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
           <span style={{ width: `${Math.max(4, Math.round(progress * 100))}%` }} />
         </div>
       ) : null}

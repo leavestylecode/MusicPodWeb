@@ -3073,6 +3073,26 @@ html[lang^="zh"] .reward-hero-copy h1 {
   color: var(--control-text);
 }
 
+.reward-direct-claim {
+  display: block;
+  width: fit-content;
+  margin: 18px auto 0;
+  padding: 4px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--faint-text);
+  font-size: 0.8rem;
+  font-weight: 620;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: color 160ms ease, opacity 160ms ease;
+}
+
+.reward-direct-claim:hover:not(:disabled) { color: var(--ink); }
+.reward-direct-claim:disabled { cursor: not-allowed; opacity: 0.4; }
+
 .reward-progress {
   height: 3px;
   margin-top: 25px;
