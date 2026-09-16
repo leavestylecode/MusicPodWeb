@@ -25,7 +25,8 @@ const xhsNoteHtml =
 
 const xOembedBody = JSON.stringify({
   author_name: "LeaveStyle",
-  html: '<blockquote><p lang="en">MusicPod turns your Apple Music library into a click-wheel experience.</p></blockquote>',
+  html: '<blockquote><p lang="en">Do u love this iPod on your iPhone. ' +
+    '<a href="https://x.com/hashtag/musicpod?src=hash">#MusicPod</a></p></blockquote>',
 });
 
 test("extracts the URL from pasted share text", () => {
@@ -61,12 +62,40 @@ test("verifies a Xiaohongshu note and returns a stable proof hash", async () => 
   assert.equal(again.proofHash, result.proofHash);
 });
 
-test("rejects Xiaohongshu notes that do not mention MusicPod", async () => {
+test("rejects Xiaohongshu notes without the campaign hashtag", async () => {
   const body = xhsNoteHtml.replace("#musicpod[话题]#", "#别的应用[话题]#");
   const result = await verifyShareText(xhsShareBlob, {
     fetchImpl: async () => pageResponse({ url: xhsCanonicalUrl, body }),
   });
   assert.equal(result.error, "content_mismatch");
+});
+
+test("requires the hashtag even when MusicPod is mentioned in plain text", async () => {
+  const noteBody = xhsNoteHtml.replace("#musicpod[话题]#", "MusicPod 很好用");
+  const note = await verifyShareText(xhsShareBlob, {
+    fetchImpl: async () => pageResponse({ url: xhsCanonicalUrl, body: noteBody }),
+  });
+  assert.equal(note.error, "content_mismatch");
+
+  const plainTweet = JSON.stringify({ author_name: "LeaveStyle", html: "<p>MusicPod is great</p>" });
+  const tweet = await verifyShareText("https://x.com/LeaveStyle1/status/2100050692534878381", {
+    fetchImpl: async () => pageResponse({ body: plainTweet }),
+  });
+  assert.equal(tweet.error, "content_mismatch");
+});
+
+test("matches the hashtag case-insensitively but rejects longer tags", async () => {
+  const titled = xhsNoteHtml.replace("#musicpod[话题]#", "#MusicPod[话题]#");
+  const ok = await verifyShareText(xhsShareBlob, {
+    fetchImpl: async () => pageResponse({ url: xhsCanonicalUrl, body: titled }),
+  });
+  assert.equal(ok.platform, "xhs");
+
+  const longer = xhsNoteHtml.replace("#musicpod[话题]#", "#musicpod2[话题]#");
+  const rejected = await verifyShareText(xhsShareBlob, {
+    fetchImpl: async () => pageResponse({ url: xhsCanonicalUrl, body: longer }),
+  });
+  assert.equal(rejected.error, "content_mismatch");
 });
 
 test("reports missing Xiaohongshu notes", async () => {
