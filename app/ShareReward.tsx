@@ -10,7 +10,20 @@ type Reward = {
 
 type Status = "idle" | "checking" | "success" | "error";
 
-const errorMessageKeys: Record<string, keyof RewardMessages> = {
+type RewardErrorMessageKey = Extract<
+  keyof RewardMessages,
+  | "invalidLink"
+  | "unsupportedPlatform"
+  | "contentNotFound"
+  | "contentMismatch"
+  | "verificationUnavailable"
+  | "alreadyClaimed"
+  | "codesUnavailable"
+  | "rateLimited"
+  | "serviceUnavailable"
+>;
+
+const errorMessageKeys: Record<string, RewardErrorMessageKey> = {
   invalid_link: "invalidLink",
   unsupported_platform: "unsupportedPlatform",
   content_not_found: "contentNotFound",
