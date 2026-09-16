@@ -1,5 +1,8 @@
 import { decryptRewardPayload } from "../lib/reward-code-crypto.mjs";
-import { claimSupabaseRewardCode } from "../lib/supabase-reward-codes.mjs";
+import {
+  claimSupabaseRewardCode,
+  hasSupabaseClaimForProof,
+} from "../lib/supabase-reward-codes.mjs";
 import { getRewardCodeKey, getRuntimeDatabase, getSupabaseConfig } from "../lib/runtime-env";
 
 type ClaimedCode = {
@@ -106,4 +109,18 @@ export async function claimRewardCode(proofHash: string): Promise<ClaimedCode | 
   }
 
   return claimD1RewardCode(proofHash);
+}
+
+export async function hasClaimForProof(proofHash: string): Promise<boolean> {
+  const supabase = getSupabaseConfig();
+  if (supabase) {
+    return hasSupabaseClaimForProof({ ...supabase, proofHash });
+  }
+
+  await ensureRewardCodesTable();
+  const row = await database()
+    .prepare("SELECT 1 FROM reward_codes WHERE proof_hash = ? LIMIT 1")
+    .bind(proofHash)
+    .first();
+  return Boolean(row);
 }

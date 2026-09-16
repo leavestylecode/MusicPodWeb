@@ -89,29 +89,24 @@ test("server-renders the international English product page", async () => {
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|\/_vinext\/image/i);
 });
 
-test("server-renders the localized review reward page", async () => {
+test("server-renders the localized share reward page", async () => {
   const response = await render("/zh-cn/reward");
   assert.equal(response.status, 200);
 
   const html = await response.text();
-  assert.match(html, /<title>好评送终身会员 — MusicPod<\/title>/);
-  assert.match(html, /上传/);
-  assert.match(html, /五星好评/);
-  assert.match(html, /截图/);
+  assert.match(html, /<title>分享送终身会员 — MusicPod<\/title>/);
+  assert.match(html, /在小红书或 X/);
+  assert.match(html, /分享体验/);
   assert.match(html, /终身/);
   assert.match(html, /会员/);
-  assert.match(html, /reward-title-accent rating/);
+  assert.match(html, /reward-title-accent share/);
   assert.match(html, /reward-title-accent lifetime/);
-  assert.doesNotMatch(html, /截图。|会员。/);
-  assert.doesNotMatch(html, /截图需包含 MusicPod 名称和已点亮的五颗星/);
-  assert.match(html, /点击选择，或拖入截图/);
-  assert.match(html, /验证未通过/);
-  assert.match(html, /清空图片/);
-  assert.doesNotMatch(html, /没有识别到|没有找到|五颗星，请|MusicPod wasn’t found|Five selected stars weren’t found/);
-  assert.match(html, /图片仅在本机识别，不会上传/);
-  assert.match(html, /class="reward-upload-card"/);
-  assert.doesNotMatch(html, /reward-review-step|reward-upload-heading/);
-  assert.match(html, /href="https:\/\/apps\.apple\.com\/cn\/app\/musicpod-[^"]+\/id6784645886\?action=write-review"/);
+  assert.match(html, /粘贴分享文案或链接/);
+  assert.match(html, /class="reward-share-textarea"/);
+  assert.match(html, /https:\/\/xhslink\.com/);
+  assert.match(html, /验证并领取/);
+  assert.doesNotMatch(html, /五星好评|拖入截图|直接领取|action=write-review/);
+  assert.match(html, /href="https:\/\/apps\.apple\.com\/cn\/app\/musicpod-[^"]+\/id6784645886"/);
   assert.match(html, /rel="canonical" href="https:\/\/www\.musicpod\.app\/zh-cn\/reward"/);
   assert.match(html, /name="robots" content="noindex, nofollow"/i);
   assert.match(html, /property="og:image" content="https:\/\/www\.musicpod\.app\/og\.png"/i);
@@ -131,20 +126,15 @@ test("renders a branded 404 page for unknown routes", async () => {
   }));
 });
 
-test("supports dropping a screenshot onto the reward uploader", async () => {
-  const source = await readFile(new URL("../app/ReviewReward.tsx", import.meta.url), "utf8");
-  assert.match(source, /onDragEnter=\{dragEnter\}/);
-  assert.match(source, /onDragOver=\{dragOver\}/);
-  assert.match(source, /onDrop=\{dropFile\}/);
-  assert.match(source, /event\.dataTransfer\.files\[0\]/);
-  assert.match(source, /is-dragging/);
-  assert.match(source, /onClick=\{clearFile\}/);
-  assert.match(source, /inputRef\.current\.value = ""/);
+test("submits the pasted share text to the reward API", async () => {
+  const source = await readFile(new URL("../app/ShareReward.tsx", import.meta.url), "utf8");
+  assert.match(source, /fetch\("\/api\/reward\/claim"/);
+  assert.match(source, /JSON\.stringify\(\{ shareText \}\)/);
+  assert.match(source, /className="reward-share-textarea"/);
+  assert.match(source, /role="alert"/);
+  assert.match(source, /alreadyClaimed/);
   assert.match(source, /\{reward\.redemptionUrl\}<span aria-hidden="true">↗<\/span>/);
-  assert.doesNotMatch(source, />\s*apps\.apple\.com\/redeem<span/);
-  assert.doesNotMatch(source, /messages\.(?:nameMissing|starsMissing)/);
-  assert.doesNotMatch(source, /tesseract|recognizeProductName|containsMusicPod|highContrastTop/i);
-  assert.match(source, /detectSelectedStars\(canvas\) !== 5/);
+  assert.doesNotMatch(source, /type="file"|onDrop|dataTransfer|detectSelectedStars|claimDirectly/i);
 });
 
 test("ships localized HTML and metadata for every supported market", async () => {

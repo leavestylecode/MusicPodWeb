@@ -17,7 +17,3 @@ const productUrls: Record<Locale, string> = {
 export function appStoreUrl(locale: Locale) {
   return productUrls[locale];
 }
-
-export function appStoreReviewUrl(locale: Locale) {
-  return `${appStoreUrl(locale)}?action=write-review`;
-}

@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 import { AppStoreBadge } from "../../AppStoreBadge";
 import { BrandIcon } from "../../BrandIcon";
 import { LanguageMenu } from "../../LanguageMenu";
-import { ReviewReward } from "../../ReviewReward";
+import { ShareReward } from "../../ShareReward";
 import { ThemeToggle } from "../../ThemeToggle";
-import { appStoreReviewUrl } from "../../../lib/app-store";
+import { appStoreUrl } from "../../../lib/app-store";
 import { getDictionary } from "../../../lib/dictionaries";
 import { isLocale, localeDetails, localePath, locales, type Locale } from "../../../lib/locales";
 import { getRewardDictionary } from "../../../lib/reward-dictionaries";
@@ -104,9 +104,9 @@ export default async function RewardPage({
               ))}
             </h1>
             <a
-              aria-label={messages.review}
+              aria-label={messages.store}
               className="reward-store-link"
-              href={appStoreReviewUrl(locale)}
+              href={appStoreUrl(locale)}
               rel="external noopener"
               target="_blank"
             >
@@ -115,7 +115,7 @@ export default async function RewardPage({
           </div>
         </section>
 
-        <ReviewReward messages={messages} />
+        <ShareReward messages={messages} />
       </main>
     </div>
   );
