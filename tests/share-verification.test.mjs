@@ -19,14 +19,19 @@ const xhsShareBlob =
 const xhsCanonicalUrl =
   "https://www.xiaohongshu.com/discovery/item/6aa17cd50000000029018dab?xsec_token=CBenXesp68z6";
 
+const campaignPostTimeMs = Date.parse("2026-09-16T08:00:00Z");
+
 const xhsNoteHtml =
-  'window.__INITIAL_STATE__={"note":{"noteId":"6aa17cd50000000029018dab",' +
-  '"desc":"#musicpod[话题]# 是简单、好看、好用、现代化的极简音乐播放器"},"comments":[]}';
+  `window.__INITIAL_STATE__={"note":{"noteId":"6aa17cd50000000029018dab",` +
+  `"desc":"#musicpod[话题]# 是简单、好看、好用、现代化的极简音乐播放器",` +
+  `"time":${campaignPostTimeMs},"lastUpdateTime":${campaignPostTimeMs}},"comments":[]}</script>`;
 
 const xOembedBody = JSON.stringify({
   author_name: "LeaveStyle",
   html: '<blockquote><p lang="en">Do u love this iPod on your iPhone. ' +
-    '<a href="https://x.com/hashtag/musicpod?src=hash">#MusicPod</a></p></blockquote>',
+    '<a href="https://x.com/hashtag/musicpod?src=hash">#MusicPod</a>' +
+    '</p>&mdash; LeaveStyle (@LeaveStyle1) ' +
+    '<a href="https://x.com/LeaveStyle1/status/2100050692534878381">September 16, 2026</a></blockquote>',
 });
 
 test("extracts the URL from pasted share text", () => {
@@ -77,7 +82,10 @@ test("requires the hashtag even when MusicPod is mentioned in plain text", async
   });
   assert.equal(note.error, "content_mismatch");
 
-  const plainTweet = JSON.stringify({ author_name: "LeaveStyle", html: "<p>MusicPod is great</p>" });
+  const plainTweet = JSON.stringify({
+    author_name: "LeaveStyle",
+    html: '<p>MusicPod is great</p>&mdash; <a href="https://x.com/LeaveStyle1/status/1">September 16, 2026</a>',
+  });
   const tweet = await verifyShareText("https://x.com/LeaveStyle1/status/2100050692534878381", {
     fetchImpl: async () => pageResponse({ body: plainTweet }),
   });
@@ -103,6 +111,24 @@ test("reports missing Xiaohongshu notes", async () => {
     fetchImpl: async () => pageResponse({ url: "https://www.xiaohongshu.com/", body: "{}" }),
   });
   assert.equal(result.error, "content_not_found");
+});
+
+test("rejects posts published before the campaign start", async () => {
+  const oldNoteTime = xhsNoteHtml.replace(`"time":${campaignPostTimeMs}`, `"time":${Date.parse("2026-09-10T08:00:00Z")}`);
+  const note = await verifyShareText(xhsShareBlob, {
+    fetchImpl: async () => pageResponse({ url: xhsCanonicalUrl, body: oldNoteTime }),
+  });
+  assert.equal(note.error, "too_old");
+
+  const oldTweet = JSON.stringify({
+    author_name: "LeaveStyle",
+    html: '<blockquote><p><a href="https://x.com/hashtag/musicpod?src=hash">#MusicPod</a></p>' +
+      '&mdash; LeaveStyle (@LeaveStyle1) <a href="https://x.com/LeaveStyle1/status/2087582604245782841">August 12, 2026</a></blockquote>',
+  });
+  const tweet = await verifyShareText("https://x.com/LeaveStyle1/status/2087582604245782841", {
+    fetchImpl: async () => pageResponse({ body: oldTweet }),
+  });
+  assert.equal(tweet.error, "too_old");
 });
 
 test("verifies an X post through oEmbed", async () => {

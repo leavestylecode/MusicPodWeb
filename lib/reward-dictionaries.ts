@@ -28,6 +28,7 @@ export type RewardMessages = {
   retry: string;
   invalidLink: string;
   unsupportedPlatform: string;
+  tooOld: string;
   contentNotFound: string;
   contentMismatch: string;
   alreadyClaimed: string;
@@ -63,6 +64,7 @@ const en: RewardMessages = {
   invalidLink: "No share link was found. Paste the full share text or link from RedNote or X.",
   unsupportedPlatform:
     "Only RedNote and X posts are supported for this campaign. Please share on one of them.",
+  tooOld: "This campaign only counts posts published on or after September 15, 2026. Please share a new post.",
   contentNotFound:
     "The post could not be opened. Make sure it is public and was not deleted, then try again.",
   contentMismatch:
@@ -100,6 +102,7 @@ const zhCN: RewardMessages = {
   retry: "换一条分享再领",
   invalidLink: "没有识别到分享链接，请粘贴小红书或 X 的完整分享文案或链接。",
   unsupportedPlatform: "本活动仅支持小红书和 X 的分享，请在这两个平台发布后再来领取。",
+  tooOld: "本活动仅统计 2026 年 9 月 15 日及之后发布的分享，请发布新内容后再来验证。",
   contentNotFound: "打不开这篇分享，请确认内容为公开状态且未被删除后重试。",
   contentMismatch: "分享内容里没有 #MusicPod 标签，请发布时带上标签后再来验证。",
   alreadyClaimed: "这条分享已经领取过兑换码了。",
@@ -135,6 +138,7 @@ const zhTW: RewardMessages = {
   retry: "換一則分享再領",
   invalidLink: "沒有辨識到分享連結，請貼上小紅書或 X 的完整分享文案或連結。",
   unsupportedPlatform: "本活動僅支援小紅書和 X 的分享，請在這兩個平台發佈後再來領取。",
+  tooOld: "本活動僅統計 2026 年 9 月 15 日及之後發佈的分享，請發佈新內容後再來驗證。",
   contentNotFound: "無法開啟這則分享，請確認內容為公開狀態且未被刪除後重試。",
   contentMismatch: "分享內容沒有 #MusicPod 標籤，請發佈時加上標籤後再來驗證。",
   alreadyClaimed: "這則分享已經領取過兌換碼了。",
@@ -161,6 +165,7 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     verifying: "確認中…",
     contentNotFound: "投稿を開けませんでした。公開設定で削除されていないか確認してください。",
     contentMismatch: "投稿に #MusicPod ハッシュタグがありません。追加して再度お試しください。",
+    tooOld: "このキャンペーンは 2026年9月15日以降に投稿されたもののみ対象です。新しい投稿をお試しください。",
     alreadyClaimed: "この投稿はすでにコードと引き換え済みです。",
     rateLimited: "試行回数が多すぎます。数分後に再度お試しください。",
     verificationUnavailable: "プラットフォームに接続できず確認できませんでした。しばらくしてから再試行してください。",
@@ -184,6 +189,7 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     verifying: "확인 중…",
     contentNotFound: "게시물을 열 수 없습니다. 공개 상태이고 삭제되지 않았는지 확인하세요.",
     contentMismatch: "게시물에 #MusicPod 해시태그가 없습니다. 추가하고 다시 시도하세요.",
+    tooOld: "이 캠페인은 2026년 9월 15일 이후에 게시된 글만 대상입니다. 새 게시물을 올려 주세요.",
     alreadyClaimed: "이 게시물은 이미 코드로 교환되었습니다.",
     rateLimited: "시도 횟수가 너무 많습니다. 몇 분 후 다시 시도하세요.",
     verificationUnavailable: "플랫폼에 연결하여 확인하지 못했습니다. 잠시 후 다시 시도하세요.",
@@ -207,6 +213,7 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     verifying: "Comprobando…",
     contentNotFound: "No se pudo abrir la publicación. Comprueba que sea pública y no esté eliminada.",
     contentMismatch: "Falta el hashtag #MusicPod en la publicación. Añádelo e inténtalo de nuevo.",
+    tooOld: "Esta campaña solo admite publicaciones del 15 de septiembre de 2026 en adelante. Comparte una publicación nueva.",
     alreadyClaimed: "Esta publicación ya se canjeó por un código.",
     rateLimited: "Demasiados intentos. Prueba de nuevo en unos minutos.",
     verificationUnavailable: "No se pudo conectar con la plataforma para verificar tu publicación. Inténtalo de nuevo en un momento.",
@@ -230,6 +237,7 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     verifying: "Vérification…",
     contentNotFound: "La publication n’a pas pu être ouverte. Vérifiez qu’elle est publique et non supprimée.",
     contentMismatch: "Le hashtag #MusicPod manque dans la publication. Ajoutez-le puis réessayez.",
+    tooOld: "Cette campagne n’accepte que les publications du 15 septembre 2026 ou postérieures. Partagez une nouvelle publication.",
     alreadyClaimed: "Cette publication a déjà été échangée contre un code.",
     rateLimited: "Trop de tentatives. Réessayez dans quelques minutes.",
     verificationUnavailable: "Impossible de contacter la plateforme pour vérifier votre publication. Réessayez dans un instant.",
@@ -253,6 +261,7 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     verifying: "Wird geprüft…",
     contentNotFound: "Der Beitrag ließ sich nicht öffnen. Stelle sicher, dass er öffentlich und nicht gelöscht ist.",
     contentMismatch: "Im Beitrag fehlt der Hashtag #MusicPod. Ergänze ihn und versuche es erneut.",
+    tooOld: "Diese Aktion zählt nur Beiträge vom 15. September 2026 oder später. Bitte teile einen neuen Beitrag.",
     alreadyClaimed: "Für diesen Beitrag wurde bereits ein Code eingelöst.",
     rateLimited: "Zu viele Versuche. Bitte in einigen Minuten erneut versuchen.",
     verificationUnavailable: "Die Plattform konnte zur Prüfung nicht erreicht werden. Bitte gleich erneut versuchen.",
@@ -276,6 +285,7 @@ const translations: Partial<Record<Locale, Partial<RewardMessages>>> = {
     verifying: "Verificando…",
     contentNotFound: "Não foi possível abrir a publicação. Confirme que ela é pública e não foi excluída.",
     contentMismatch: "Falta a hashtag #MusicPod na publicação. Adicione-a e tente novamente.",
+    tooOld: "Esta campanha aceita apenas publicações a partir de 15 de setembro de 2026. Compartilhe uma publicação nova.",
     alreadyClaimed: "Essa publicação já foi trocada por um código.",
     rateLimited: "Muitas tentativas. Tente novamente em alguns minutos.",
     verificationUnavailable: "Não foi possível conectar à plataforma para verificar sua publicação. Tente novamente em instantes.",

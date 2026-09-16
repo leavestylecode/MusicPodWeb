@@ -14,6 +14,7 @@ type RewardErrorMessageKey = Extract<
   keyof RewardMessages,
   | "invalidLink"
   | "unsupportedPlatform"
+  | "tooOld"
   | "contentNotFound"
   | "contentMismatch"
   | "verificationUnavailable"
@@ -26,6 +27,7 @@ type RewardErrorMessageKey = Extract<
 const errorMessageKeys: Record<string, RewardErrorMessageKey> = {
   invalid_link: "invalidLink",
   unsupported_platform: "unsupportedPlatform",
+  too_old: "tooOld",
   content_not_found: "contentNotFound",
   content_mismatch: "contentMismatch",
   verification_unavailable: "verificationUnavailable",
