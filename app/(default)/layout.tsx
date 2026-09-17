@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { SITE_DESCRIPTION, SITE_METADATA_BASE, SITE_NAME } from "../../lib/site";
+import { SITE_DESCRIPTION, SITE_METADATA_BASE, SITE_NAME, SITE_TAGLINE } from "../../lib/site";
 import { ThemeScript } from "../ThemeScript";
 import "../globals.css";
 
@@ -16,7 +16,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: SITE_METADATA_BASE,
-  title: `${SITE_NAME} — Your music. Your iPod.`,
+  title: `${SITE_NAME} — ${SITE_TAGLINE}`,
   description: SITE_DESCRIPTION,
   robots: { index: false, follow: true },
 };

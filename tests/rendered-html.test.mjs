@@ -38,8 +38,8 @@ test("server-renders the international English product page", async () => {
 
   const html = await response.text();
   assert.match(html, /<html lang="en">/);
-  assert.match(html, /<title>MusicPod — Your music\. Your iPod\.<\/title>/);
-  assert.match(html, /Your music\./);
+  assert.match(html, /<title>MusicPod — iPod Music, Reborn on iPhone<\/title>/);
+  assert.match(html, /reborn on iPhone\./);
   assert.match(html, /The click wheel is back\./);
   assert.match(html, /Download MusicPod\./);
   assert.match(html, /Download on the/);
@@ -68,6 +68,8 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /An independent product by/);
   assert.match(html, /Leavestylecode/);
   assert.match(html, /href="\/en\/privacy"/);
+  assert.match(html, /href="\/en\/ipod-music"/);
+  assert.match(html, /iPod music on iPhone/);
   assert.match(html, /href="\/zh-cn"/);
   assert.match(html, /hreflang="fr"/i);
   assert.match(html, /name="robots" content="index, follow"/i);
@@ -84,6 +86,9 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /"@type":"Question","name":"Is MusicPod free\?"/);
   assert.match(html, /id="faq"/);
   assert.match(html, /Questions, answered\./);
+  assert.match(html, /What is MusicPod\?/);
+  assert.match(html, /Is there an iPod app for iPhone\?/);
+  assert.match(html, /iPod-style music player for iPhone/);
   assert.match(html, /Is MusicPod free\?/);
   assert.match(html, /Do I need an Apple Music subscription\?/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|\/_vinext\/image/i);
@@ -110,6 +115,33 @@ test("server-renders the localized share reward page", async () => {
   assert.match(html, /rel="canonical" href="https:\/\/www\.musicpod\.app\/zh-cn\/reward"/);
   assert.match(html, /name="robots" content="noindex, nofollow"/i);
   assert.match(html, /property="og:image" content="https:\/\/www\.musicpod\.app\/og\.png"/i);
+});
+
+test("server-renders the localized iPod music guide", async () => {
+  const enResponse = await render("/en/ipod-music");
+  assert.equal(enResponse.status, 200);
+
+  const html = await enResponse.text();
+  assert.match(html, /<html lang="en">/);
+  assert.match(html, /<title>iPod Music on iPhone: How to Get It Back — MusicPod<\/title>/);
+  assert.match(html, /iPod music, back on iPhone/);
+  assert.match(html, /rel="canonical" href="https:\/\/www\.musicpod\.app\/en\/ipod-music"/);
+  assert.match(html, /hreflang="fr"/i);
+  assert.match(html, /"@type":"WebPage"/);
+  assert.match(html, /"@type":"BreadcrumbList"/);
+  assert.match(html, /"@type":"FAQPage"/);
+  assert.match(html, /Can you get iPod music on an iPhone\?/);
+  assert.match(html, /id="meet-musicpod"/);
+  assert.match(html, /href="https:\/\/apps\.apple\.com\/us\/app\/[^"]+"/);
+  assert.match(html, /Back to MusicPod/);
+
+  const zhResponse = await render("/zh-cn/ipod-music");
+  assert.equal(zhResponse.status, 200);
+
+  const zhHtml = await zhResponse.text();
+  assert.match(zhHtml, /<title>在 iPhone 上听 iPod 音乐：找回经典体验 — MusicPod<\/title>/);
+  assert.match(zhHtml, /iPod 音乐，重回 iPhone/);
+  assert.match(zhHtml, /rel="canonical" href="https:\/\/www\.musicpod\.app\/zh-cn\/ipod-music"/);
 });
 
 test("renders a branded 404 page for unknown routes", async () => {
@@ -139,14 +171,14 @@ test("submits the pasted share text to the reward API", async () => {
 
 test("ships localized HTML and metadata for every supported market", async () => {
   const expectations = [
-    ["/zh-cn", "zh-CN", "你的音乐"],
-    ["/zh-tw", "zh-TW", "你的音樂"],
-    ["/ja", "ja", "あなたの音楽。"],
-    ["/ko", "ko", "내 음악."],
-    ["/es", "es", "Tu música."],
-    ["/fr", "fr", "Votre musique."],
-    ["/de", "de", "Deine Musik."],
-    ["/pt-br", "pt-BR", "Sua música."],
+    ["/zh-cn", "zh-CN", "iPod 音乐"],
+    ["/zh-tw", "zh-TW", "iPod 音樂"],
+    ["/ja", "ja", "iPodの音楽、"],
+    ["/ko", "ko", "iPod 음악,"],
+    ["/es", "es", "Música de iPod,"],
+    ["/fr", "fr", "La musique de l’iPod,"],
+    ["/de", "de", "iPod-Musik,"],
+    ["/pt-br", "pt-BR", "Música de iPod,"],
   ];
 
   await Promise.all(expectations.map(async ([pathname, htmlLang, phrase]) => {
@@ -230,13 +262,15 @@ test("publishes international discovery metadata", async () => {
   ]);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en\/privacy/);
+  assert.match(sitemap, /https:\/\/www\.musicpod\.app\/en\/ipod-music/);
+  assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br\/ipod-music/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/pt-br\/privacy/);
   assert.match(sitemap, /https:\/\/www\.musicpod\.app\/zh-cn\/privacy/);
   assert.doesNotMatch(sitemap, /reward/);
   assert.match(sitemap, /hreflang="ja"/);
   assert.match(sitemap, /hreflang="x-default"/);
-  assert.match(sitemap, /<lastmod>2026-08-06T00:00:00\.000Z<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-09-17T00:00:00\.000Z<\/lastmod>/);
   assert.match(robots, /Sitemap: https:\/\/www\.musicpod\.app\/sitemap\.xml/i);
   assert.match(robots, /Host: https:\/\/www\.musicpod\.app\//i);
   assert.match(manifestResponse.headers.get("content-type") ?? "", /^application\/manifest\+json\b/i);

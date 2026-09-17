@@ -61,7 +61,7 @@ export async function generateMetadata({
     creator: DEVELOPER_NAME,
     publisher: DEVELOPER_NAME,
     category: "music",
-    classification: "Music player for iPhone",
+    classification: "iPod-style music player for iPhone",
     referrer: "origin-when-cross-origin",
     formatDetection: { telephone: false, address: false, email: false },
     robots: {
@@ -76,7 +76,7 @@ export async function generateMetadata({
       },
     },
     manifest: "/manifest.webmanifest",
-    keywords: ["MusicPod", "iPod", "Apple Music", "iPhone", "Click Wheel", "MusicKit"],
+    keywords: ["MusicPod", "iPod music", "iPod music player", "iPod app for iPhone", "iPod-style music player", "Apple Music", "iPhone", "Click Wheel", "Cover Flow", "MusicKit"],
     alternates: {
       canonical: siteUrl(canonicalPath),
       languages: languageAlternates(),

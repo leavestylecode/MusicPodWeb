@@ -65,6 +65,7 @@ export default async function MusicPodPage({
         "@type": "SoftwareApplication",
         "@id": SOFTWARE_SCHEMA_ID,
         name: SITE_NAME,
+        alternateName: "iPod music player for iPhone",
         description: messages.meta.description,
         applicationCategory: "MultimediaApplication",
         operatingSystem: "iOS 17 or later",
@@ -346,6 +347,7 @@ export default async function MusicPodPage({
           <strong>MusicPod</strong>
         </div>
         <div className="footer-meta">
+          <Link className="footer-link" href={`${home}/ipod-music`}>{messages.footer.ipodMusic}</Link>
           <Link className="footer-link" href={`${home}/privacy`}>{messages.footer.privacy}</Link>
           <a
             className="footer-link"

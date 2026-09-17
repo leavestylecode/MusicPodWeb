@@ -8,10 +8,11 @@ import {
 export const SITE_ORIGIN = "https://www.musicpod.app";
 export const SITE_METADATA_BASE = new URL(SITE_ORIGIN);
 export const SITE_NAME = "MusicPod";
+export const SITE_TAGLINE = "iPod Music, Reborn on iPhone";
 export const SITE_DESCRIPTION =
-  "A tactile music player for iPhone, built around the click wheel and your Apple Music library.";
+  "The classic iPod music experience, rebuilt as a native iPhone app with a click wheel and your Apple Music library.";
 export const SITE_OG_IMAGE = "/og.png";
-export const SITE_CONTENT_UPDATED = "2026-08-06";
+export const SITE_CONTENT_UPDATED = "2026-09-17";
 export const DEVELOPER_NAME = "Leavestylecode";
 export const DEVELOPER_BRAND = "LeaveStyle";
 export const DEVELOPER_URL = "https://leavestyle.com/";
