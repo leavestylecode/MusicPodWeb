@@ -89,7 +89,7 @@ const zhCN: RewardMessages = {
   store: "前往 App Store 下载 MusicPod",
   pasteTitle: "粘贴分享文案或链接",
   pasteHint:
-    "在小红书或 X 发布 MusicPod 使用体验，正文带上 #MusicPod 标签，然后复制分享文案或链接粘贴到这里。",
+    "在小红书或 X 发布 MusicPod 使用体验，正文带上 #MusicPod 标签，然后复制分享文案或链接粘贴到这里。小红书笔记只需写使用体验并带上标签，请勿出现「App Store」「下载」等字样，否则可能无法通过平台审核。",
   placeholder: "例如：https://xhslink.com/… 或 https://x.com/…/status/…",
   verify: "验证并领取",
   verifying: "正在验证…",
@@ -103,7 +103,8 @@ const zhCN: RewardMessages = {
   invalidLink: "没有识别到分享链接，请粘贴小红书或 X 的完整分享文案或链接。",
   unsupportedPlatform: "本活动仅支持小红书和 X 的分享，请在这两个平台发布后再来领取。",
   tooOld: "本活动仅统计 2026 年 9 月 15 日及之后发布的分享，请发布新内容后再来验证。",
-  contentNotFound: "打不开这篇分享，请确认内容为公开状态且未被删除后重试。",
+  contentNotFound:
+    "打不开这篇分享，请确认内容为公开状态且未被删除；如果笔记刚发布不久，可能还在小红书审核中，请等审核通过后再来验证。",
   contentMismatch: "分享内容里没有 #MusicPod 标签，请发布时带上标签后再来验证。",
   alreadyClaimed: "这条分享已经领取过兑换码了。",
   rateLimited: "尝试次数过多，请几分钟后再试。",
@@ -125,7 +126,7 @@ const zhTW: RewardMessages = {
   store: "前往 App Store 下載 MusicPod",
   pasteTitle: "貼上分享文案或連結",
   pasteHint:
-    "在小紅書或 X 發佈 MusicPod 使用體驗，正文加上 #MusicPod 標籤，然後複製分享文案或連結貼到這裡。",
+    "在小紅書或 X 發佈 MusicPod 使用體驗，正文加上 #MusicPod 標籤，然後複製分享文案或連結貼到這裡。小紅書筆記只需寫使用體驗並加上標籤，請勿出現「App Store」「下載」等字樣，否則可能無法通過平台審核。",
   placeholder: "例如：https://xhslink.com/… 或 https://x.com/…/status/…",
   verify: "驗證並領取",
   verifying: "正在驗證…",
@@ -139,7 +140,8 @@ const zhTW: RewardMessages = {
   invalidLink: "沒有辨識到分享連結，請貼上小紅書或 X 的完整分享文案或連結。",
   unsupportedPlatform: "本活動僅支援小紅書和 X 的分享，請在這兩個平台發佈後再來領取。",
   tooOld: "本活動僅統計 2026 年 9 月 15 日及之後發佈的分享，請發佈新內容後再來驗證。",
-  contentNotFound: "無法開啟這則分享，請確認內容為公開狀態且未被刪除後重試。",
+  contentNotFound:
+    "無法開啟這則分享，請確認內容為公開狀態且未被刪除；如果筆記剛發佈不久，可能還在小紅書審核中，請等審核通過後再來驗證。",
   contentMismatch: "分享內容沒有 #MusicPod 標籤，請發佈時加上標籤後再來驗證。",
   alreadyClaimed: "這則分享已經領取過兌換碼了。",
   rateLimited: "嘗試次數過多，請幾分鐘後再試。",
