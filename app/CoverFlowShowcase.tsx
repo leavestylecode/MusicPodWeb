@@ -211,7 +211,7 @@ export function CoverFlowShowcase({
             >
               <span className="cover-flow-card">
                 <span className="cover-flow-front">
-                  <Image alt="" fill sizes="222px" src={album.image} unoptimized />
+                  <Image alt="" fetchPriority="low" fill loading="lazy" sizes="222px" src={album.image} unoptimized />
                   <span aria-hidden="true" className="cover-flow-sheen" />
                 </span>
                 <span className="cover-flow-back">
@@ -225,7 +225,7 @@ export function CoverFlowShowcase({
                 </span>
               </span>
               <span aria-hidden="true" className="cover-flow-reflection">
-                <Image alt="" fill sizes="222px" src={album.image} unoptimized />
+                <Image alt="" aria-hidden="true" fetchPriority="low" fill loading="lazy" sizes="222px" src={album.image} unoptimized />
               </span>
             </button>
           );
