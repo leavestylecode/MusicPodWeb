@@ -16,7 +16,7 @@ const songs = [
   {
     accent: "#ff493f",
     elapsed: "1:42",
-    image: "/product/albums/neon.webp",
+    image: "/product/studio/sunset-radio.webp",
     objectPosition: "center 58%",
     progress: 0.43,
     remaining: "−2:16",
@@ -36,7 +36,7 @@ const songs = [
   {
     accent: "#e58a52",
     elapsed: "2:06",
-    image: "/product/albums/desert.webp",
+    image: "/product/studio/blue-hour.webp",
     objectPosition: "center",
     progress: 0.61,
     remaining: "−1:19",
@@ -46,7 +46,7 @@ const songs = [
   {
     accent: "#ffc158",
     elapsed: "1:17",
-    image: "/product/albums/light.webp",
+    image: "/product/studio/summer-groove.webp",
     objectPosition: "center",
     progress: 0.35,
     remaining: "−2:25",

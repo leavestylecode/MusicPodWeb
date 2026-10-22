@@ -1,0 +1,49 @@
+{
+  "sourceProject": "MusicPod",
+  "style": "jewel",
+  "usage": "Default bundled Home icons, exported with original transparency.",
+  "assets": [
+    {
+      "file": "favorites.webp",
+      "source": "MusicPod/Assets.xcassets/HomeIcons/home_jewel_favorites.imageset/home_jewel_favorites.png",
+      "sourceSHA256": "a2029791023ad8243772bbbdd838f5a876a439a53bb78b0519b678085f2ccb3e",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "playlists.webp",
+      "source": "MusicPod/Assets.xcassets/HomeIcons/home_jewel_playlists.imageset/home_jewel_playlists.png",
+      "sourceSHA256": "91f5cacc7e6fcbb103c3a42d0597efb681de8d2dd166d22ce22378f5b7df9152",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "albums.webp",
+      "source": "MusicPod/Assets.xcassets/HomeIcons/home_jewel_albums.imageset/home_jewel_albums.png",
+      "sourceSHA256": "51c0294560005714390487026a5b195fbc37e6cfcaa13806a7814ad7ff9021fe",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "shuffle.webp",
+      "source": "MusicPod/Assets.xcassets/HomeIcons/home_jewel_shuffle.imageset/home_jewel_shuffle.png",
+      "sourceSHA256": "815dc29821fa1583a204497788d879f9f5ae61277c0d9171dcfa2676c4b80cc9",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "theme.webp",
+      "source": "MusicPod/Assets.xcassets/HomeIcons/home_jewel_theme.imageset/home_jewel_theme.png",
+      "sourceSHA256": "2c4782c5a74b6dab372272b6c1501eaacf1fa0598b310f49ca3d63e2d6d57591",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "file": "now-playing.webp",
+      "source": "MusicPod/Assets.xcassets/HomeIcons/home_jewel_nowPlaying.imageset/home_jewel_nowPlaying.png",
+      "sourceSHA256": "a7e59469beedcd94963d9603ab6ef44cd2ee5462ee34078189bedac7f156fd17",
+      "width": 256,
+      "height": 256
+    }
+  ]
+}

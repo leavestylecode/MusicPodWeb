@@ -1,0 +1,64 @@
+{
+  "sourceProject": "MusicPod",
+  "sourceDirectory": "AppStoreAssets/Screenshots/Studies/AppleProduct",
+  "revision": "minimal-product-balanced-studio-20261021",
+  "usage": "Website campaign imagery and illustrative product previews; includes generative edits, not verified build captures.",
+  "assets": [
+    {
+      "file": "hero.webp",
+      "source": "Sources/StudioProportions20261021/header-photograph.png",
+      "sourceSHA256": "975234ce781352311e8bb5c55b7bc456e1f7d7a92dee2ed7ab03cfe3227d7061",
+      "width": 1916,
+      "height": 821
+    },
+    {
+      "file": "hands.webp",
+      "source": "Sources/StudioProportions20261021/search-photograph.png",
+      "sourceSHA256": "f21b68e516a1537f79573c3d198cc191b66e582f4385475624e7b775748dda29",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "file": "vinyl-player.webp",
+      "source": "Sources/CityPopRefined20261021/vinyl-player.png",
+      "sourceSHA256": "6f4e15d44ba0a5a98d17abe75b700b0899e792f187da6859c32ee68925e87f05",
+      "width": 700,
+      "height": 933
+    },
+    {
+      "file": "photo-background.webp",
+      "source": "Sources/photo-background.png",
+      "sourceSHA256": "203913fe197f81fecfb5076cfa33685a18e7f56148c6bd41c18b1b2fab8c31c0",
+      "width": 600,
+      "height": 1241
+    },
+    {
+      "file": "sunset-radio.webp",
+      "source": "Sources/CityPopRefined20261021/Covers/sunset-radio.png",
+      "sourceSHA256": "a852e7de7d3a4b533b675f21c4ea44dec35441d4f9f716a1eb422c8b23414760",
+      "width": 700,
+      "height": 700
+    },
+    {
+      "file": "blue-hour.webp",
+      "source": "Sources/CityPopRefined20261021/Covers/blue-hour.png",
+      "sourceSHA256": "3a44ab768b7fe83b257ad230ff96c4abce7ff054ddaeb0e3bcb692e24582ff8e",
+      "width": 700,
+      "height": 700
+    },
+    {
+      "file": "summer-groove.webp",
+      "source": "Sources/CityPopRefined20261021/Covers/summer-groove.png",
+      "sourceSHA256": "c7a90c2938321650bbcb07e0df20a219056210f8d2b3fb06699bca399dae6a6c",
+      "width": 700,
+      "height": 700
+    },
+    {
+      "file": "hero-1280.webp",
+      "source": "Sources/StudioProportions20261021/header-photograph.png",
+      "sourceSHA256": "975234ce781352311e8bb5c55b7bc456e1f7d7a92dee2ed7ab03cfe3227d7061",
+      "width": 1280,
+      "height": 548
+    }
+  ]
+}
