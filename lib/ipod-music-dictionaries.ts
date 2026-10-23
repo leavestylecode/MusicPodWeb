@@ -1,870 +1,169 @@
 import type { Locale } from "./locales";
 
+export const IPOD_MUSIC_SECTION_IDS = ["get-started", "import-local-music", "apple-music", "click-wheel", "cover-flow"] as const;
+
+type GuideSection = {
+  id: (typeof IPOD_MUSIC_SECTION_IDS)[number];
+  title: string;
+  paragraphs: string[];
+  steps?: string[];
+  items?: string[];
+};
+
 export type IpodMusicMessages = {
   meta: { title: string; description: string; social: string };
   pageLabel: string;
-  back: string;
-  toc: string;
-  hero: { eyebrow: string; title: string; intro: string };
-  pillars: [{ title: string; body: string }, { title: string; body: string }, { title: string; body: string }];
-  sections: ReadonlyArray<{ id: string; title: string; paragraphs: string[]; items?: string[] }>;
-  faq: { kicker: string; title: string; items: ReadonlyArray<{ question: string; answer: string }> };
-  cta: { kicker: string; title: string; body: string; badgeKicker: string; badge: string; requirement: string };
+  screenshot: { alt: string };
+  sections: ReadonlyArray<GuideSection>;
 };
 
-/**
- * Section ids are locale-independent so the table of contents anchors and the
- * JSON-LD stay stable across translations.
- */
-export const IPOD_MUSIC_SECTION_IDS = ["made-special", "where-it-went", "meet-musicpod", "experience", "get-started"] as const;
-
-const en: IpodMusicMessages = {
-  meta: {
-    title: "iPod Music on iPhone: How to Get It Back — MusicPod",
-    description: "Bring iPod music back to your iPhone. MusicPod recreates the classic iPod — click wheel, Cover Flow, full-screen now playing — and plays your Apple Music library. Free on the App Store.",
-    social: "The iPod is gone. The feeling isn't. Get iPod music back on iPhone with MusicPod.",
-  },
-  pageLabel: "iPod music",
-  back: "Back to MusicPod",
-  toc: "On this page",
-  hero: {
-    eyebrow: "The guide",
-    title: "iPod music, back on iPhone",
-    intro: "The classic iPod made listening physical — turn, click, flip through Cover Flow. This guide brings that exact experience back to the iPhone you already own.",
-  },
-  pillars: [
-    { title: "Turn", body: "A click wheel that scrolls, clicks, and answers with haptics — just like the original." },
-    { title: "Flip", body: "Cover Flow returns: glide through albums, flip one over for the track list." },
-    { title: "Listen", body: "Your Apple Music library, served in the simple menus the iPod made famous." },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "What made iPod music special",
-      paragraphs: [
-        "The iPod was not the first digital music player, but it was the first that felt right. You did not tap through flat menus — you turned a wheel, felt it click, and flipped through albums in Cover Flow.",
-        "Every detail served the music: a screen with one job, controls you could use without looking, and a library that unfolded under your thumb. What people miss is not the hardware. It is the ritual.",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "Where iPod music went",
-      paragraphs: [
-        "Apple discontinued the iPod classic in 2014 and retired the last iPod in 2022. The Music app on iPhone is more capable in every measurable way: tens of millions of songs, instant streaming, powerful library tools.",
-        "But capability is not the same as joy. Somewhere between autoplay and algorithmic radio, the simple pleasure of turning a wheel and clicking into an album quietly disappeared.",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "Meet MusicPod: an iPod music player for iPhone",
-      paragraphs: [
-        "MusicPod is a free iPhone app that brings iPod music back. It recreates the classic interface — click wheel, Cover Flow, simple menus — and streams your Apple Music library through Apple’s MusicKit.",
-        "MusicPod is built by an independent developer and is not affiliated with Apple. There is no account and no tracking; playback data stays on your device.",
-      ],
-      items: [
-        "Click wheel with native haptics",
-        "Cover Flow for flipping through albums",
-        "Full-screen now playing",
-        "12 classic body and wheel colors",
-        "Plays audio files imported into the app",
-      ],
-    },
-    {
-      id: "experience",
-      title: "The experience, recreated",
-      paragraphs: [
-        "The click wheel behaves like the original: slide to scroll, press to select, with haptic feedback at every step. Cover Flow returns with its album-flipping gesture, and now playing gives every song the entire screen.",
-        "You can even dress it like the iPod you remember — classic silver, black, or white, the red special edition, or the nano rainbow.",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "How to start listening",
-      paragraphs: [
-        "Download MusicPod free from the App Store and sign in with Apple Music. Your favorites, playlists, and albums appear in the familiar menus, one turn of the wheel away.",
-      ],
-      items: [
-        "Any iPhone with iOS 17 or later",
-        "An Apple Music subscription for streaming",
-        "Imported audio files play without a subscription",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "FAQ",
-    title: "iPod music on iPhone, answered.",
-    items: [
-      { question: "Can you get iPod music on an iPhone?", answer: "Yes. MusicPod is an iPod-style music player for iPhone that recreates the classic iPod experience — click wheel, Cover Flow, full-screen now playing — while streaming from your Apple Music library." },
-      { question: "Is there an iPod app for iPhone?", answer: "Yes — MusicPod. It is a free app that looks, sounds, and clicks like a classic iPod and plays your Apple Music library through MusicKit." },
-      { question: "Does MusicPod need Apple Music?", answer: "Streaming your library requires an active Apple Music subscription. Audio files you import into the app play without one." },
-      { question: "Is MusicPod made by Apple?", answer: "No. MusicPod is an independent app by LeaveStyle and is not affiliated with Apple Inc. iPod, iPhone, and Apple Music are trademarks of Apple Inc." },
-      { question: "Is MusicPod free?", answer: "Yes. MusicPod is free to download on the App Store." },
-    ],
-  },
-  cta: {
-    kicker: "Get MusicPod",
-    title: "iPod music, back on your iPhone.",
-    body: "Free on the App Store — your library is waiting.",
-    badgeKicker: "Download on the",
-    badge: "App Store",
-    requirement: "Compatible with iOS 17 or later · Apple Music subscription required for streaming",
-  },
-};
-
-const zhCN: IpodMusicMessages = {
-  meta: {
-    title: "在 iPhone 上听 iPod 音乐：找回经典体验 — MusicPod",
-    description: "在 iPhone 上找回 iPod 音乐体验。MusicPod 还原经典 iPod——点按式转盘、Cover Flow、全屏正在播放——并播放你的 Apple Music 资料库，App Store 免费下载。",
-    social: "iPod 已成历史，那种感觉还在。用 MusicPod 在 iPhone 上找回 iPod 音乐。",
-  },
-  pageLabel: "iPod 音乐",
-  back: "返回 MusicPod",
-  toc: "本页目录",
-  hero: {
-    eyebrow: "专题指南",
-    title: "iPod 音乐，重回 iPhone",
-    intro: "经典 iPod 让听歌成为一种触感仪式——转动、点按、翻阅封面。这篇指南带你把那种体验，原样带回你的 iPhone。",
-  },
-  pillars: [
-    { title: "转动", body: "点按式转盘会滑动、会点按、每一步都有触感反馈——和原版一样。" },
-    { title: "翻阅", body: "Cover Flow 回来了：滑动浏览专辑，翻面查看曲目。" },
-    { title: "聆听", body: "你的 Apple Music 资料库，装在 iPod 成名的简洁菜单里。" },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "iPod 音乐为何特别",
-      paragraphs: [
-        "iPod 不是最早的数字音乐播放器，却是第一台“感觉对”的。你不用在扁平菜单里戳来戳去——你转动转盘，感受它的点按，在 Cover Flow 里翻阅专辑。",
-        "每个细节都为音乐服务：一块只做一件事的屏幕、不用看也能操作的按键、在拇指下展开的资料库。人们怀念的不是那台机器，而是那套仪式。",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "iPod 音乐去哪儿了",
-      paragraphs: [
-        "Apple 在 2014 年停产了 iPod classic，2022 年送别了最后一台 iPod。iPhone 上的音乐 App 在所有可量化的维度上都更强：数千万首歌曲、即时串流、强大的资料库工具。",
-        "但强大不等于快乐。在自动播放与算法电台之间，转动转盘、点进一张专辑的简单快乐，悄悄消失了。",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "认识 MusicPod：iPhone 上的 iPod 音乐播放器",
-      paragraphs: [
-        "MusicPod 是一款免费的 iPhone 应用，把 iPod 音乐带了回来。它还原经典界面——点按式转盘、Cover Flow、简洁菜单——并通过 Apple 的 MusicKit 串流你的 Apple Music 资料库。",
-        "MusicPod 由独立开发者打造，与 Apple 无关联。没有账号、没有追踪，播放数据只留在你的设备上。",
-      ],
-      items: [
-        "带原生触感反馈的点按式转盘",
-        "翻阅专辑的 Cover Flow",
-        "全屏正在播放",
-        "12 种经典机身与转盘配色",
-        "也支持播放导入的音频文件",
-      ],
-    },
-    {
-      id: "experience",
-      title: "还原的体验",
-      paragraphs: [
-        "转盘的手感和原版一致：滑动浏览，按下选择，每一步都有触感反馈。Cover Flow 带着翻专辑的手势回归，正在播放把整块屏幕留给每一首歌。",
-        "你甚至可以把它打扮成你记忆中的那台——经典银、黑、白，红色特别版，或 nano 的彩虹配色。",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "如何开始聆听",
-      paragraphs: [
-        "在 App Store 免费下载 MusicPod，登录 Apple Music，你的喜爱歌曲、播放列表和专辑就会出现在熟悉的菜单里，一转即达。",
-      ],
-      items: [
-        "任何运行 iOS 17 或更高系统的 iPhone",
-        "串流播放需要有效的 Apple Music 订阅",
-        "导入的音频文件无需订阅即可播放",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "常见问题",
-    title: "关于 iPhone 上的 iPod 音乐",
-    items: [
-      { question: "iPhone 上能听 iPod 音乐吗？", answer: "可以。MusicPod 是一款 iPod 风格的 iPhone 音乐播放器，还原经典 iPod 体验——点按式转盘、Cover Flow、全屏正在播放——同时串流你的 Apple Music 资料库。" },
-      { question: "iPhone 上有 iPod 应用吗？", answer: "有，就是 MusicPod。它是一款免费应用，外观、声音和点按手感都像一台经典 iPod，并通过 MusicKit 播放你的 Apple Music 资料库。" },
-      { question: "MusicPod 需要 Apple Music 吗？", answer: "串流播放资料库需要有效的 Apple Music 订阅；导入到应用内的音频文件无需订阅即可播放。" },
-      { question: "MusicPod 是 Apple 出品的吗？", answer: "不是。MusicPod 是 LeaveStyle 独立开发的应用，与 Apple Inc. 无关联。iPod、iPhone 和 Apple Music 是 Apple Inc. 的商标。" },
-      { question: "MusicPod 是免费的吗？", answer: "是。MusicPod 在 App Store 免费下载。" },
-    ],
-  },
-  cta: {
-    kicker: "下载 MusicPod",
-    title: "iPod 音乐，重回你的 iPhone。",
-    body: "App Store 免费下载——你的资料库在等你。",
-    badgeKicker: "下载自",
-    badge: "App Store",
-    requirement: "兼容 iOS 17 及更高版本 · 串流播放需要 Apple Music 订阅",
-  },
-};
-
-const zhTW: IpodMusicMessages = {
-  meta: {
-    title: "在 iPhone 上聽 iPod 音樂：找回經典體驗 — MusicPod",
-    description: "在 iPhone 上找回 iPod 音樂體驗。MusicPod 重現經典 iPod——點按式轉盤、Cover Flow、全螢幕播放畫面——並播放你的 Apple Music 資料庫，App Store 免費下載。",
-    social: "iPod 已成歷史，那種感覺還在。用 MusicPod 在 iPhone 上找回 iPod 音樂。",
-  },
-  pageLabel: "iPod 音樂",
-  back: "返回 MusicPod",
-  toc: "本頁目錄",
-  hero: {
-    eyebrow: "專題指南",
-    title: "iPod 音樂，重回 iPhone",
-    intro: "經典 iPod 讓聽歌成為一種觸感儀式——轉動、點按、翻閱封面。這篇指南帶你把那種體驗，原樣帶回你的 iPhone。",
-  },
-  pillars: [
-    { title: "轉動", body: "點按式轉盤會滑動、會點按、每一步都有觸感回饋——和原版一樣。" },
-    { title: "翻閱", body: "Cover Flow 回來了：滑動瀏覽專輯，翻面查看曲目。" },
-    { title: "聆聽", body: "你的 Apple Music 資料庫，裝在 iPod 成名的簡潔選單裡。" },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "iPod 音樂為何特別",
-      paragraphs: [
-        "iPod 不是最早的數位音樂播放器，卻是第一台「感覺對」的。你不用在扁平選單裡戳來戳去——你轉動轉盤，感受它的點按，在 Cover Flow 裡翻閱專輯。",
-        "每個細節都為音樂服務：一塊只做一件事的螢幕、不用看也能操作的按鍵、在拇指下展開的資料庫。人們懷念的不是那台機器，而是那套儀式。",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "iPod 音樂去哪兒了",
-      paragraphs: [
-        "Apple 在 2014 年停產 iPod classic，2022 年送別了最後一台 iPod。iPhone 上的音樂 App 在所有可量化的維度上都更強：數千萬首歌曲、即時串流、強大的資料庫工具。",
-        "但強大不等於快樂。在自動播放與演算法電台之間，轉動轉盤、點進一張專輯的簡單快樂，悄悄消失了。",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "認識 MusicPod：iPhone 上的 iPod 音樂播放器",
-      paragraphs: [
-        "MusicPod 是一款免費的 iPhone App，把 iPod 音樂帶了回來。它重現經典介面——點按式轉盤、Cover Flow、簡潔選單——並透過 Apple 的 MusicKit 串流你的 Apple Music 資料庫。",
-        "MusicPod 由獨立開發者打造，與 Apple 無關聯。沒有帳號、沒有追蹤，播放資料只留在你的裝置上。",
-      ],
-      items: [
-        "帶原生觸感回饋的點按式轉盤",
-        "翻閱專輯的 Cover Flow",
-        "全螢幕播放畫面",
-        "12 種經典機身與轉盤配色",
-        "也支援播放匯入的音訊檔案",
-      ],
-    },
-    {
-      id: "experience",
-      title: "重現的體驗",
-      paragraphs: [
-        "轉盤的手感和原版一致：滑動瀏覽，按下選擇，每一步都有觸感回饋。Cover Flow 帶著翻專輯的手勢回歸，播放畫面把整塊螢幕留給每一首歌。",
-        "你甚至可以把它打扮成你記憶中的那台——經典銀、黑、白，紅色特別版，或 nano 的彩虹配色。",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "如何開始聆聽",
-      paragraphs: [
-        "在 App Store 免費下載 MusicPod，登入 Apple Music，你的喜愛歌曲、播放列表和專輯就會出現在熟悉的選單裡，一轉即達。",
-      ],
-      items: [
-        "任何安裝 iOS 17 或以上版本的 iPhone",
-        "串流播放需要有效的 Apple Music 訂閱",
-        "匯入的音訊檔案無需訂閱即可播放",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "常見問題",
-    title: "關於 iPhone 上的 iPod 音樂",
-    items: [
-      { question: "iPhone 上能聽 iPod 音樂嗎？", answer: "可以。MusicPod 是一款 iPod 風格的 iPhone 音樂播放器，重現經典 iPod 體驗——點按式轉盤、Cover Flow、全螢幕播放畫面——同時串流你的 Apple Music 資料庫。" },
-      { question: "iPhone 上有 iPod App 嗎？", answer: "有，就是 MusicPod。它是一款免費 App，外觀、聲音和點按手感都像一台經典 iPod，並透過 MusicKit 播放你的 Apple Music 資料庫。" },
-      { question: "MusicPod 需要 Apple Music 嗎？", answer: "串流播放資料庫需要有效的 Apple Music 訂閱；匯入到 App 內的音訊檔案無需訂閱即可播放。" },
-      { question: "MusicPod 是 Apple 出品的嗎？", answer: "不是。MusicPod 是 LeaveStyle 獨立開發的 App，與 Apple Inc. 無關聯。iPod、iPhone 和 Apple Music 是 Apple Inc. 的商標。" },
-      { question: "MusicPod 是免費的嗎？", answer: "是。MusicPod 在 App Store 免費下載。" },
-    ],
-  },
-  cta: {
-    kicker: "下載 MusicPod",
-    title: "iPod 音樂，重回你的 iPhone。",
-    body: "App Store 免費下載——你的資料庫在等你。",
-    badgeKicker: "下載自",
-    badge: "App Store",
-    requirement: "相容於 iOS 17 或以上版本 · 串流播放需要 Apple Music 訂閱",
-  },
-};
-
-const ja: IpodMusicMessages = {
-  meta: {
-    title: "iPhoneでiPodの音楽を聴く：取り戻す方法 — MusicPod",
-    description: "iPhoneにiPodの音楽体験を取り戻す。MusicPodはクリックホイール、Cover Flow、全画面再生であのiPodを再現し、Apple Musicライブラリを再生します。App Storeで無料。",
-    social: "iPodは終わっても、あの感覚は残っている。MusicPodで、iPhoneにiPodの音楽を。",
-  },
-  pageLabel: "iPodの音楽",
-  back: "MusicPodに戻る",
-  toc: "このページの内容",
-  hero: {
-    eyebrow: "ガイド",
-    title: "iPodの音楽、iPhoneに帰ってくる",
-    intro: "クラシックなiPodは、聴くことを身体の儀式にしました。回して、押して、カバーをめくる。このガイドで、その体験をそのままiPhoneに取り戻せます。",
-  },
-  pillars: [
-    { title: "回す", body: "クリックホイールは滑らかに回り、押して選べる。一歩ごとに触覚が応えます。" },
-    { title: "めくる", body: "Cover Flowが帰ってきた。アルバムをめくり、裏返せば曲目一覧。" },
-    { title: "聴く", body: "Apple Musicライブラリが、あのiPodのシンプルなメニューに。" },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "iPodの音楽が特別だった理由",
-      paragraphs: [
-        "iPodは最初のデジタルミュージックプレーヤーではありませんが、初めて「気持ちいい」と思わせた一台でした。平坦なメニューをタップするのではなく、ホイールを回し、その手応えを感じ、Cover Flowでアルバムをめくりました。",
-        "すべてのディテールが音楽に奉仕していました。一つの仕事だけをする画面、見なくても操作できるボタン、親指の下に広がるライブラリ。人が恋しがるのはハードウェアではなく、あの儀式です。",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "iPodの音楽はどこへ行ったのか",
-      paragraphs: [
-        "Appleは2014年にiPod classicの生産を終え、2022年に最後のiPodを送り出しました。iPhoneのミュージックAppは、あらゆる面で強力です。数千万曲、即時ストリーミング、高度なライブラリ機能。",
-        "しかし、強力であることと、楽しいことは別です。オートプレイとアルゴリズムのラジオの間で、ホイールを回してアルバムに入っていく、あのシンプルな喜びは静かに消えていました。",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "MusicPod：iPhoneのためのiPodミュージックプレーヤー",
-      paragraphs: [
-        "MusicPodは、iPodの音楽を取り戻す無料のiPhoneアプリです。クリックホイール、Cover Flow、シンプルなメニューという古典的なインターフェースを再現し、AppleのMusicKit経由でApple Musicライブラリを再生します。",
-        "MusicPodは独立開発者によるアプリで、Appleとは提携関係にありません。アカウントもトラッキングもなく、再生データは端末内に残ります。",
-      ],
-      items: [
-        "ネイティブな触覚に応えるクリックホイール",
-        "アルバムをめくるCover Flow",
-        "全画面の再生画面",
-        "12色のクラシックな本体とホイール",
-        "取り込んだオーディオファイルも再生",
-      ],
-    },
-    {
-      id: "experience",
-      title: "再現された体験",
-      paragraphs: [
-        "ホイールの操作感は本物と同じ。回してスクロール、押して選択、一歩ごとに触覚フィードバック。Cover Flowはアルバムをめくるジェスチャーとともに帰り、再生画面は一曲に画面いっぱいを捧げます。",
-        "思い出の一台に着せることもできます。クラシックなシルバー、ブラック、ホワイト、レッドスペシャルエディション、nanoのレインボーまで。",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "聴きはじめるには",
-      paragraphs: [
-        "App StoreからMusicPodを無料でダウンロードし、Apple Musicにサインインするだけ。お気に入り、プレイリスト、アルバムが、使い慣れたメニューに現れます。",
-      ],
-      items: [
-        "iOS 17以降が動作するすべてのiPhone",
-        "ストリーミングには有効なApple Musicのサブスクリプション",
-        "取り込んだオーディオファイルはサブスクなしで再生可能",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "よくある質問",
-    title: "iPhoneのiPodの音楽について",
-    items: [
-      { question: "iPhoneでiPodの音楽は聴けますか？", answer: "聴けます。MusicPodはiPodスタイルのiPhone用ミュージックプレーヤーで、クリックホイール、Cover Flow、全画面再生という古典的なiPodの体験を再現しながら、Apple Musicライブラリをストリーミングします。" },
-      { question: "iPhone用のiPodアプリはありますか？", answer: "あります。MusicPodです。クラシックなiPodのような見た目、サウンド、クリックの手応えで、MusicKitを通してApple Musicライブラリを再生する無料アプリです。" },
-      { question: "MusicPodにApple Musicは必要ですか？", answer: "ライブラリのストリーミングには有効なApple Musicのサブスクリプションが必要です。アプリに取り込んだオーディオファイルは、サブスクなしで再生できます。" },
-      { question: "MusicPodはAppleの製品ですか？", answer: "いいえ。MusicPodはLeaveStyleによる独立開発のアプリで、Appleとは提携関係にありません。iPod、iPhone、Apple MusicはApple Inc.の商標です。" },
-      { question: "MusicPodは無料ですか？", answer: "はい。MusicPodはApp Storeから無料でダウンロードできます。" },
-    ],
-  },
-  cta: {
-    kicker: "MusicPodを入手",
-    title: "iPodの音楽を、あなたのiPhoneに。",
-    body: "App Storeで無料。あなたのライブラリが待っています。",
-    badgeKicker: "App Storeからダウンロード",
-    badge: "App Store",
-    requirement: "iOS 17以降に対応 · ストリーミングにはApple Musicのサブスクリプションが必要",
-  },
-};
-
-const ko: IpodMusicMessages = {
-  meta: {
-    title: "iPhone에서 iPod 음악 듣기: 되찾는 방법 — MusicPod",
-    description: "iPhone에 iPod 음악 경험을 되살리세요. MusicPod는 클릭 휠, Cover Flow, 전체 화면 재생으로 그리운 iPod를 재현하고 Apple Music 보관함을 재생합니다. App Store 무료.",
-    social: "iPod는 끝났어도 그 감각은 남아 있습니다. MusicPod로 iPhone에 iPod 음악을.",
-  },
-  pageLabel: "iPod 음악",
-  back: "MusicPod로 돌아가기",
-  toc: "이 페이지의 내용",
-  hero: {
-    eyebrow: "가이드",
-    title: "iPod 음악, iPhone으로 돌아오다",
-    intro: "클래식 iPod는 음악을 손끝의 의식으로 만들었습니다. 돌리고, 누르고, 표지를 넘기는. 이 가이드로 그 경험을 그대로 iPhone에 되찾을 수 있습니다.",
-  },
-  pillars: [
-    { title: "돌리기", body: "클릭 휠은 미끄러지게 돌고, 눌러서 선택합니다. 한 걸음마다 햅틱이 응답합니다." },
-    { title: "넘기기", body: "Cover Flow가 돌아왔습니다. 앨범을 넘기고 뒤집으면 트랙 목록이." },
-    { title: "듣기", body: "Apple Music 보관함이 iPod가 유명하게 만든 간결한 메뉴 안에." },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "iPod 음악이 특별했던 이유",
-      paragraphs: [
-        "iPod는 최초의 디지털 음악 플레이어는 아니었지만, 처음으로 '감각이 좋은' 플레이어였습니다. 납작한 메뉴를 두드리는 대신, 휠을 돌리고 그 반응을 느끼며 Cover Flow에서 앨범을 넘겼습니다.",
-        "모든 디테일이 음악을 위해 존재했습니다. 한 가지 일만 하는 화면, 보지 않고도 조작되는 컨트롤, 엄지손가락 아래 펼쳐지는 보관함. 그리운 것은 기기가 아니라 그 의식입니다.",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "iPod 음악은 어디로 갔나",
-      paragraphs: [
-        "Apple은 2014년 iPod classic 생산을 중단했고, 2022년 마지막 iPod을 보냈습니다. iPhone의 Music 앱은 모든 면에서 더 강력합니다. 수천만 곡, 즉시 스트리밍, 강력한 보관함 도구.",
-        "하지만 강력함은 즐거움이 아닙니다. 자동 재생과 알고리즘 라디오 사이 어딘가에서, 휠을 돌려 앨범으로 들어가는 단순한 기쁨은 조용히 사라졌습니다.",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "MusicPod: iPhone을 위한 iPod 음악 플레이어",
-      paragraphs: [
-        "MusicPod는 iPod 음악을 되살리는 무료 iPhone 앱입니다. 클릭 휠, Cover Flow, 간결한 메뉴라는 클래식 인터페이스를 재현하고, Apple의 MusicKit으로 Apple Music 보관함을 스트리밍합니다.",
-        "MusicPod는 독립 개발자가 만든 앱이며 Apple과 제휴 관계가 없습니다. 계정도 추적도 없고, 재생 데이터는 기기에만 남습니다.",
-      ],
-      items: [
-        "네이티브 햅틱이 응답하는 클릭 휠",
-        "앨범을 넘기는 Cover Flow",
-        "전체 화면 재생 화면",
-        "12가지 클래식 본체 및 휠 색상",
-        "가져온 오디오 파일도 재생",
-      ],
-    },
-    {
-      id: "experience",
-      title: "재현된 경험",
-      paragraphs: [
-        "휠의 조작감은 원본 그대로입니다. 돌려서 스크롤, 눌러서 선택, 한 걸음마다 햅틱 피드백. Cover Flow는 앨범 넘기기 제스처와 함께 돌아왔고, 재생 화면은 한 곡에 화면 전체를 바칩니다.",
-        "기억 속 그 iPod로 꾸밀 수도 있습니다. 클래식 실버, 블랙, 화이트, 레드 스페셜 에디션, nano의 무지개까지.",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "어떻게 시작하나요",
-      paragraphs: [
-        "App Store에서 MusicPod를 무료로 받고 Apple Music에 로그인하면, 좋아하는 노래와 플레이리스트, 앨범이 익숙한 메뉴에 나타납니다.",
-      ],
-      items: [
-        "iOS 17 이상이 설치된 모든 iPhone",
-        "스트리밍에는 유효한 Apple Music 구독",
-        "가져온 오디오 파일은 구독 없이 재생 가능",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "자주 묻는 질문",
-    title: "iPhone의 iPod 음악에 대하여",
-    items: [
-      { question: "iPhone에서 iPod 음악을 들을 수 있나요?", answer: "네. MusicPod는 iPod 스타일의 iPhone 음악 플레이어로, 클릭 휠, Cover Flow, 전체 화면 재생이라는 클래식 iPod 경험을 재현하면서 Apple Music 보관함을 스트리밍합니다." },
-      { question: "iPhone용 iPod 앱이 있나요?", answer: "있습니다. MusicPod입니다. 클래식 iPod 같은 모습과 클릭 감각으로, MusicKit을 통해 Apple Music 보관함을 재생하는 무료 앱입니다." },
-      { question: "MusicPod에 Apple Music이 필요한가요?", answer: "보관함 스트리밍에는 유효한 Apple Music 구독이 필요합니다. 앱으로 가져온 오디오 파일은 구독 없이 재생할 수 있습니다." },
-      { question: "MusicPod는 Apple 제품인가요?", answer: "아니요. MusicPod는 LeaveStyle이 독립적으로 개발한 앱이며 Apple과 제휴 관계가 없습니다. iPod, iPhone, Apple Music은 Apple Inc.의 상표입니다." },
-      { question: "MusicPod는 무료인가요?", answer: "네. MusicPod는 App Store에서 무료로 다운로드할 수 있습니다." },
-    ],
-  },
-  cta: {
-    kicker: "MusicPod 받기",
-    title: "iPod 음악을 당신의 iPhone으로.",
-    body: "App Store에서 무료. 보관함이 기다리고 있습니다.",
-    badgeKicker: "App Store에서 다운로드",
-    badge: "App Store",
-    requirement: "iOS 17 이상 지원 · 스트리밍에는 Apple Music 구독 필요",
-  },
-};
-
-const es: IpodMusicMessages = {
-  meta: {
-    title: "Música de iPod en iPhone: cómo recuperarla — MusicPod",
-    description: "Recupera la música de iPod en tu iPhone. MusicPod recrea el iPod clásico —rueda de clic, Cover Flow, reproducción a pantalla completa— y reproduce tu biblioteca de Apple Music. Gratis en App Store.",
-    social: "El iPod se fue, la sensación no. Recupera la música de iPod en iPhone con MusicPod.",
-  },
-  pageLabel: "Música de iPod",
-  back: "Volver a MusicPod",
-  toc: "En esta página",
-  hero: {
-    eyebrow: "La guía",
-    title: "Música de iPod, de vuelta en iPhone",
-    intro: "El iPod clásico convirtió escuchar música en un ritual físico: girar, pulsar, hojear portadas. Esta guía te trae esa experiencia exacta de vuelta al iPhone que ya tienes.",
-  },
-  pillars: [
-    { title: "Gira", body: "Una rueda de clic que se desliza, se pulsa y responde con vibración, como la original." },
-    { title: "Hojea", body: "Cover Flow vuelve: desliza entre álbumes y voltea uno para ver sus canciones." },
-    { title: "Escucha", body: "Tu biblioteca de Apple Music, en los menús sencillos que hicieron famoso al iPod." },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "Qué hacía especial a la música de iPod",
-      paragraphs: [
-        "El iPod no fue el primer reproductor digital, pero sí el primero que se sentía bien. No tocabas menús planos: girabas una rueda, notabas su clic y hojeabas portadas en Cover Flow.",
-        "Cada detalle servía a la música: una pantalla con una sola tarea, controles usables sin mirar, una biblioteca que se desplegaba bajo tu pulgar. Lo que se extraña no es el aparato: es el ritual.",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "A dónde fue la música de iPod",
-      paragraphs: [
-        "Apple dejó de fabricar el iPod classic en 2014 y retiró el último iPod en 2022. La app Música del iPhone es superior en todo lo medible: decenas de millones de canciones, streaming instantáneo, herramientas potentes.",
-        "Pero la potencia no es lo mismo que el placer. Entre la reproducción automática y las radios algorítmicas, la alegría simple de girar una rueda y entrar a un álbum desapareció en silencio.",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "Conoce MusicPod: un reproductor de música de iPod para iPhone",
-      paragraphs: [
-        "MusicPod es una app gratuita para iPhone que trae de vuelta la música de iPod. Recrea la interfaz clásica —rueda de clic, Cover Flow, menús sencillos— y reproduce tu biblioteca de Apple Music mediante MusicKit de Apple.",
-        "MusicPod es una app independiente, sin afiliación con Apple. No hay cuenta ni rastreo; los datos de reproducción se quedan en tu dispositivo.",
-      ],
-      items: [
-        "Rueda de clic con vibración nativa",
-        "Cover Flow para hojear álbumes",
-        "Reproducción a pantalla completa",
-        "12 colores clásicos de cuerpo y rueda",
-        "También reproduce archivos de audio importados",
-      ],
-    },
-    {
-      id: "experience",
-      title: "La experiencia, recreada",
-      paragraphs: [
-        "La rueda de clic se comporta como la original: desliza para navegar, pulsa para elegir, con respuesta táctil en cada paso. Cover Flow regresa con su gesto de voltear álbumes, y la reproducción da a cada canción la pantalla entera.",
-        "Incluso puedes vestirlo como el iPod que recuerdas: plata, negro o blanco clásicos, la edición roja, o el arcoíris del nano.",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "Cómo empezar a escuchar",
-      paragraphs: [
-        "Descarga MusicPod gratis en App Store e inicia sesión con Apple Music. Tus favoritos, playlists y álbumes aparecen en los menús de siempre, a un giro de distancia.",
-      ],
-      items: [
-        "Cualquier iPhone con iOS 17 o posterior",
-        "Una suscripción a Apple Music para streaming",
-        "Los archivos importados suenan sin suscripción",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "Preguntas frecuentes",
-    title: "Música de iPod en iPhone, resuelta.",
-    items: [
-      { question: "¿Se puede tener música de iPod en un iPhone?", answer: "Sí. MusicPod es un reproductor de música estilo iPod para iPhone que recrea la experiencia del iPod clásico —rueda de clic, Cover Flow, reproducción a pantalla completa— mientras reproduce tu biblioteca de Apple Music." },
-      { question: "¿Hay una app de iPod para iPhone?", answer: "Sí: MusicPod. Es una app gratuita que se ve, suena y cliquea como un iPod clásico y reproduce tu biblioteca de Apple Music a través de MusicKit." },
-      { question: "¿MusicPod necesita Apple Music?", answer: "Para reproducir tu biblioteca en streaming necesitas una suscripción activa a Apple Music. Los archivos de audio que importes a la app suenan sin suscripción." },
-      { question: "¿MusicPod está hecho por Apple?", answer: "No. MusicPod es una app independiente de LeaveStyle, sin afiliación con Apple. iPod, iPhone y Apple Music son marcas de Apple Inc." },
-      { question: "¿MusicPod es gratis?", answer: "Sí. MusicPod se descarga gratis en App Store." },
-    ],
-  },
-  cta: {
-    kicker: "Consigue MusicPod",
-    title: "Música de iPod, de vuelta en tu iPhone.",
-    body: "Gratis en App Store. Tu biblioteca te espera.",
-    badgeKicker: "Descárgalo en",
-    badge: "App Store",
-    requirement: "Compatible con iOS 17 o posterior · Se requiere Apple Music para streaming",
-  },
-};
-
-const fr: IpodMusicMessages = {
-  meta: {
-    title: "Musique d’iPod sur iPhone : comment la retrouver — MusicPod",
-    description: "Retrouvez la musique de l’iPod sur votre iPhone. MusicPod recrée l’iPod classique —molette cliquable, Cover Flow, lecture plein écran— et lit votre bibliothèque Apple Music. Gratuit sur l’App Store.",
-    social: "L’iPod est parti, la sensation reste. Retrouvez la musique de l’iPod sur iPhone avec MusicPod.",
-  },
-  pageLabel: "Musique d’iPod",
-  back: "Retour à MusicPod",
-  toc: "Sur cette page",
-  hero: {
-    eyebrow: "Le guide",
-    title: "La musique de l’iPod, de retour sur iPhone",
-    intro: "L’iPod classique a transformé l’écoute en rituel physique : tourner, cliquer, feuilleter les pochettes. Ce guide vous ramène cette expérience exacte sur l’iPhone que vous avez déjà.",
-  },
-  pillars: [
-    { title: "Tournez", body: "Une molette qui glisse, se clique et répond par haptique, comme l’originale." },
-    { title: "Feuilletez", body: "Cover Flow est de retour : parcourez les albums, retournez-en un pour voir les titres." },
-    { title: "Écoutez", body: "Votre bibliothèque Apple Music, dans les menus simples qui ont rendu l’iPod célèbre." },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "Ce qui rendait la musique de l’iPod si particulière",
-      paragraphs: [
-        "L’iPod n’a pas été le premier baladeur numérique, mais le premier qui semblait juste. On ne tapait pas dans des menus plats : on tournait une molette, on sentait le clic, on feuilletait les pochettes en Cover Flow.",
-        "Chaque détail servait la musique : un écran à une seule mission, des commandes utilisables sans regarder, une bibliothèque qui se déployait sous le pouce. Ce qui manque, ce n’est pas l’objet — c’est le rituel.",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "Où est passée la musique de l’iPod",
-      paragraphs: [
-        "Apple a arrêté l’iPod classic en 2014 et retiré le dernier iPod en 2022. L’app Musique de l’iPhone est supérieure sur tous les plans mesurables : des dizaines de millions de titres, streaming instantané, outils puissants.",
-        "Mais la puissance n’est pas le plaisir. Entre la lecture auto et les radios algorithmiques, la joie simple de tourner la molette et d’entrer dans un album a discrètement disparu.",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "MusicPod : un lecteur de musique d’iPod pour iPhone",
-      paragraphs: [
-        "MusicPod est une app iPhone gratuite qui ramène la musique de l’iPod. Elle recrée l’interface classique —molette cliquable, Cover Flow, menus simples— et lit votre bibliothèque Apple Music via le MusicKit d’Apple.",
-        "MusicPod est une app indépendante, sans lien avec Apple. Pas de compte, pas de suivi ; les données de lecture restent sur votre appareil.",
-      ],
-      items: [
-        "Molette cliquable avec retour haptique natif",
-        "Cover Flow pour feuilleter les albums",
-        "Lecture plein écran",
-        "12 couleurs classiques de boîtier et molette",
-        "Lit aussi les fichiers audio importés",
-      ],
-    },
-    {
-      id: "experience",
-      title: "L’expérience, recréée",
-      paragraphs: [
-        "La molette se comporte comme l’originale : glissez pour parcourir, cliquez pour choisir, avec un retour haptique à chaque étape. Cover Flow revient avec son geste d’album à retourner, et la lecture offre à chaque morceau l’écran entier.",
-        "Vous pouvez même l’habiller comme l’iPod de vos souvenirs : argent, noir ou blanc classiques, l’édition rouge, ou l’arc-en-ciel du nano.",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "Comment commencer à écouter",
-      paragraphs: [
-        "Téléchargez MusicPod gratuitement sur l’App Store et connectez-vous avec Apple Music. Favoris, playlists et albums apparaissent dans les menus habituels, à un tour de molette.",
-      ],
-      items: [
-        "Tout iPhone sous iOS 17 ou ultérieure",
-        "Un abonnement Apple Music pour le streaming",
-        "Les fichiers importés se lisent sans abonnement",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "Questions fréquentes",
-    title: "La musique d’iPod sur iPhone, en réponses.",
-    items: [
-      { question: "Peut-on avoir la musique de l’iPod sur un iPhone ?", answer: "Oui. MusicPod est un lecteur de musique de style iPod pour iPhone qui recrée l’expérience de l’iPod classique —molette cliquable, Cover Flow, lecture plein écran— tout en diffusant votre bibliothèque Apple Music." },
-      { question: "Existe-t-il une app iPod pour iPhone ?", answer: "Oui : MusicPod. Une app gratuite qui a le look, le son et le clic d’un iPod classique, et qui lit votre bibliothèque Apple Music via MusicKit." },
-      { question: "MusicPod nécessite-t-il Apple Music ?", answer: "Pour diffuser votre bibliothèque, un abonnement Apple Music actif est requis. Les fichiers audio importés dans l’app se lisent sans abonnement." },
-      { question: "MusicPod est-il créé par Apple ?", answer: "Non. MusicPod est une app indépendante de LeaveStyle, sans lien avec Apple. iPod, iPhone et Apple Music sont des marques d’Apple Inc." },
-      { question: "MusicPod est-il gratuit ?", answer: "Oui. MusicPod se télécharge gratuitement sur l’App Store." },
-    ],
-  },
-  cta: {
-    kicker: "Obtenir MusicPod",
-    title: "La musique de l’iPod, de retour sur votre iPhone.",
-    body: "Gratuit sur l’App Store. Votre bibliothèque vous attend.",
-    badgeKicker: "Télécharger dans",
-    badge: "App Store",
-    requirement: "Compatible iOS 17 ou ultérieure · Abonnement Apple Music requis pour le streaming",
-  },
-};
-
-const de: IpodMusicMessages = {
-  meta: {
-    title: "iPod-Musik auf dem iPhone: So holst du sie zurück — MusicPod",
-    description: "Hol dir die iPod-Musik auf dein iPhone. MusicPod lässt den klassischen iPod wiederaufleben – Click Wheel, Cover Flow, Vollbild-Wiedergabe – und spielt deine Apple Music-Mediathek. Kostenlos im App Store.",
-    social: "Der iPod ist weg, das Gefühl nicht. iPod-Musik zurück auf dem iPhone – mit MusicPod.",
-  },
-  pageLabel: "iPod-Musik",
-  back: "Zurück zu MusicPod",
-  toc: "Auf dieser Seite",
-  hero: {
-    eyebrow: "Der Guide",
-    title: "iPod-Musik, zurück auf dem iPhone",
-    intro: "Der klassische iPod machte Musik zu einem körperlichen Ritual: drehen, klicken, Cover durchblättern. Dieser Guide holt genau dieses Erlebnis auf das iPhone zurück, das du schon hast.",
-  },
-  pillars: [
-    { title: "Dreh", body: "Ein Click Wheel, das gleitet, klickt und mit Haptik antwortet – wie das Original." },
-    { title: "Blätter", body: "Cover Flow ist zurück: durch Alben drehen, eines umklappen für die Titelliste." },
-    { title: "Hör", body: "Deine Apple Music-Mediathek in den schlichten Menüs, die den iPod berühmt machten." },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "Was iPod-Musik besonders machte",
-      paragraphs: [
-        "Der iPod war nicht der erste digitale Musikplayer, aber der erste, der sich richtig anfühlte. Man tippte nicht durch flache Menüs – man drehte ein Rad, spürte den Klick und blätterte in Cover Flow durch die Alben.",
-        "Jedes Detail diente der Musik: ein Bildschirm mit einer einzigen Aufgabe, Bedienelemente, die ohne Hinschauen funktionierten, eine Mediathek, die sich unter dem Daumen entfaltete. Was fehlt, ist nicht das Gerät – es ist das Ritual.",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "Wohin die iPod-Musik verschwand",
-      paragraphs: [
-        "Apple stellte den iPod classic 2014 ein und verabschiedete 2022 den letzten iPod. Die Music-App des iPhone ist in allem messbar stärker: zig Millionen Songs, sofortiges Streaming, mächtige Mediathek-Funktionen.",
-        "Aber Stärke ist nicht Freude. Zwischen Autoplay und algorithmischem Radio verschwand leise die einfache Freude, ein Rad zu drehen und in ein Album zu klicken.",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "MusicPod: ein iPod-Musikplayer für das iPhone",
-      paragraphs: [
-        "MusicPod ist eine kostenlose iPhone-App, die iPod-Musik zurückbringt. Sie lässt die klassische Oberfläche wiederaufleben – Click Wheel, Cover Flow, schlichte Menüs – und streamt deine Apple Music-Mediathek über Apples MusicKit.",
-        "MusicPod stammt von einem unabhängigen Entwickler und steht in keiner Verbindung zu Apple. Kein Konto, kein Tracking; Wiedergabedaten bleiben auf dem Gerät.",
-      ],
-      items: [
-        "Click Wheel mit nativer Haptik",
-        "Cover Flow zum Durchblättern der Alben",
-        "Wiedergabe im Vollbild",
-        "12 klassische Gehäuse- und Radfarben",
-        "Spielt auch importierte Audiodateien",
-      ],
-    },
-    {
-      id: "experience",
-      title: "Das Erlebnis, neu erschaffen",
-      paragraphs: [
-        "Das Click Wheel verhält sich wie das Original: wischen zum Blättern, drücken zum Auswählen, mit haptischem Feedback bei jedem Schritt. Cover Flow kehrt mit seiner Alben-Umklapp-Geste zurück, und die Wiedergabe widmet jedem Song den ganzen Bildschirm.",
-        "Du kannst es sogar kleiden wie den iPod deiner Erinnerung: klassisches Silber, Schwarz oder Weiß, die Red Edition oder den nano-Regenbogen.",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "So startest du",
-      paragraphs: [
-        "Lade MusicPod kostenlos aus dem App Store und melde dich mit Apple Music an. Lieblingstitel, Playlists und Alben erscheinen in den gewohnten Menüs – eine Drehung entfernt.",
-      ],
-      items: [
-        "Jedes iPhone mit iOS 17 oder neuer",
-        "Ein Apple Music-Abo fürs Streaming",
-        "Importierte Audiodateien laufen ohne Abo",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "Häufige Fragen",
-    title: "iPod-Musik auf dem iPhone, beantwortet.",
-    items: [
-      { question: "Kann man iPod-Musik auf einem iPhone haben?", answer: "Ja. MusicPod ist ein Musikplayer im iPod-Stil für das iPhone, der das Erlebnis des klassischen iPod neu erschafft – Click Wheel, Cover Flow, Vollbild-Wiedergabe – und dabei deine Apple Music-Mediathek streamt." },
-      { question: "Gibt es eine iPod-App für das iPhone?", answer: "Ja: MusicPod. Eine kostenlose App, die aussieht, klingt und klickt wie ein klassischer iPod und deine Apple Music-Mediathek über MusicKit abspielt." },
-      { question: "Braucht MusicPod Apple Music?", answer: "Zum Streamen deiner Mediathek ist ein aktives Apple Music-Abo nötig. In die App importierte Audiodateien laufen ohne Abo." },
-      { question: "Wird MusicPod von Apple gemacht?", answer: "Nein. MusicPod ist eine unabhängige App von LeaveStyle ohne Verbindung zu Apple. iPod, iPhone und Apple Music sind Marken der Apple Inc." },
-      { question: "Ist MusicPod kostenlos?", answer: "Ja. MusicPod lässt sich kostenlos im App Store laden." },
-    ],
-  },
-  cta: {
-    kicker: "MusicPod holen",
-    title: "iPod-Musik, zurück auf deinem iPhone.",
-    body: "Kostenlos im App Store. Deine Mediathek wartet.",
-    badgeKicker: "Laden im",
-    badge: "App Store",
-    requirement: "Kompatibel mit iOS 17 oder neuer · Apple Music-Abo fürs Streaming erforderlich",
-  },
-};
-
-const ptBR: IpodMusicMessages = {
-  meta: {
-    title: "Música de iPod no iPhone: como trazê-la de volta — MusicPod",
-    description: "Traga a música do iPod de volta ao seu iPhone. O MusicPod recria o iPod clássico —click wheel, Cover Flow, reprodução em tela cheia— e toca sua biblioteca do Apple Music. Grátis na App Store.",
-    social: "O iPod foi embora, a sensação não. Música de iPod de volta no iPhone com MusicPod.",
-  },
-  pageLabel: "Música de iPod",
-  back: "Voltar ao MusicPod",
-  toc: "Nesta página",
-  hero: {
-    eyebrow: "O guia",
-    title: "Música de iPod, de volta ao iPhone",
-    intro: "O iPod clássico transformou ouvir música em um ritual físico: girar, clicar, folhear capas. Este guia traz essa experiência exata de volta ao iPhone que você já tem.",
-  },
-  pillars: [
-    { title: "Gire", body: "Uma click wheel que desliza, clica e responde com vibração, como a original." },
-    { title: "Folheie", body: "O Cover Flow voltou: deslize entre álbuns e vire um para ver as faixas." },
-    { title: "Ouça", body: "Sua biblioteca do Apple Music, nos menus simples que ficaram famosos no iPod." },
-  ],
-  sections: [
-    {
-      id: "made-special",
-      title: "O que tornava a música de iPod especial",
-      paragraphs: [
-        "O iPod não foi o primeiro player digital, mas foi o primeiro que parecia certo. Você não cutucava menus planos: girava uma roda, sentia o clique e folheava capas no Cover Flow.",
-        "Cada detalhe servia à música: uma tela com uma única função, controles usáveis sem olhar, uma biblioteca que se abria sob o polegar. O que falta não é o aparelho — é o ritual.",
-      ],
-    },
-    {
-      id: "where-it-went",
-      title: "Para onde foi a música de iPod",
-      paragraphs: [
-        "A Apple encerrou o iPod classic em 2014 e aposentou o último iPod em 2022. O app Música do iPhone é superior em tudo que se mede: dezenas de milhões de músicas, streaming instantâneo, ferramentas poderosas.",
-        "Mas potência não é prazer. Entre o autoplay e as rádios algorítmicas, a alegria simples de girar a roda e entrar num álbum desapareceu em silêncio.",
-      ],
-    },
-    {
-      id: "meet-musicpod",
-      title: "Conheça o MusicPod: um player de música de iPod para iPhone",
-      paragraphs: [
-        "O MusicPod é um app gratuito para iPhone que traz a música de iPod de volta. Ele recria a interface clássica —click wheel, Cover Flow, menus simples— e toca sua biblioteca do Apple Music pelo MusicKit da Apple.",
-        "O MusicPod é um app independente, sem afiliação com a Apple. Sem conta e sem rastreamento; os dados de reprodução ficam no seu dispositivo.",
-      ],
-      items: [
-        "Click wheel com retorno tátil nativo",
-        "Cover Flow para folhear álbuns",
-        "Reprodução em tela cheia",
-        "12 cores clássicas de corpo e roda",
-        "Também reproduz arquivos de áudio importados",
-      ],
-    },
-    {
-      id: "experience",
-      title: "A experiência, recriada",
-      paragraphs: [
-        "A click wheel se comporta como a original: deslize para navegar, clique para escolher, com resposta tátil a cada passo. O Cover Flow volta com o gesto de virar álbuns, e a reprodução dá a cada música a tela inteira.",
-        "Você pode até vesti-lo como o iPod de que lembra: prata, preto ou branco clássicos, a edição vermelha, ou o arco-íris do nano.",
-      ],
-    },
-    {
-      id: "get-started",
-      title: "Como começar a ouvir",
-      paragraphs: [
-        "Baixe o MusicPod grátis na App Store e entre com o Apple Music. Favoritas, playlists e álbuns aparecem nos menus de sempre, a um giro de distância.",
-      ],
-      items: [
-        "Qualquer iPhone com iOS 17 ou posterior",
-        "Assinatura do Apple Music para streaming",
-        "Arquivos importados tocam sem assinatura",
-      ],
-    },
-  ],
-  faq: {
-    kicker: "Perguntas frequentes",
-    title: "Música de iPod no iPhone, respondida.",
-    items: [
-      { question: "Dá para ter música de iPod em um iPhone?", answer: "Sim. O MusicPod é um player de música estilo iPod para iPhone que recria a experiência do iPod clássico —click wheel, Cover Flow, reprodução em tela cheia— enquanto toca sua biblioteca do Apple Music." },
-      { question: "Existe um app de iPod para iPhone?", answer: "Sim: o MusicPod. Um app gratuito com a cara, o som e o clique de um iPod clássico, que toca sua biblioteca do Apple Music pelo MusicKit." },
-      { question: "O MusicPod precisa de Apple Music?", answer: "Para transmitir sua biblioteca é necessária uma assinatura ativa do Apple Music. Arquivos de áudio importados para o app tocam sem assinatura." },
-      { question: "O MusicPod é feito pela Apple?", answer: "Não. O MusicPod é um app independente da LeaveStyle, sem afiliação com a Apple. iPod, iPhone e Apple Music são marcas da Apple Inc." },
-      { question: "O MusicPod é gratuito?", answer: "Sim. O MusicPod pode ser baixado gratuitamente na App Store." },
-    ],
-  },
-  cta: {
-    kicker: "Baixe o MusicPod",
-    title: "Música de iPod, de volta ao seu iPhone.",
-    body: "Grátis na App Store. Sua biblioteca está esperando.",
-    badgeKicker: "Baixe na",
-    badge: "App Store",
-    requirement: "Compatível com iOS 17 ou posterior · Apple Music necessário para streaming",
-  },
-};
-
+// Steps are checked against LocalMusicManagementView, HomeView, and
+// LibrarySortPreferences in the iOS app. Keep the same anchors in every locale.
 export const ipodMusicDictionaries: Record<Locale, IpodMusicMessages> = {
-  en,
-  "zh-cn": zhCN,
-  "zh-tw": zhTW,
-  ja,
-  ko,
-  es,
-  fr,
-  de,
-  "pt-br": ptBR,
+  en: {
+    meta: {
+      title: "MusicPod Guide — Import Music, Apple Music & Click Wheel",
+      description: "Learn to import audio into MusicPod, use Apple Music, and browse with the click wheel and Cover Flow. Local music plays without an Apple Music subscription.",
+      social: "Import music, connect your library, and get to know the click wheel.",
+    },
+    pageLabel: "MusicPod guide",
+    screenshot: { alt: "MusicPod home screen with Favorite Songs, a mini player, and a red click wheel" },
+    sections: [
+      { id: "get-started", title: "Set up MusicPod on iPhone", paragraphs: ["Download MusicPod from the App Store on an iPhone running iOS 17 or later. No MusicPod account is needed. The app is free to download, with optional in-app purchases."] },
+      { id: "import-local-music", title: "How to import local music", paragraphs: ["Keep the audio files you want to import in the Files app."], steps: ["Open Local Music in MusicPod and tap the + button to open Import Music.", "Tap Choose Files to select audio files, or Choose a Folder to import a folder.", "Wait for the import to finish, then browse and play the songs from Local Music."], items: ["Supported files: MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC, and CAF.", "Protected downloads and encrypted formats such as NCM, QMC, and KGM cannot be imported."] },
+      { id: "apple-music", title: "When do you need Apple Music?", paragraphs: ["Imported audio and playable music synced to your device do not require an Apple Music subscription. Imported files can play offline after they have been copied into MusicPod.", "Playing Apple Music subscription content requires an active subscription. Allow Music and Media access when prompted to browse your music library."] },
+      { id: "click-wheel", title: "How to use the click wheel", paragraphs: [], steps: ["Slide your finger around the wheel to move through menus and lists.", "Press the center to open the selected item. Press MENU to go back.", "Use the play/pause and previous/next buttons to control playback."] },
+      { id: "cover-flow", title: "How to browse albums with Cover Flow", paragraphs: [], steps: ["Open Albums, then hold the center OK button to open the display options and choose Cover Flow.", "Swipe through the covers or turn the wheel to choose an album.", "Open the selected album to see its tracks, then choose a song to play."] },
+    ],
+  },
+  "zh-cn": {
+    meta: {
+      title: "MusicPod 使用指南：导入音乐、Apple Music 与转盘操作",
+      description: "了解如何在 iPhone 上向 MusicPod 导入本地音频、播放 Apple Music，以及使用点按式转盘和 Cover Flow。本地音乐无需 Apple Music 订阅。",
+      social: "导入音乐、连接资料库，开始使用经典转盘。",
+    },
+    pageLabel: "使用指南",
+    screenshot: { alt: "MusicPod 首页，包含喜爱歌曲、迷你播放器与红色点按式转盘" },
+    sections: [
+      { id: "get-started", title: "在 iPhone 上开始使用", paragraphs: ["在运行 iOS 17 或更新系统的 iPhone 上，从 App Store 下载 MusicPod。无需注册 MusicPod 账号。可免费下载，部分功能需内购。"] },
+      { id: "import-local-music", title: "如何导入本地音乐", paragraphs: ["先将要导入的音频保存在 iPhone 的「文件」App 中。"], steps: ["在 MusicPod 中打开「本地音乐」，点击 + 按钮进入「导入音乐」。", "点击「选择文件」选取音频，或使用「选择文件夹」导入整个文件夹。", "等待导入完成，回到「本地音乐」浏览并播放歌曲。"], items: ["支持 MP3、M4A、AAC、WAV、AIFF、AIF、AIFC、FLAC 与 CAF 文件。", "不支持受保护的下载内容，以及 NCM、QMC、KGM 等加密格式。"] },
+      { id: "apple-music", title: "什么时候需要 Apple Music 订阅", paragraphs: ["导入的音频，以及同步到设备且可播放的音乐，无需 Apple Music 订阅。音频复制到 MusicPod 后，可离线播放。", "播放 Apple Music 订阅内容需要有效订阅。浏览音乐资料库时，请按提示允许「媒体与 Apple Music」访问权限。"] },
+      { id: "click-wheel", title: "如何使用点按式转盘", paragraphs: [], steps: ["沿转盘滑动手指，在菜单和列表中移动。", "按下中央按钮打开所选项目，按 MENU 返回上一级。", "使用播放／暂停、上一首和下一首按钮控制播放。"] },
+      { id: "cover-flow", title: "如何用 Cover Flow 浏览专辑", paragraphs: [], steps: ["打开「专辑」，长按中央 OK 按钮，在显示选项中选择 Cover Flow。", "滑动专辑封面，或转动转盘选择专辑。", "打开所选专辑查看曲目，再选择歌曲播放。"] },
+    ],
+  },
+  "zh-tw": {
+    meta: {
+      title: "MusicPod 使用指南：匯入音樂、Apple Music 與轉盤操作",
+      description: "了解如何在 iPhone 上向 MusicPod 匯入本機音訊、播放 Apple Music，以及使用點按式轉盤和 Cover Flow。本機音樂無需 Apple Music 訂閱。",
+      social: "匯入音樂、連接資料庫，開始使用經典轉盤。",
+    },
+    pageLabel: "使用指南",
+    screenshot: { alt: "MusicPod 首頁，包含喜愛歌曲、迷你播放器與紅色點按式轉盤" },
+    sections: [
+      { id: "get-started", title: "在 iPhone 上開始使用", paragraphs: ["在執行 iOS 17 或更新系統的 iPhone 上，從 App Store 下載 MusicPod。無需註冊 MusicPod 帳號。可免費下載，部分功能需內購。"] },
+      { id: "import-local-music", title: "如何匯入本機音樂", paragraphs: ["先將要匯入的音訊儲存在 iPhone 的「檔案」App 中。"], steps: ["在 MusicPod 中打開「本機音樂」，點選 + 按鈕進入「匯入音樂」。", "點選「選擇檔案」選取音訊，或使用「選擇資料夾」匯入整個資料夾。", "等待匯入完成，回到「本機音樂」瀏覽並播放歌曲。"], items: ["支援 MP3、M4A、AAC、WAV、AIFF、AIF、AIFC、FLAC 與 CAF 檔案。", "不支援受保護的下載內容，以及 NCM、QMC、KGM 等加密格式。"] },
+      { id: "apple-music", title: "什麼時候需要 Apple Music 訂閱", paragraphs: ["匯入的音訊，以及同步到裝置且可播放的音樂，無需 Apple Music 訂閱。音訊複製到 MusicPod 後，可離線播放。", "播放 Apple Music 訂閱內容需要有效訂閱。瀏覽音樂資料庫時，請依提示允許「媒體與 Apple Music」存取權限。"] },
+      { id: "click-wheel", title: "如何使用點按式轉盤", paragraphs: [], steps: ["沿轉盤滑動手指，在選單和列表中移動。", "按下中央按鈕打開所選項目，按 MENU 返回上一層。", "使用播放／暫停、上一首和下一首按鈕控制播放。"] },
+      { id: "cover-flow", title: "如何用 Cover Flow 瀏覽專輯", paragraphs: [], steps: ["打開「專輯」，長按中央 OK 按鈕，在顯示選項中選擇 Cover Flow。", "滑動專輯封面，或轉動轉盤選擇專輯。", "打開所選專輯查看曲目，再選擇歌曲播放。"] },
+    ],
+  },
+  ja: {
+    meta: {
+      title: "MusicPodの使い方：音楽の読み込み・Apple Music・ホイール",
+      description: "iPhoneのMusicPodに音声ファイルを読み込む方法、Apple Musicの再生、クリックホイールとCover Flowの使い方。ローカル音楽にApple Musicの契約は不要です。",
+      social: "音楽を読み込んで、クリックホイールで聴き始めましょう。",
+    },
+    pageLabel: "使い方ガイド",
+    screenshot: { alt: "お気に入り、ミニプレーヤー、赤いクリックホイールがあるMusicPodのホーム画面" },
+    sections: [
+      { id: "get-started", title: "iPhoneで使い始める", paragraphs: ["iOS 17以降のiPhoneで、App StoreからMusicPodをダウンロードしてください。MusicPodのアカウント登録は不要です。無料でダウンロードでき、一部機能はアプリ内課金です。"] },
+      { id: "import-local-music", title: "ローカル音楽を読み込む", paragraphs: ["読み込む音声ファイルを、iPhoneの「ファイル」アプリに保存します。"], steps: ["MusicPodの「ローカル音楽」を開き、+ボタンで「音楽を読み込む」を開きます。", "「ファイルを選択」で音声を選ぶか、「フォルダを選択」でフォルダを読み込みます。", "読み込みが終わったら、「ローカル音楽」で曲を選んで再生します。"], items: ["対応形式：MP3、M4A、AAC、WAV、AIFF、AIF、AIFC、FLAC、CAF。", "保護されたダウンロードや、NCM・QMC・KGMなどの暗号化形式には対応していません。"] },
+      { id: "apple-music", title: "Apple Musicの契約が必要な場合", paragraphs: ["読み込んだ音声や、端末に同期済みで再生可能な音楽にApple Musicの契約は不要です。MusicPodにコピーした音声はオフラインで再生できます。", "Apple Musicのサブスクリプションコンテンツの再生には有効な契約が必要です。ライブラリを使う際は、表示される案内に従いメディアとApple Musicへのアクセスを許可してください。"] },
+      { id: "click-wheel", title: "クリックホイールの使い方", paragraphs: [], steps: ["ホイールに沿って指を滑らせ、メニューやリストを移動します。", "中央ボタンで項目を開き、MENUで前の画面に戻ります。", "再生／一時停止と前後の曲ボタンで再生を操作します。"] },
+      { id: "cover-flow", title: "Cover Flowでアルバムを見る", paragraphs: [], steps: ["「アルバム」を開き、中央のOKボタンを長押しして、表示設定からCover Flowを選びます。", "カバーをスワイプするか、ホイールを回してアルバムを選びます。", "選んだアルバムを開いて曲一覧を表示し、曲を選んで再生します。"] },
+    ],
+  },
+  ko: {
+    meta: {
+      title: "MusicPod 사용 가이드: 음악 가져오기, Apple Music, 클릭 휠",
+      description: "iPhone의 MusicPod로 오디오를 가져오고 Apple Music, 클릭 휠, Cover Flow를 사용하는 방법. 로컬 음악에는 Apple Music 구독이 필요하지 않습니다.",
+      social: "음악을 가져오고 클릭 휠로 감상을 시작하세요.",
+    },
+    pageLabel: "사용 가이드",
+    screenshot: { alt: "즐겨찾는 노래, 미니 플레이어, 빨간 클릭 휠이 있는 MusicPod 홈 화면" },
+    sections: [
+      { id: "get-started", title: "iPhone에서 시작하기", paragraphs: ["iOS 17 이상인 iPhone에서 App Store를 통해 MusicPod를 다운로드하세요. MusicPod 계정은 필요하지 않습니다. 무료로 다운로드할 수 있으며 일부 기능은 앱 내 구입이 필요합니다."] },
+      { id: "import-local-music", title: "로컬 음악 가져오기", paragraphs: ["가져올 오디오를 iPhone의 파일 앱에 저장하세요."], steps: ["MusicPod에서 로컬 음악을 열고 + 버튼을 눌러 음악 가져오기를 엽니다.", "파일 선택으로 오디오를 고르거나 폴더 선택으로 폴더를 가져옵니다.", "가져오기가 끝나면 로컬 음악에서 노래를 찾아 재생합니다."], items: ["지원 형식: MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC, CAF.", "보호된 다운로드 및 NCM, QMC, KGM 같은 암호화 형식은 지원하지 않습니다."] },
+      { id: "apple-music", title: "Apple Music 구독이 필요한 경우", paragraphs: ["가져온 오디오와 기기에 동기화된 재생 가능한 음악에는 Apple Music 구독이 필요하지 않습니다. MusicPod로 복사된 파일은 오프라인에서 재생할 수 있습니다.", "Apple Music 구독 콘텐츠를 재생하려면 유효한 구독이 필요합니다. 보관함을 사용할 때 안내에 따라 미디어 및 Apple Music 접근을 허용하세요."] },
+      { id: "click-wheel", title: "클릭 휠 사용하기", paragraphs: [], steps: ["휠을 따라 손가락을 움직여 메뉴와 목록을 탐색합니다.", "가운데 버튼으로 선택한 항목을 열고 MENU로 돌아갑니다.", "재생/일시 정지와 이전/다음 버튼으로 재생을 제어합니다."] },
+      { id: "cover-flow", title: "Cover Flow로 앨범 보기", paragraphs: [], steps: ["앨범을 열고 가운데 OK 버튼을 길게 눌러 표시 옵션에서 Cover Flow를 선택합니다.", "커버를 스와이프하거나 휠을 돌려 앨범을 고릅니다.", "선택한 앨범을 열어 트랙을 확인하고 곡을 선택해 재생합니다."] },
+    ],
+  },
+  es: {
+    meta: {
+      title: "Guía de MusicPod: importar música, Apple Music y rueda de clic",
+      description: "Aprende a importar audio en MusicPod para iPhone y a usar Apple Music, la rueda de clic y Cover Flow. La música local no requiere suscripción a Apple Music.",
+      social: "Importa música y empieza a escuchar con la rueda de clic.",
+    },
+    pageLabel: "Guía de MusicPod",
+    screenshot: { alt: "Pantalla de inicio de MusicPod con favoritas, minirreproductor y rueda de clic roja" },
+    sections: [
+      { id: "get-started", title: "Configurar MusicPod en iPhone", paragraphs: ["Descarga MusicPod de la App Store en un iPhone con iOS 17 o posterior. No necesitas una cuenta de MusicPod. La descarga es gratuita, con compras opcionales dentro de la app."] },
+      { id: "import-local-music", title: "Cómo importar música local", paragraphs: ["Guarda el audio que quieras importar en la app Archivos del iPhone."], steps: ["Abre Música local en MusicPod y toca + para abrir Importar música.", "Elige archivos de audio o selecciona una carpeta para importarla.", "Espera a que termine la importación y reproduce las canciones desde Música local."], items: ["Formatos compatibles: MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC y CAF.", "No se admiten descargas protegidas ni formatos cifrados como NCM, QMC o KGM."] },
+      { id: "apple-music", title: "Cuándo necesitas Apple Music", paragraphs: ["El audio importado y la música reproducible sincronizada con tu dispositivo no requieren suscripción a Apple Music. Los archivos copiados a MusicPod se pueden reproducir sin conexión.", "El contenido de suscripción de Apple Music requiere una suscripción activa. Permite el acceso a contenido multimedia y Apple Music cuando se solicite para explorar tu biblioteca."] },
+      { id: "click-wheel", title: "Cómo usar la rueda de clic", paragraphs: [], steps: ["Desliza el dedo alrededor de la rueda para recorrer menús y listas.", "Pulsa el centro para abrir un elemento y MENU para volver.", "Controla la reproducción con los botones de pausa, pista anterior y siguiente."] },
+      { id: "cover-flow", title: "Explorar álbumes con Cover Flow", paragraphs: [], steps: ["Abre Álbumes y mantén pulsado el botón central OK para elegir Cover Flow en las opciones de visualización.", "Desliza las portadas o gira la rueda para elegir un álbum.", "Abre el álbum seleccionado para ver sus pistas y elige una canción."] },
+    ],
+  },
+  fr: {
+    meta: {
+      title: "Guide MusicPod : importer de la musique, Apple Music et molette",
+      description: "Importez de l’audio dans MusicPod sur iPhone et découvrez Apple Music, la molette et Cover Flow. Aucun abonnement Apple Music n’est nécessaire pour la musique locale.",
+      social: "Importez votre musique et commencez à écouter avec la molette.",
+    },
+    pageLabel: "Guide MusicPod",
+    screenshot: { alt: "Écran d’accueil de MusicPod avec favoris, mini-lecteur et molette rouge" },
+    sections: [
+      { id: "get-started", title: "Configurer MusicPod sur iPhone", paragraphs: ["Téléchargez MusicPod sur l’App Store avec un iPhone sous iOS 17 ou version ultérieure. Aucun compte MusicPod n’est nécessaire. Le téléchargement est gratuit, avec des achats intégrés facultatifs."] },
+      { id: "import-local-music", title: "Importer de la musique locale", paragraphs: ["Enregistrez les fichiers audio dans l’app Fichiers de l’iPhone."], steps: ["Ouvrez Musique locale dans MusicPod et touchez + pour ouvrir Importer de la musique.", "Touchez Choisir des fichiers pour sélectionner l’audio, ou Choisir un dossier pour importer un dossier.", "Attendez la fin de l’importation, puis écoutez les morceaux depuis Musique locale."], items: ["Formats compatibles : MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC et CAF.", "Les téléchargements protégés et les formats chiffrés comme NCM, QMC et KGM ne sont pas compatibles."] },
+      { id: "apple-music", title: "Quand faut-il un abonnement Apple Music ?", paragraphs: ["Les fichiers importés et la musique lisible synchronisée sur votre appareil ne nécessitent pas d’abonnement Apple Music. Les fichiers copiés dans MusicPod sont disponibles hors connexion.", "Le contenu de l’abonnement Apple Music nécessite un abonnement actif. Autorisez l’accès aux médias et à Apple Music lorsque l’app le demande pour parcourir votre bibliothèque."] },
+      { id: "click-wheel", title: "Utiliser la molette", paragraphs: [], steps: ["Glissez le doigt autour de la molette pour parcourir les menus et les listes.", "Appuyez au centre pour ouvrir un élément, puis sur MENU pour revenir.", "Utilisez lecture/pause et les boutons précédent/suivant pour contrôler la lecture."] },
+      { id: "cover-flow", title: "Parcourir les albums avec Cover Flow", paragraphs: [], steps: ["Ouvrez Albums et maintenez le bouton central OK pour choisir Cover Flow dans les options d’affichage.", "Balayez les pochettes ou tournez la molette pour choisir un album.", "Ouvrez l’album sélectionné pour afficher les pistes, puis choisissez un morceau."] },
+    ],
+  },
+  de: {
+    meta: {
+      title: "MusicPod-Anleitung: Musik importieren, Apple Music und Click Wheel",
+      description: "Importiere Audio in MusicPod fürs iPhone und nutze Apple Music, Click Wheel und Cover Flow. Lokale Musik benötigt kein Apple Music Abo.",
+      social: "Musik importieren und mit dem Click Wheel loshören.",
+    },
+    pageLabel: "MusicPod-Anleitung",
+    screenshot: { alt: "MusicPod-Startbildschirm mit Favoriten, Miniplayer und rotem Click Wheel" },
+    sections: [
+      { id: "get-started", title: "MusicPod auf dem iPhone einrichten", paragraphs: ["Lade MusicPod aus dem App Store auf ein iPhone mit iOS 17 oder neuer. Ein MusicPod-Konto ist nicht nötig. Der Download ist kostenlos, mit optionalen In-App-Käufen."] },
+      { id: "import-local-music", title: "Lokale Musik importieren", paragraphs: ["Speichere die Audiodateien in der Dateien-App auf deinem iPhone."], steps: ["Öffne Lokale Musik in MusicPod und tippe auf +, um Musik importieren zu öffnen.", "Tippe auf Dateien auswählen oder importiere mit Ordner auswählen einen Ordner.", "Warte auf den Abschluss des Imports und spiele die Titel unter Lokale Musik ab."], items: ["Unterstützte Formate: MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC und CAF.", "Geschützte Downloads und verschlüsselte Formate wie NCM, QMC und KGM werden nicht unterstützt."] },
+      { id: "apple-music", title: "Wann brauchst du Apple Music?", paragraphs: ["Importierte Audiodateien und abspielbare Musik, die mit deinem Gerät synchronisiert wurde, benötigen kein Apple Music Abo. In MusicPod kopierte Dateien lassen sich offline abspielen.", "Für Apple Music Abo-Inhalte brauchst du ein aktives Abo. Erlaube auf Anfrage den Zugriff auf Medien und Apple Music, um deine Mediathek zu durchsuchen."] },
+      { id: "click-wheel", title: "Das Click Wheel bedienen", paragraphs: [], steps: ["Bewege den Finger um das Rad, um Menüs und Listen zu durchsuchen.", "Drücke die Mitte zum Öffnen und MENU, um zurückzugehen.", "Steuere die Wiedergabe mit Play/Pause und den Tasten für den vorherigen und nächsten Titel."] },
+      { id: "cover-flow", title: "Alben mit Cover Flow durchsuchen", paragraphs: [], steps: ["Öffne Alben und halte die mittlere OK-Taste gedrückt. Wähle Cover Flow in den Anzeigeoptionen.", "Wische durch die Cover oder drehe das Rad, um ein Album auszuwählen.", "Öffne das ausgewählte Album, um die Titel zu sehen, und wähle einen zum Abspielen."] },
+    ],
+  },
+  "pt-br": {
+    meta: {
+      title: "Guia do MusicPod: importar músicas, Apple Music e click wheel",
+      description: "Aprenda a importar áudio no MusicPod para iPhone e a usar Apple Music, click wheel e Cover Flow. Música local não precisa de assinatura do Apple Music.",
+      social: "Importe suas músicas e comece a ouvir com a click wheel.",
+    },
+    pageLabel: "Guia do MusicPod",
+    screenshot: { alt: "Tela inicial do MusicPod com favoritas, miniplayer e click wheel vermelha" },
+    sections: [
+      { id: "get-started", title: "Configurar o MusicPod no iPhone", paragraphs: ["Baixe o MusicPod na App Store em um iPhone com iOS 17 ou posterior. Você não precisa de conta no MusicPod. O download é gratuito, com compras opcionais no app."] },
+      { id: "import-local-music", title: "Como importar músicas locais", paragraphs: ["Salve o áudio que deseja importar no app Arquivos do iPhone."], steps: ["Abra Música local no MusicPod e toque em + para abrir Importar músicas.", "Toque em Escolher arquivos para selecionar o áudio ou em Escolher uma pasta para importar uma pasta.", "Espere a importação terminar e reproduza as faixas em Música local."], items: ["Formatos compatíveis: MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC e CAF.", "Downloads protegidos e formatos criptografados como NCM, QMC e KGM não são compatíveis."] },
+      { id: "apple-music", title: "Quando é preciso assinar o Apple Music?", paragraphs: ["Áudio importado e músicas reproduzíveis sincronizadas com o dispositivo não precisam de assinatura do Apple Music. Arquivos copiados para o MusicPod podem ser ouvidos offline.", "Conteúdo da assinatura do Apple Music exige uma assinatura ativa. Permita o acesso a mídia e Apple Music quando solicitado para navegar pela biblioteca."] },
+      { id: "click-wheel", title: "Como usar a click wheel", paragraphs: [], steps: ["Deslize o dedo ao redor da roda para navegar pelos menus e listas.", "Pressione o centro para abrir um item e MENU para voltar.", "Use reproduzir/pausar e os botões de faixa anterior/seguinte para controlar a reprodução."] },
+      { id: "cover-flow", title: "Navegar pelos álbuns com Cover Flow", paragraphs: [], steps: ["Abra Álbuns e segure o botão central OK para escolher Cover Flow nas opções de exibição.", "Deslize pelas capas ou gire a roda para escolher um álbum.", "Abra o álbum selecionado para ver as faixas e escolha uma música para tocar."] },
+    ],
+  },
 };
 
 export function getIpodMusicDictionary(locale: Locale) {

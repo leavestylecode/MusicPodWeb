@@ -173,37 +173,39 @@ export default async function PrivacyPage({
             {messages.sections.map((section) => (
               <section className="privacy-section" id={section.id} key={section.id}>
                 <h2>{section.title}</h2>
-                {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                {section.items ? (
-                  <ul>
-                    {section.items.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                ) : null}
-                {section.note ? <aside className="privacy-note">{section.note}</aside> : null}
-                {section.links ? (
-                  <div className="privacy-source-links">
-                    {section.links.map((link) => (
-                      <a
-                        href={privacyPolicyConfig.links[link.target]}
-                        key={link.target}
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        {link.label}<span aria-hidden="true">↗</span>
-                      </a>
-                    ))}
-                  </div>
-                ) : null}
-                {section.id === "contact" ? (
-                  <dl className="privacy-contact-card">
-                    <div><dt>{messages.contact.operator}</dt><dd>{privacyPolicyConfig.operator}</dd></div>
-                    <div><dt>{messages.contact.product}</dt><dd>{privacyPolicyConfig.product}</dd></div>
-                    <div>
-                      <dt>{messages.contact.email}</dt>
-                      <dd><a href={`mailto:${privacyPolicyConfig.email}`}>{privacyPolicyConfig.email}</a></dd>
+                <div className="privacy-section-body">
+                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.items ? (
+                    <ul>
+                      {section.items.map((item) => <li key={item}>{item}</li>)}
+                    </ul>
+                  ) : null}
+                  {section.note ? <aside className="privacy-note">{section.note}</aside> : null}
+                  {section.links ? (
+                    <div className="privacy-source-links">
+                      {section.links.map((link) => (
+                        <a
+                          href={privacyPolicyConfig.links[link.target]}
+                          key={link.target}
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          {link.label}<span aria-hidden="true">↗</span>
+                        </a>
+                      ))}
                     </div>
-                  </dl>
-                ) : null}
+                  ) : null}
+                  {section.id === "contact" ? (
+                    <dl className="privacy-contact-card">
+                      <div><dt>{messages.contact.operator}</dt><dd>{privacyPolicyConfig.operator}</dd></div>
+                      <div><dt>{messages.contact.product}</dt><dd>{privacyPolicyConfig.product}</dd></div>
+                      <div>
+                        <dt>{messages.contact.email}</dt>
+                        <dd><a href={`mailto:${privacyPolicyConfig.email}`}>{privacyPolicyConfig.email}</a></dd>
+                      </div>
+                    </dl>
+                  ) : null}
+                </div>
               </section>
             ))}
 

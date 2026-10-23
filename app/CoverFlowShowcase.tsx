@@ -49,8 +49,6 @@ const albums = [
 
 type CoverFlowShowcaseProps = {
   groupLabel: string;
-  nextLabel: string;
-  previousLabel: string;
   selectTemplate: string;
 };
 
@@ -74,8 +72,6 @@ function wrappedOffset(index: number, activeIndex: number) {
 
 export function CoverFlowShowcase({
   groupLabel,
-  nextLabel,
-  previousLabel,
   selectTemplate,
 }: CoverFlowShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(2);
@@ -148,6 +144,7 @@ export function CoverFlowShowcase({
     <div
       aria-label={groupLabel}
       className="cover-flow-showcase"
+      data-nosnippet=""
       onKeyDown={(event) => {
         if (event.target !== event.currentTarget) return;
         if (event.key === "ArrowLeft") {
@@ -232,15 +229,7 @@ export function CoverFlowShowcase({
         })}
       </div>
 
-      <div aria-live="polite" className="cover-flow-caption">
-        <button aria-label={previousLabel} onClick={() => move(-1)} type="button">‹</button>
-        <div><strong>{activeAlbum.name}</strong><span>{activeAlbum.artist}</span></div>
-        <button aria-label={nextLabel} onClick={() => move(1)} type="button">›</button>
-      </div>
-
-      <div aria-hidden="true" className="cover-flow-dots">
-        {albums.map((album, index) => <i className={index === activeIndex ? "active" : ""} key={album.name} />)}
-      </div>
+      <p aria-live="polite" className="visually-hidden">{activeAlbum.name}</p>
     </div>
   );
 }

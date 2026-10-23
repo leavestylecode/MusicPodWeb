@@ -18,7 +18,6 @@ import "../product-page.css";
 import { isLocale, localeDetails, localePath } from "../../lib/locales";
 import { getRewardDictionary } from "../../lib/reward-dictionaries";
 import {
-  APP_STORE_RATING,
   DEVELOPER_BRAND,
   DEVELOPER_SCHEMA,
   DEVELOPER_URL,
@@ -77,10 +76,11 @@ export default async function MusicPodPage({
         screenshot: siteUrl("/product/musicpod-home.webp"),
         inLanguage: localeDetails[locale].htmlLang,
         featureList: [
-          messages.wheel.title,
-          messages.highlights.coverFlow.title,
-          messages.highlights.nowPlaying.title,
-          messages.personalize.title,
+          messages.wheel.kicker,
+          messages.highlights.coverFlow.kicker,
+          "Apple Music",
+          product.localMusic,
+          product.photoTitle,
         ],
         author: { "@id": DEVELOPER_SCHEMA["@id"] },
         publisher: { "@id": DEVELOPER_SCHEMA["@id"] },
@@ -90,22 +90,6 @@ export default async function MusicPodPage({
           price: "0",
           priceCurrency: "USD",
         },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: APP_STORE_RATING.value,
-          ratingCount: APP_STORE_RATING.count,
-        },
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${siteUrl(home)}#faq`,
-        inLanguage: localeDetails[locale].htmlLang,
-        isPartOf: { "@id": WEBSITE_SCHEMA_ID },
-        mainEntity: messages.faq.items.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: { "@type": "Answer", text: item.answer },
-        })),
       },
     ],
   };
@@ -154,7 +138,6 @@ export default async function MusicPodPage({
       <main id="main-content" tabIndex={-1}>
         <section aria-labelledby="hero-title" className="mp-hero" id="top">
           <div className="mp-hero-copy">
-            <p className="mp-eyebrow">MusicPod</p>
             <h1 id="hero-title">{product.title.map((line) => <span key={line}>{line}</span>)}</h1>
             <p className="mp-intro">{product.intro}</p>
             <div className="mp-hero-actions">
@@ -167,13 +150,12 @@ export default async function MusicPodPage({
               >
                 <AppStoreBadge locale={locale} />
               </a>
-              <a className="mp-text-link" href="#experience">{messages.hero.secondary}<span aria-hidden="true">↓</span></a>
             </div>
           </div>
           <figure className="mp-hero-visual">
             <picture>
               <source media="(max-width: 760px)" srcSet="/product/studio/hands.webp" />
-              <source media="(min-width: 761px)" sizes="(max-width: 1440px) 100vw, 1440px" srcSet="/product/studio/hero-1280.webp 1280w, /product/studio/hero.webp 1916w" />
+              <source media="(min-width: 761px)" sizes="100vw" srcSet="/product/studio/hero-1280.webp 1280w, /product/studio/hero.webp 1916w" />
               <Image
                 alt={product.heroAlt}
                 className="mp-hero-image"
@@ -190,8 +172,7 @@ export default async function MusicPodPage({
 
         <section aria-labelledby="experience-title" className="mp-experience mp-container mp-section" id="experience">
           <div className="mp-copy">
-            <p className="mp-eyebrow">{messages.wheel.kicker}</p>
-            <h2 id="experience-title">{messages.wheel.title}</h2>
+            <h2 id="experience-title"><Link href={`${home}/ipod-music#click-wheel`}>{messages.wheel.title}</Link></h2>
             <p className="mp-description">{messages.wheel.body}</p>
             <ul className="mp-library-icons" aria-label={messages.highlights.library.kicker}>
               {libraryIcons.map((icon, index) => (
@@ -203,7 +184,6 @@ export default async function MusicPodPage({
             </ul>
           </div>
           <div className="mp-wheel-stage">
-            <p className="mp-demo-label"><span aria-hidden="true">↻</span> {messages.wheel.try}</p>
             <ClickWheelDemo messages={messages.wheel} />
           </div>
         </section>
@@ -212,7 +192,6 @@ export default async function MusicPodPage({
           <div className="mp-container">
             <div className="mp-section-heading">
               <div>
-                <p className="mp-eyebrow">{messages.highlights.coverFlow.kicker}</p>
                 <h2 id="albums-title">{product.cover.map((line) => <span key={line}>{line}</span>)}</h2>
               </div>
               <p className="mp-description">{messages.highlights.coverFlow.body}</p>
@@ -220,8 +199,6 @@ export default async function MusicPodPage({
             <SpotlightCard className="mp-album-stage" spotlightColor="rgba(255, 255, 255, 0.08)">
               <CoverFlowShowcase
                 groupLabel={messages.highlights.coverFlow.body}
-                nextLabel={messages.wheel.next}
-                previousLabel={messages.wheel.previous}
                 selectTemplate={messages.wheel.select}
               />
             </SpotlightCard>
@@ -231,7 +208,6 @@ export default async function MusicPodPage({
         <section aria-labelledby="listening-title" className="mp-listening mp-section">
           <div className="mp-listening-grid mp-container">
             <div className="mp-copy">
-              <p className="mp-eyebrow">{messages.highlights.nowPlaying.kicker}</p>
               <h2 id="listening-title">{product.listen.map((line) => <span key={line}>{line}</span>)}</h2>
               <p className="mp-description">{messages.highlights.nowPlaying.body}</p>
               <div className="mp-strands-preview">
@@ -260,7 +236,7 @@ export default async function MusicPodPage({
             </article>
             <article>
               <svg aria-hidden="true" className="mp-source-symbol" fill="none" viewBox="0 0 48 48"><path d="M6 15a3 3 0 0 1 3-3h11l5 5h14a3 3 0 0 1 3 3v17a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3Z" stroke="currentColor" strokeWidth="2"/><path d="M25 23v9m0-9 8-2v9m-8 2c0 3-6 4-6 1s6-4 6-1Zm8-2c0 3-6 4-6 1s6-4 6-1Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>
-              <h3>{product.localMusic}</h3>
+              <h3><Link href={`${home}/ipod-music#import-local-music`}>{product.localMusic}</Link></h3>
               <p>{product.localBody}</p>
             </article>
           </div>
@@ -274,7 +250,6 @@ export default async function MusicPodPage({
               presetNames={messages.personalize.presets}
             />
             <div className="mp-copy">
-              <p className="mp-eyebrow">{messages.personalize.kicker}</p>
               <h2 id="style-title">{product.style.map((line) => <span key={line}>{line}</span>)}</h2>
               <p className="mp-description">{messages.personalize.body}</p>
               <div className="mp-photo-note">
@@ -315,7 +290,6 @@ export default async function MusicPodPage({
             <AppStoreBadge locale={locale} />
           </a>
           <small>{product.requirement}</small>
-          <p className="mp-visual-note">{product.visualNote}</p>
         </section>
       </main>
 

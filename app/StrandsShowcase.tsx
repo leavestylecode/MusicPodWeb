@@ -236,23 +236,47 @@ function StrandsMeter({ colors, progress }: { colors: readonly string[]; progres
 }
 
 export function StrandsShowcase({ ariaLabel, artist, track }: StrandsShowcaseProps) {
+  const showcaseRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hasFocus, setHasFocus] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [canAutoRotate, setCanAutoRotate] = useState(false);
   const activeSong = songs[activeIndex];
   const activeTitle = activeSong.title ?? track;
   const isAutoPaused = hasFocus || isHovered;
 
   useEffect(() => {
+    const showcase = showcaseRef.current;
+    if (!showcase) return;
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (isAutoPaused || motionQuery.matches) return;
+    let inView = false;
+    const syncAutoRotation = () => {
+      setCanAutoRotate(inView && document.visibilityState === "visible" && !motionQuery.matches);
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      syncAutoRotation();
+    });
+    observer.observe(showcase);
+    motionQuery.addEventListener("change", syncAutoRotation);
+    document.addEventListener("visibilitychange", syncAutoRotation);
+
+    return () => {
+      observer.disconnect();
+      motionQuery.removeEventListener("change", syncAutoRotation);
+      document.removeEventListener("visibilitychange", syncAutoRotation);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isAutoPaused || !canAutoRotate) return;
 
     const timer = window.setTimeout(() => {
       setActiveIndex((current) => (current + 1) % songs.length);
     }, AUTO_ROTATION_MS);
 
     return () => window.clearTimeout(timer);
-  }, [activeIndex, isAutoPaused]);
+  }, [activeIndex, isAutoPaused, canAutoRotate]);
 
   const move = (direction: number) => {
     setActiveIndex((current) => (current + direction + songs.length) % songs.length);
@@ -263,6 +287,7 @@ export function StrandsShowcase({ ariaLabel, artist, track }: StrandsShowcasePro
       aria-label={ariaLabel}
       aria-roledescription="carousel"
       className="strands-showcase"
+      data-nosnippet=""
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHasFocus(false);
       }}
@@ -279,6 +304,7 @@ export function StrandsShowcase({ ariaLabel, artist, track }: StrandsShowcasePro
       onPointerEnter={() => setIsHovered(true)}
       onPointerLeave={() => setIsHovered(false)}
       role="group"
+      ref={showcaseRef}
       tabIndex={0}
     >
       <div aria-hidden="true" className="strands-artwork-stack">
@@ -298,12 +324,6 @@ export function StrandsShowcase({ ariaLabel, artist, track }: StrandsShowcasePro
       </div>
 
       <span aria-hidden="true" className="strands-scrim" />
-
-      <div aria-hidden="true" className="strands-track-count">
-        <strong>{String(activeIndex + 1).padStart(2, "0")}</strong>
-        <span>/</span>
-        <span>{String(songs.length).padStart(2, "0")}</span>
-      </div>
 
       <div aria-atomic="true" aria-live={isAutoPaused ? "polite" : "off"} className="strands-copy">
         <strong>{activeTitle}</strong>

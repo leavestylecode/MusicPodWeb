@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AppStoreBadge } from "../../AppStoreBadge";
 import { BrandIcon } from "../../BrandIcon";
 import { LanguageMenu } from "../../LanguageMenu";
 import { ThemeToggle } from "../../ThemeToggle";
+import "../../guide-page.css";
 import { appStoreUrl } from "../../../lib/app-store";
 import { getDictionary } from "../../../lib/dictionaries";
 import { getIpodMusicDictionary } from "../../../lib/ipod-music-dictionaries";
 import { isLocale, localeDetails, localePath, type Locale } from "../../../lib/locales";
 import {
-  DEVELOPER_BRAND,
   DEVELOPER_SCHEMA,
-  DEVELOPER_URL,
   languageAlternates,
   SITE_CONTENT_UPDATED,
   SITE_NAME,
@@ -108,22 +107,11 @@ export default async function IpodMusicPage({
           ],
         },
       },
-      {
-        "@type": "FAQPage",
-        "@id": `${guideUrl}#faq`,
-        inLanguage: localeDetails[locale].htmlLang,
-        isPartOf: { "@id": WEBSITE_SCHEMA_ID },
-        mainEntity: messages.faq.items.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: { "@type": "Answer", text: item.answer },
-        })),
-      },
     ],
   };
 
   return (
-    <div className="site-shell privacy-shell">
+    <div className="site-shell privacy-shell guide-page">
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
         type="application/ld+json"
@@ -137,124 +125,53 @@ export default async function IpodMusicPage({
           <span>MusicPod</span>
         </Link>
 
-        <nav aria-label={messages.pageLabel} className="site-nav privacy-header-title">
-          <span className="status-dot" aria-hidden="true" />
-          <span>{messages.pageLabel}</span>
-        </nav>
-
         <div className="header-actions">
           <ThemeToggle labels={siteMessages.theme} />
           <LanguageMenu label={siteMessages.nav.language} locale={locale} />
-          <Link className="header-status privacy-back" href={home}>
-            <span aria-hidden="true">←</span>
-            {messages.back}
-          </Link>
         </div>
       </header>
 
       <main className="privacy-main" id="main-content" tabIndex={-1}>
         <section aria-labelledby="ipod-music-title" className="privacy-hero">
           <div className="privacy-hero-copy">
-            <p className="kicker"><span className="kicker-line" aria-hidden="true" />{messages.hero.eyebrow}</p>
-            <h1 id="ipod-music-title">{messages.hero.title}</h1>
-            <p className="privacy-intro">{messages.hero.intro}</p>
-          </div>
-
-          <div className="privacy-principles" role="list">
-            {messages.pillars.map((pillar, index) => (
-              <article className="privacy-principle" key={pillar.title} role="listitem">
-                <span aria-hidden="true">0{index + 1}</span>
-                <div>
-                  <h2>{pillar.title}</h2>
-                  <p>{pillar.body}</p>
-                </div>
-              </article>
-            ))}
+            <h1 id="ipod-music-title">{messages.pageLabel}</h1>
           </div>
         </section>
 
         <div className="privacy-layout">
-          <aside className="privacy-sidebar">
-            <nav aria-label={messages.toc} className="privacy-toc">
-              <h2>{messages.toc}</h2>
-              <ol>
-                {messages.sections.map((section) => (
-                  <li key={section.id}>
-                    <a href={`#${section.id}`}>{section.title}</a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          </aside>
-
           <article className="privacy-document">
             {messages.sections.map((section) => (
               <section className="privacy-section" id={section.id} key={section.id}>
                 <h2>{section.title}</h2>
-                {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-                {section.items ? (
-                  <ul>
-                    {section.items.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
-                ) : null}
+                <div className="privacy-section-body">
+                  {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.steps ? (
+                    <ol className="guide-steps">
+                      {section.steps.map((step) => <li key={step}>{step}</li>)}
+                    </ol>
+                  ) : null}
+                  {section.items ? (
+                    <ul>
+                      {section.items.map((item) => <li key={item}>{item}</li>)}
+                    </ul>
+                  ) : null}
+                  {section.id === "click-wheel" ? (
+                    <figure className="guide-screenshot">
+                      <Image alt={messages.screenshot.alt} height={2622} loading="lazy" sizes="(max-width: 760px) 70vw, 240px" src="/product/musicpod-home.webp" unoptimized width={1206} />
+                    </figure>
+                  ) : null}
+                </div>
               </section>
             ))}
           </article>
         </div>
-
-        <section aria-labelledby="ipod-music-faq-title" className="faq-section section-pad" id="faq">
-          <div className="faq-heading">
-            <p className="section-kicker">{messages.faq.kicker}</p>
-            <h2 id="ipod-music-faq-title">{messages.faq.title}</h2>
-          </div>
-          <div className="faq-list">
-            {messages.faq.items.map((item) => (
-              <details className="faq-item" key={item.question}>
-                <summary className="faq-question">
-                  <h3>{item.question}</h3>
-                  <span aria-hidden="true" className="faq-toggle" />
-                </summary>
-                <p className="faq-answer">{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        <section className="availability section-pad">
-          <BrandIcon className="availability-icon" size={96} />
-          <p className="section-kicker">{messages.cta.kicker}</p>
-          <h2>{messages.cta.title}</h2>
-          <p>{messages.cta.body}</p>
-          <a
-            aria-label={`${messages.cta.badgeKicker} ${messages.cta.badge}`}
-            className="availability-badge"
-            href={downloadHref}
-            rel="external noopener"
-            target="_blank"
-          >
-            <AppStoreBadge locale={locale} />
-          </a>
-          <small>{messages.cta.requirement}</small>
-        </section>
       </main>
 
       <footer className="site-footer">
-        <Link className="footer-brand" href={home}>
-          <BrandIcon size={28} />
-          <strong>MusicPod</strong>
-        </Link>
+        <p>© 2026 MusicPod</p>
         <div className="footer-meta">
           <Link className="footer-link" href={`${home}/privacy`}>{siteMessages.footer.privacy}</Link>
-          <span aria-current="page" className="footer-link">{siteMessages.footer.ipodMusic}</span>
-          <a
-            className="footer-link"
-            href={DEVELOPER_URL}
-            rel="author external noopener"
-            target="_blank"
-          >
-            {siteMessages.footer.developer} {DEVELOPER_BRAND}<span aria-hidden="true"> ↗</span>
-          </a>
-          <p>© 2026 MusicPod. {siteMessages.footer.rights}</p>
+          <a className="footer-link" href={downloadHref} rel="external noopener" target="_blank">App Store</a>
         </div>
       </footer>
     </div>

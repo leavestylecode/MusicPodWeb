@@ -83,9 +83,9 @@ export type Messages = {
 
 const en: Messages = {
   meta: {
-    title: "MusicPod — iPod Music, Reborn on iPhone",
-    description: "The classic iPod music experience on your iPhone. Turn the click wheel, browse your Apple Music library, and just listen.",
-    social: "Turn, click, and listen. The classic iPod music experience, reborn on iPhone.",
+    title: "MusicPod — Retro iPod Music Player for iPhone",
+    description: "An iPod-style music player for iPhone with a click wheel, Cover Flow, Apple Music, and imported audio. Free to download with optional in-app purchases.",
+    social: "Apple Music and local music, with a classic click wheel on iPhone.",
   },
   skip: "Skip to content",
   nav: { home: "MusicPod home", label: "Primary navigation", experience: "Experience", highlights: "Highlights", personalize: "Personalize", language: "Language", soon: "Coming soon" },
@@ -165,11 +165,15 @@ const en: Messages = {
     badge: "App Store",
     requirement: "iOS 17 or later · Local music needs no subscription",
   },
-  footer: { rights: "All rights reserved.", privacy: "Privacy Policy", ipodMusic: "iPod music on iPhone", developer: "An independent product by" },
+  footer: { rights: "All rights reserved.", privacy: "Privacy Policy", ipodMusic: "MusicPod guide", developer: "An independent product by" },
 };
 
 const zhCN: Messages = {
-  meta: { title: "MusicPod — 在 iPhone 上还原 iPod 音乐体验", description: "在 iPhone 上还原经典 iPod 音乐体验：转动点按式转盘，浏览你的 Apple Music 资料库，纯粹地听歌。", social: "转动、点按、聆听。iPod 音乐体验，重回 iPhone。" },
+  meta: {
+    title: "MusicPod — iPhone 上的复古 iPod 音乐播放器",
+    description: "iPhone 上的 iPod 风格音乐播放器，支持点按式转盘、Cover Flow、Apple Music 与本地音频导入。可免费下载，部分功能需内购。",
+    social: "经典转盘，Apple Music 与本地音乐，尽在 iPhone。",
+  },
   skip: "跳到主要内容",
   nav: { home: "MusicPod 首页", label: "主导航", experience: "体验", highlights: "亮点", personalize: "个性化", language: "语言", soon: "即将上线" },
   theme: { label: "外观", system: "跟随系统", light: "浅色", dark: "深色" },
@@ -205,11 +209,15 @@ const zhCN: Messages = {
     { question: "需要注册账号吗？", answer: "不需要注册账号。" },
   ] },
   availability: { kicker: "现已推出", title: "下载 MusicPod", body: "iPod 音乐体验，现已登陆 App Store", badgeKicker: "下载自", badge: "App Store", requirement: "支持 iOS 17 及以上 · 本地音乐无需订阅" },
-  footer: { rights: "保留所有权利。", privacy: "隐私政策", ipodMusic: "iPhone 上的 iPod 音乐", developer: "独立开发者作品 ·" },
+  footer: { rights: "保留所有权利。", privacy: "隐私政策", ipodMusic: "使用指南", developer: "独立开发者作品 ·" },
 };
 
 const zhTW: Messages = {
-  meta: { title: "MusicPod — 在 iPhone 上重現 iPod 音樂體驗", description: "在 iPhone 上重現經典 iPod 音樂體驗：轉動點按式轉盤，瀏覽你的 Apple Music 資料庫，純粹地聽歌。", social: "轉動、點按、聆聽。iPod 音樂體驗，重回 iPhone。" },
+  meta: {
+    title: "MusicPod — iPhone 上的復古 iPod 音樂播放器",
+    description: "iPhone 上的 iPod 風格音樂播放器，支援點按式轉盤、Cover Flow、Apple Music 與本機音訊匯入。可免費下載，部分功能需內購。",
+    social: "經典轉盤，Apple Music 與本機音樂，盡在 iPhone。",
+  },
   skip: "跳到主要內容",
   nav: { home: "MusicPod 首頁", label: "主要導覽", experience: "體驗", highlights: "亮點", personalize: "個人化", language: "語言", soon: "即將推出" },
   theme: { label: "外觀", system: "跟隨系統", light: "淺色", dark: "深色" },
@@ -226,11 +234,15 @@ const zhTW: Messages = {
     { question: "需要註冊帳號嗎？", answer: "不需要註冊帳號。" },
   ] },
   availability: { kicker: "現已推出", title: "下載 MusicPod", body: "iPod 音樂體驗，現已登上 App Store", badgeKicker: "下載自", badge: "App Store", requirement: "支援 iOS 17 及以上 · 本機音樂無需訂閱" },
-  footer: { rights: "保留所有權利。", privacy: "隱私權政策", ipodMusic: "iPhone 上的 iPod 音樂", developer: "獨立開發者作品 ·" },
+  footer: { rights: "保留所有權利。", privacy: "隱私權政策", ipodMusic: "使用指南", developer: "獨立開發者作品 ·" },
 };
 
 const ja: Messages = {
-  meta: { title: "MusicPod — iPodの音楽を、iPhoneで。", description: "iPhoneのために蘇らせた、あのiPodの音楽体験。クリックホイールを回して、Apple Musicライブラリを思うままに。", social: "回して、押して、聴く。iPodの音楽体験が、iPhoneに帰ってきた。" },
+  meta: {
+    title: "MusicPod — iPhoneで使えるレトロなiPod風音楽プレーヤー",
+    description: "クリックホイールとCover FlowをiPhoneで。Apple Musicと読み込んだ音声ファイルを再生できるiPodスタイルの音楽プレーヤー。無料ダウンロード、一部機能はアプリ内課金。",
+    social: "懐かしいホイールでApple Musicもローカル音楽も。",
+  },
   skip: "メインコンテンツへ移動",
   nav: { home: "MusicPod ホーム", label: "メインナビゲーション", experience: "体験", highlights: "特長", personalize: "カスタマイズ", language: "言語", soon: "近日公開" },
   theme: { label: "外観", system: "システム", light: "ライト", dark: "ダーク" },
@@ -247,11 +259,15 @@ const ja: Messages = {
     { question: "アカウント登録は必要ですか？", answer: "アカウント登録は不要です。" },
   ] },
   availability: { kicker: "配信中", title: "MusicPodをダウンロード。", body: "iPodの音楽体験を、App Storeでどうぞ。", badgeKicker: "App Storeからダウンロード", badge: "App Store", requirement: "iOS 17以降 · ローカル音楽はサブスクリプション不要" },
-  footer: { rights: "All rights reserved.", privacy: "プライバシーポリシー", ipodMusic: "iPhoneのiPodの音楽", developer: "インディー開発 ·" },
+  footer: { rights: "All rights reserved.", privacy: "プライバシーポリシー", ipodMusic: "使い方ガイド", developer: "インディー開発 ·" },
 };
 
 const ko: Messages = {
-  meta: { title: "MusicPod — iPod 음악을 다시, iPhone에서.", description: "iPhone에서 만나는 그리운 iPod 음악 경험. 클릭 휠을 돌리고 Apple Music 보관함을 둘러보며 음악에만 집중하세요.", social: "돌리고, 누르고, 듣다. iPod 음악 경험이 iPhone으로 돌아왔습니다." },
+  meta: {
+    title: "MusicPod — iPhone용 레트로 iPod 스타일 음악 플레이어",
+    description: "iPhone에서 클릭 휠과 Cover Flow로 Apple Music과 가져온 오디오 파일을 재생하세요. 무료 다운로드, 일부 기능은 앱 내 구입이 필요합니다.",
+    social: "클래식 클릭 휠로 즐기는 Apple Music과 로컬 음악.",
+  },
   skip: "본문으로 건너뛰기",
   nav: { home: "MusicPod 홈", label: "주요 탐색", experience: "경험", highlights: "주요 기능", personalize: "맞춤 설정", language: "언어", soon: "출시 예정" },
   theme: { label: "화면 모드", system: "시스템", light: "라이트", dark: "다크" },
@@ -268,11 +284,15 @@ const ko: Messages = {
     { question: "계정 등록이 필요한가요?", answer: "계정 등록은 필요하지 않습니다." },
   ] },
   availability: { kicker: "지금 이용 가능", title: "MusicPod 다운로드.", body: "iPod 음악 경험을 App Store에서 만나보세요.", badgeKicker: "App Store에서 다운로드", badge: "App Store", requirement: "iOS 17 이상 · 로컬 음악은 구독 불필요" },
-  footer: { rights: "All rights reserved.", privacy: "개인정보 처리방침", ipodMusic: "iPhone의 iPod 음악", developer: "인디 개발 ·" },
+  footer: { rights: "All rights reserved.", privacy: "개인정보 처리방침", ipodMusic: "사용 가이드", developer: "인디 개발 ·" },
 };
 
 const es: Messages = {
-  meta: { title: "MusicPod — Música de iPod, renacida en iPhone", description: "La experiencia musical del iPod clásico en tu iPhone. Gira la rueda de clic, explora tu biblioteca de Apple Music y solo escucha.", social: "Gira, pulsa y escucha. La música del iPod clásico, renacida en iPhone." },
+  meta: {
+    title: "MusicPod — Reproductor de música estilo iPod para iPhone",
+    description: "Un reproductor estilo iPod para iPhone con rueda de clic, Cover Flow, Apple Music e importación de audio. Descarga gratuita con compras opcionales.",
+    social: "Apple Music y música local con la rueda de clic clásica, en tu iPhone.",
+  },
   skip: "Saltar al contenido",
   nav: { home: "Inicio de MusicPod", label: "Navegación principal", experience: "Experiencia", highlights: "Funciones", personalize: "Personaliza", language: "Idioma", soon: "Próximamente" },
   theme: { label: "Apariencia", system: "Sistema", light: "Claro", dark: "Oscuro" },
@@ -289,11 +309,15 @@ const es: Messages = {
     { question: "¿Necesito crear una cuenta?", answer: "No necesitas una cuenta." },
   ] },
   availability: { kicker: "Ya disponible", title: "Descarga MusicPod.", body: "La experiencia musical del iPod, ya en App Store.", badgeKicker: "Descárgalo en", badge: "App Store", requirement: "iOS 17 o posterior · Música local sin suscripción" },
-  footer: { rights: "Todos los derechos reservados.", privacy: "Política de privacidad", ipodMusic: "Música de iPod en iPhone", developer: "Un producto independiente de" },
+  footer: { rights: "Todos los derechos reservados.", privacy: "Política de privacidad", ipodMusic: "Guía de MusicPod", developer: "Un producto independiente de" },
 };
 
 const fr: Messages = {
-  meta: { title: "MusicPod — La musique de l’iPod renaît sur iPhone", description: "L’expérience musicale de l’iPod classique sur votre iPhone. Tournez la molette, parcourez votre bibliothèque Apple Music, et écoutez, simplement.", social: "Tournez, cliquez, écoutez. La musique de l’iPod renaît sur iPhone." },
+  meta: {
+    title: "MusicPod — Lecteur de musique rétro façon iPod pour iPhone",
+    description: "Un lecteur façon iPod pour iPhone : molette, Cover Flow, Apple Music et fichiers audio importés. Téléchargement gratuit avec achats intégrés facultatifs.",
+    social: "Apple Music et musique locale, avec la molette classique sur iPhone.",
+  },
   skip: "Aller au contenu",
   nav: { home: "Accueil MusicPod", label: "Navigation principale", experience: "Expérience", highlights: "Fonctions", personalize: "Personnaliser", language: "Langue", soon: "Bientôt disponible" },
   theme: { label: "Apparence", system: "Système", light: "Clair", dark: "Sombre" },
@@ -310,11 +334,15 @@ const fr: Messages = {
     { question: "Dois-je créer un compte ?", answer: "Aucun compte nécessaire." },
   ] },
   availability: { kicker: "Disponible", title: "Téléchargez MusicPod.", body: "L’expérience musicale de l’iPod, désormais sur l’App Store.", badgeKicker: "Télécharger dans", badge: "App Store", requirement: "iOS 17 ou ultérieur · Musique locale sans abonnement" },
-  footer: { rights: "Tous droits réservés.", privacy: "Politique de confidentialité", ipodMusic: "Musique d’iPod sur iPhone", developer: "Un produit indépendant par" },
+  footer: { rights: "Tous droits réservés.", privacy: "Politique de confidentialité", ipodMusic: "Guide MusicPod", developer: "Un produit indépendant par" },
 };
 
 const de: Messages = {
-  meta: { title: "MusicPod — iPod-Musik, zurück auf dem iPhone", description: "Das Musikerlebnis des klassischen iPod auf deinem iPhone. Drehe das Click Wheel, stöbere durch deine Apple Music-Mediathek und hör einfach Musik.", social: "Drehen, klicken, hören. iPod-Musik, neu geboren auf dem iPhone." },
+  meta: {
+    title: "MusicPod — Retro-Musikplayer im iPod-Stil fürs iPhone",
+    description: "Ein Musikplayer im iPod-Stil fürs iPhone mit Click Wheel, Cover Flow, Apple Music und Audioimport. Kostenloser Download mit optionalen In-App-Käufen.",
+    social: "Apple Music und lokale Musik mit dem klassischen Click Wheel auf dem iPhone.",
+  },
   skip: "Zum Inhalt springen",
   nav: { home: "MusicPod Startseite", label: "Hauptnavigation", experience: "Erlebnis", highlights: "Funktionen", personalize: "Personalisieren", language: "Sprache", soon: "Demnächst" },
   theme: { label: "Darstellung", system: "System", light: "Hell", dark: "Dunkel" },
@@ -331,11 +359,15 @@ const de: Messages = {
     { question: "Brauche ich ein Konto?", answer: "Kein Konto erforderlich." },
   ] },
   availability: { kicker: "Jetzt erhältlich", title: "MusicPod laden.", body: "Das iPod-Musikerlebnis, jetzt im App Store.", badgeKicker: "Laden im", badge: "App Store", requirement: "Ab iOS 17 · Lokale Musik ohne Abo" },
-  footer: { rights: "Alle Rechte vorbehalten.", privacy: "Datenschutzerklärung", ipodMusic: "iPod-Musik auf dem iPhone", developer: "Ein unabhängiges Produkt von" },
+  footer: { rights: "Alle Rechte vorbehalten.", privacy: "Datenschutzerklärung", ipodMusic: "MusicPod-Anleitung", developer: "Ein unabhängiges Produkt von" },
 };
 
 const ptBR: Messages = {
-  meta: { title: "MusicPod — Música de iPod, renascida no iPhone", description: "A experiência musical do iPod clássico no seu iPhone. Gire a click wheel, explore sua biblioteca do Apple Music e simplesmente ouça.", social: "Gire, clique e ouça. A música do iPod clássico, renascida no iPhone." },
+  meta: {
+    title: "MusicPod — Player de música retrô estilo iPod para iPhone",
+    description: "Um player estilo iPod para iPhone com click wheel, Cover Flow, Apple Music e importação de áudio. Download gratuito com compras opcionais no app.",
+    social: "Apple Music e música local com a click wheel clássica no iPhone.",
+  },
   skip: "Pular para o conteúdo",
   nav: { home: "Início do MusicPod", label: "Navegação principal", experience: "Experiência", highlights: "Recursos", personalize: "Personalize", language: "Idioma", soon: "Em breve" },
   theme: { label: "Aparência", system: "Sistema", light: "Claro", dark: "Escuro" },
@@ -352,7 +384,7 @@ const ptBR: Messages = {
     { question: "Preciso criar uma conta?", answer: "Não é necessário criar uma conta." },
   ] },
   availability: { kicker: "Já disponível", title: "Baixe o MusicPod.", body: "A experiência musical do iPod, já na App Store.", badgeKicker: "Baixe na", badge: "App Store", requirement: "iOS 17 ou posterior · Música local sem assinatura" },
-  footer: { rights: "Todos os direitos reservados.", privacy: "Política de Privacidade", ipodMusic: "Música de iPod no iPhone", developer: "Um produto independente de" },
+  footer: { rights: "Todos os direitos reservados.", privacy: "Política de Privacidade", ipodMusic: "Guia do MusicPod", developer: "Um produto independente de" },
 };
 
 export const dictionaries: Record<Locale, Messages> = {

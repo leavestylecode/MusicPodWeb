@@ -217,7 +217,7 @@ export function PersonalizationShowcase({
   const nextIndex = (selected + 1) % total;
 
   return (
-    <div className="personalization-showcase reveal" style={finishStyle(finish)}>
+    <div className="personalization-showcase reveal" data-nosnippet="" style={finishStyle(finish)}>
       <div
         aria-label={combinationsLabel}
         aria-roledescription="carousel"
@@ -264,33 +264,10 @@ export function PersonalizationShowcase({
             ))}
           </div>
         </div>
-
-        <button
-          aria-label={`${combinationsLabel}: ${presetNames[previousIndex]}`}
-          className="personalization-carousel-arrow is-previous"
-          onClick={() => goTo(previousIndex)}
-          type="button"
-        >
-          <span aria-hidden="true">‹</span>
-        </button>
-        <button
-          aria-label={`${combinationsLabel}: ${presetNames[nextIndex]}`}
-          className="personalization-carousel-arrow is-next"
-          onClick={() => goTo(nextIndex)}
-          type="button"
-        >
-          <span aria-hidden="true">›</span>
-        </button>
       </div>
 
       <div className="personalization-controls">
-        <div className="personalization-control-heading">
-          <span>{combinationsLabel}</span>
-          <div>
-            <strong aria-atomic="true" aria-live="polite">{presetNames[selected]}</strong>
-            <em>{String(selected + 1).padStart(2, "0")} / {total}</em>
-          </div>
-        </div>
+        <p aria-atomic="true" aria-live="polite" className="visually-hidden">{presetNames[selected]}</p>
 
         <div aria-label={paletteLabel} className="finish-options" role="group">
           {finishes.map((option, index) => (

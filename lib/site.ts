@@ -8,23 +8,14 @@ import {
 export const SITE_ORIGIN = "https://www.musicpod.app";
 export const SITE_METADATA_BASE = new URL(SITE_ORIGIN);
 export const SITE_NAME = "MusicPod";
-export const SITE_TAGLINE = "iPod Music, Reborn on iPhone";
+export const SITE_TAGLINE = "Retro iPod Music Player for iPhone";
 export const SITE_DESCRIPTION =
-  "The classic iPod music experience, rebuilt as a native iPhone app with a click wheel and your Apple Music library.";
+  "An iPod-style music player for iPhone with a click wheel, Cover Flow, Apple Music, and imported audio. Free to download with optional in-app purchases.";
 export const SITE_OG_IMAGE = "/og.png";
-export const SITE_CONTENT_UPDATED = "2026-10-22";
+export const SITE_CONTENT_UPDATED = "2026-10-23";
 export const DEVELOPER_NAME = "Leavestylecode";
 export const DEVELOPER_BRAND = "LeaveStyle";
 export const DEVELOPER_URL = "https://leavestyle.com/";
-
-/**
- * Mirrored from the App Store listing (itunes lookup API, 2026-09). Update
- * manually when the listing changes so the structured data stays truthful.
- */
-export const APP_STORE_RATING = {
-  value: 4.2,
-  count: 5,
-} as const;
 
 export const DEVELOPER_SCHEMA = {
   "@type": "Organization",

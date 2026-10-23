@@ -76,7 +76,6 @@ export async function generateMetadata({
       },
     },
     manifest: "/manifest.webmanifest",
-    keywords: ["MusicPod", "iPod music", "iPod music player", "iPod app for iPhone", "iPod-style music player", "Apple Music", "iPhone", "Click Wheel", "Cover Flow", "MusicKit"],
     alternates: {
       canonical: siteUrl(canonicalPath),
       languages: languageAlternates(),

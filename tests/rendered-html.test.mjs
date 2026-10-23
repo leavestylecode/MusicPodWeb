@@ -38,7 +38,7 @@ test("server-renders the international English product page", async () => {
 
   const html = await response.text();
   assert.match(html, /<html lang="en">/);
-  assert.match(html, /<title>MusicPod — iPod Music, Reborn on iPhone<\/title>/);
+  assert.match(html, /<title>MusicPod — Retro iPod Music Player for iPhone<\/title>/);
   assert.match(html, /id="hero-title"><span>Your music<\/span><span>In your hands<\/span>/);
   assert.match(html, /class="site-shell product-page"/);
   assert.match(html, /\/product\/studio\/hero\.webp/);
@@ -73,7 +73,7 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /Leavestylecode/);
   assert.match(html, /href="\/en\/privacy"/);
   assert.match(html, /href="\/en\/ipod-music"/);
-  assert.match(html, /iPod music on iPhone/);
+  assert.match(html, /MusicPod guide/);
   assert.match(html, /href="\/zh-cn"/);
   assert.match(html, /hreflang="fr"/i);
   assert.match(html, /name="robots" content="index, follow"/i);
@@ -84,10 +84,9 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /"@type":"SoftwareApplication"/);
   assert.match(html, /"featureList"/);
   assert.match(html, /"offers":\{"@type":"Offer","price":"0"/);
-  assert.match(html, /"aggregateRating":\{"@type":"AggregateRating","ratingValue":4\.2,"ratingCount":5\}/);
+  assert.doesNotMatch(html, /"aggregateRating"|"ratingValue"|"ratingCount"/);
   assert.match(html, /"downloadUrl":"https:\/\/apps\.apple\.com\/us\/app\/[^"]+"/);
-  assert.match(html, /"@type":"FAQPage"/);
-  assert.match(html, /"@type":"Question","name":"Is MusicPod free\?"/);
+  assert.doesNotMatch(html, /"@type":"FAQPage"/);
   assert.match(html, /id="faq"/);
   assert.match(html, /<h2 id="faq-title">FAQ<\/h2>/);
   assert.equal((html.match(/<details class="faq-item"/g) ?? []).length, 4);
@@ -126,24 +125,26 @@ test("server-renders the localized iPod music guide", async () => {
 
   const html = await enResponse.text();
   assert.match(html, /<html lang="en">/);
-  assert.match(html, /<title>iPod Music on iPhone: How to Get It Back — MusicPod<\/title>/);
-  assert.match(html, /iPod music, back on iPhone/);
+  assert.match(html, /<title>MusicPod Guide — Import Music, Apple Music &amp; Click Wheel<\/title>/);
+  assert.match(html, /id="ipod-music-title">MusicPod guide<\/h1>/);
   assert.match(html, /rel="canonical" href="https:\/\/www\.musicpod\.app\/en\/ipod-music"/);
   assert.match(html, /hreflang="fr"/i);
   assert.match(html, /"@type":"WebPage"/);
   assert.match(html, /"@type":"BreadcrumbList"/);
-  assert.match(html, /"@type":"FAQPage"/);
-  assert.match(html, /Can you get iPod music on an iPhone\?/);
-  assert.match(html, /id="meet-musicpod"/);
+  assert.doesNotMatch(html, /"@type":"FAQPage"/);
+  assert.match(html, /How to import local music/);
+  assert.match(html, /Choose Files/);
+  assert.match(html, /FLAC/);
+  assert.match(html, /class="guide-steps"/);
   assert.match(html, /href="https:\/\/apps\.apple\.com\/us\/app\/[^"]+"/);
-  assert.match(html, /Back to MusicPod/);
+  assert.match(html, /<a\b(?=[^>]*aria-label="MusicPod home")(?=[^>]*href="\/en")[^>]*>/);
 
   const zhResponse = await render("/zh-cn/ipod-music");
   assert.equal(zhResponse.status, 200);
 
   const zhHtml = await zhResponse.text();
-  assert.match(zhHtml, /<title>在 iPhone 上听 iPod 音乐：找回经典体验 — MusicPod<\/title>/);
-  assert.match(zhHtml, /iPod 音乐，重回 iPhone/);
+  assert.match(zhHtml, /<title>MusicPod 使用指南：导入音乐、Apple Music 与转盘操作<\/title>/);
+  assert.match(zhHtml, /id="ipod-music-title">使用指南<\/h1>/);
   assert.match(zhHtml, /rel="canonical" href="https:\/\/www\.musicpod\.app\/zh-cn\/ipod-music"/);
 });
 
@@ -229,6 +230,64 @@ test("publishes a localized, launch-ready privacy policy", async () => {
   assert.match(english, /musicpod-theme/);
 });
 
+test("keeps product and guide SEO consistent across all nine languages", async () => {
+  const languages = [
+    ["en", "en"], ["zh-cn", "zh-CN"], ["zh-tw", "zh-TW"],
+    ["ja", "ja"], ["ko", "ko"], ["es", "es"], ["fr", "fr"],
+    ["de", "de"], ["pt-br", "pt-BR"],
+  ];
+  const sectionIds = ["get-started", "import-local-music", "apple-music", "click-wheel", "cover-flow"];
+  const titles = new Set();
+  const descriptions = new Set();
+
+  await Promise.all(languages.map(async ([locale, language]) => {
+    const home = `/${locale}`;
+    const guide = `${home}/ipod-music`;
+    const [homeResponse, guideResponse] = await Promise.all([render(home), render(guide)]);
+    assert.equal(homeResponse.status, 200, home);
+    assert.equal(guideResponse.status, 200, guide);
+    const [homeHtml, guideHtml] = await Promise.all([homeResponse.text(), guideResponse.text()]);
+
+    for (const [pathname, html] of [[home, homeHtml], [guide, guideHtml]]) {
+      assert.equal((html.match(/<h1\b/g) ?? []).length, 1, pathname);
+      assert.ok(html.includes(`<html lang="${language}">`), pathname);
+      assert.ok(html.includes(`rel="canonical" href="https://www.musicpod.app${pathname}"`), pathname);
+      assert.match(html, /name="robots" content="index, follow"/i, pathname);
+      assert.doesNotMatch(html, /name="robots" content="[^"]*noindex/i, pathname);
+      assert.equal((html.match(/<link rel="alternate"/gi) ?? []).length, 10, pathname);
+      const title = html.match(/<title>(.*?)<\/title>/)?.[1];
+      const description = html.match(/name="description" content="([^"]+)"/)?.[1];
+      assert.ok(title && description, pathname);
+      assert.ok(!titles.has(title), `Unique title: ${pathname}`);
+      assert.ok(!descriptions.has(description), `Unique description: ${pathname}`);
+      titles.add(title);
+      descriptions.add(description);
+      const graphs = [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)]
+        .flatMap((match) => JSON.parse(match[1])["@graph"]);
+      assert.ok(graphs.length > 0, pathname);
+      assert.ok(graphs.every((entry) => entry["@type"] !== "FAQPage"), pathname);
+      for (const [otherLocale, otherLanguage] of [...languages, ["en", "x-default"]]) {
+        const suffix = pathname === guide ? "/ipod-music" : "";
+        assert.ok(html.toLowerCase().includes(`hreflang="${otherLanguage}" href="https://www.musicpod.app/${otherLocale}${suffix}"`.toLowerCase()), pathname);
+      }
+      if (pathname === home) {
+        const app = graphs.find((entry) => entry["@type"] === "SoftwareApplication");
+        assert.equal(app?.url, `https://www.musicpod.app${home}`, home);
+        assert.equal(app?.inLanguage, language, home);
+        assert.equal(app?.offers.price, "0", home);
+        assert.ok(app.featureList.includes("Apple Music"), home);
+        assert.equal(app.aggregateRating, undefined, home);
+      }
+    }
+
+    assert.ok(homeHtml.includes(`href="${guide}#import-local-music"`), home);
+    assert.ok(homeHtml.includes(`href="${guide}#click-wheel"`), home);
+    assert.deepEqual([...guideHtml.matchAll(/class="privacy-section" id="([^"]+)"/g)].map((match) => match[1]), sectionIds, guide);
+    assert.equal((guideHtml.match(/class="guide-steps"/g) ?? []).length, 3, guide);
+    assert.match(guideHtml, /\/product\/musicpod-home\.webp/, guide);
+  }));
+});
+
 test("selects a locale from browser preferences and remembers an explicit choice", async () => {
   const french = await render("/", { "accept-language": "fr-FR,fr;q=0.9,en;q=0.8" });
   assert.equal(french.status, 307);
@@ -273,7 +332,7 @@ test("publishes international discovery metadata", async () => {
   assert.doesNotMatch(sitemap, /reward/);
   assert.match(sitemap, /hreflang="ja"/);
   assert.match(sitemap, /hreflang="x-default"/);
-  assert.match(sitemap, /<lastmod>2026-10-22T00:00:00\.000Z<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-10-23T00:00:00\.000Z<\/lastmod>/);
   assert.match(robots, /Sitemap: https:\/\/www\.musicpod\.app\/sitemap\.xml/i);
   assert.match(robots, /Host: https:\/\/www\.musicpod\.app\//i);
   assert.match(manifestResponse.headers.get("content-type") ?? "", /^application\/manifest\+json\b/i);
@@ -324,7 +383,6 @@ test("ships the product media, internationalization source, and image sizing gua
   assert.doesNotMatch(privacyPage, /pathSuffix/);
   assert.match(privacyPage, /application\/ld\+json/);
   assert.match(page, /alt=\{product\.heroAlt\}/);
-  assert.match(page, /product\.visualNote/);
   assert.match(styles, /img\s*{[^}]*height:\s*auto;/);
   assert.match(styles, /prefers-reduced-motion/);
   assert.match(styles, /:root\[data-theme="dark"\]/);

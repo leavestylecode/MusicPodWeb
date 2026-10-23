@@ -99,9 +99,6 @@ export function ClickWheelDemo({ messages }: { messages: Messages["wheel"] }) {
             </div>
           </div>
           <strong>{items[index].label}</strong>
-          <div className="demo-dots" aria-hidden="true">
-            {items.map((item, dotIndex) => <i className={dotIndex === index ? "active" : ""} key={item.label} />)}
-          </div>
         </div>
 
         <div
@@ -130,7 +127,7 @@ export function ClickWheelDemo({ messages }: { messages: Messages["wheel"] }) {
         </div>
       </div>
 
-      <p className="wheel-demo-help" id="wheel-demo-help" aria-live="polite">{message}</p>
+      <p className="visually-hidden" id="wheel-demo-help" aria-live="polite">{message}</p>
     </div>
   );
 }
