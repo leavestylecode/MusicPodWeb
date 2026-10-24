@@ -69,7 +69,7 @@ test("server-renders the international English product page", async () => {
   assert.doesNotMatch(html, /Strands ·/);
   assert.match(html, /Midnight Memory/);
   assert.match(html, /application\/ld\+json/);
-  assert.match(html, /href="https:\/\/leavestyle\.com\/"/);
+  assert.match(html, /href="https:\/\/www\.leavestyle\.com\/(?:en)?"/);
   assert.match(html, /Leavestylecode/);
   assert.match(html, /href="\/en\/privacy"/);
   assert.match(html, /href="\/en\/ipod-music"/);
@@ -217,7 +217,7 @@ test("publishes a localized, launch-ready privacy policy", async () => {
     assert.match(html, new RegExp(`rel="canonical" href="https://www\\.musicpod\\.app${pathname}"`), pathname);
     assert.match(html, /leavestyle101@gmail\.com/, pathname);
     assert.match(html, /application\/ld\+json/, pathname);
-    assert.match(html, /href="https:\/\/leavestyle\.com\/"/, pathname);
+    assert.match(html, /href="https:\/\/www\.leavestyle\.com\/(?:en)?"/, pathname);
   }));
 
   const english = await (await render("/en/privacy")).text();

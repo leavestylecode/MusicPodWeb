@@ -2801,6 +2801,7 @@ html[lang^="zh"] .availability h2 {
 
 .site-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
@@ -2812,6 +2813,16 @@ html[lang^="zh"] .availability h2 {
   font-size: 0.7rem;
   line-height: 1.5;
 }
+
+.portfolio-links {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+}
+
+.portfolio-links > span { color: var(--footer-text); }
 
 .footer-brand {
   display: flex;

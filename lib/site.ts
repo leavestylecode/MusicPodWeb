@@ -15,7 +15,7 @@ export const SITE_OG_IMAGE = "/og.png";
 export const SITE_CONTENT_UPDATED = "2026-10-23";
 export const DEVELOPER_NAME = "Leavestylecode";
 export const DEVELOPER_BRAND = "LeaveStyle";
-export const DEVELOPER_URL = "https://leavestyle.com/";
+export const DEVELOPER_URL = "https://www.leavestyle.com/";
 
 export const DEVELOPER_SCHEMA = {
   "@type": "Organization",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PortfolioLinks } from "../../PortfolioLinks";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -168,6 +169,7 @@ export default async function IpodMusicPage({
       </main>
 
       <footer className="site-footer">
+        <PortfolioLinks locale={locale} />
         <p>© 2026 MusicPod</p>
         <div className="footer-meta">
           <Link className="footer-link" href={`${home}/privacy`}>{siteMessages.footer.privacy}</Link>

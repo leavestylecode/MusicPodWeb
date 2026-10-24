@@ -11,6 +11,7 @@ import { PersonalizationShowcase } from "../PersonalizationShowcase";
 import { SpotlightCard } from "../SpotlightCard";
 import { StrandsShowcase } from "../StrandsShowcase";
 import { ThemeToggle } from "../ThemeToggle";
+import { PortfolioLinks } from "../PortfolioLinks";
 import { appStoreUrl } from "../../lib/app-store";
 import { getDictionary } from "../../lib/dictionaries";
 import { getProductCopy } from "../../lib/product-dictionaries";
@@ -294,6 +295,7 @@ export default async function MusicPodPage({
       </main>
 
       <footer className="site-footer">
+        <PortfolioLinks locale={locale} />
         <div className="footer-brand">
           <BrandIcon size={28} />
           <strong>MusicPod</strong>
@@ -303,7 +305,7 @@ export default async function MusicPodPage({
           <Link className="footer-link" href={`${home}/privacy`}>{messages.footer.privacy}</Link>
           <a
             className="footer-link"
-            href={DEVELOPER_URL}
+            href={`${DEVELOPER_URL}${locale.startsWith("zh") ? "" : "en"}`}
             rel="author external noopener"
             target="_blank"
           >

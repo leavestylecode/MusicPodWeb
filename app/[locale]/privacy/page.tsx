@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PortfolioLinks } from "../../PortfolioLinks";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary } from "../../../lib/dictionaries";
@@ -215,6 +216,7 @@ export default async function PrivacyPage({
       </main>
 
       <footer className="site-footer">
+        <PortfolioLinks locale={locale} />
         <Link className="footer-brand" href={home}>
           <BrandIcon size={28} />
           <strong>MusicPod</strong>
@@ -224,7 +226,7 @@ export default async function PrivacyPage({
           <Link className="footer-link" href={`${home}/ipod-music`}>{siteMessages.footer.ipodMusic}</Link>
           <a
             className="footer-link"
-            href={DEVELOPER_URL}
+            href={`${DEVELOPER_URL}${locale.startsWith("zh") ? "" : "en"}`}
             rel="author external noopener"
             target="_blank"
           >
