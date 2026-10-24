@@ -177,6 +177,8 @@ html[data-theme="dark"] .product-page .site-footer { border: 0; background: var(
   .product-page .site-header { min-height: 58px; }
   .mp-section { padding-block: 64px; }
   .product-page h2 { font-size: clamp(36px, 8vw, 48px); }
+  html[lang="ja"] .product-page h1,
+  html[lang="ja"] .product-page h2 { word-break: normal; }
   .mp-description { margin-top: 20px; font-size: 17px; line-height: 1.65; }
   .mp-hero { padding-top: 98px; }
   .mp-hero-copy { padding: 0 20px 34px; }
