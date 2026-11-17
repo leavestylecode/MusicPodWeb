@@ -81,8 +81,12 @@ export function ShareReward({ messages }: { messages: RewardMessages }) {
 
   const copyRedemptionLink = async () => {
     if (!reward) return;
-    await navigator.clipboard.writeText(reward.redemptionUrl);
-    setCopied(true);
+    try {
+      await navigator.clipboard.writeText(reward.redemptionUrl);
+      setCopied(true);
+    } catch (error) {
+      console.error("Failed to copy redemption link:", error);
+    }
   };
 
   const resetForm = () => {

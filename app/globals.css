@@ -4466,3 +4466,116 @@ html[data-theme="dark"] .privacy-contact-card {
 @media (hover: none) {
   .spotlight-card::before { display: none; }
 }
+/* ===== 微信 App Store 引导弹窗（原生 <dialog>，样式来自原内联注入） ===== */
+dialog.wxg-dialog {
+  max-width: 340px;
+  width: calc(100% - 48px);
+  /* Tailwind preflight 会清零 UA margin:auto，恢复弹窗居中 */
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #eaf2ff;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+dialog.wxg-dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background: rgb(0 0 0 / 0.86);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  animation: wxg-in 0.25s ease both;
+}
+
+@keyframes wxg-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.wxg-card {
+  pointer-events: none;
+  padding: 30px 28px;
+  text-align: center;
+  border-radius: 16px;
+  border: 1px solid rgb(133 194 255 / 0.28);
+  background: rgb(13 20 38 / 0.78);
+  animation: wxg-rise 0.35s ease both;
+}
+
+@keyframes wxg-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wxg-title {
+  margin: 0 0 20px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.wxg-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+  text-align: left;
+  font-size: 15px;
+}
+
+.wxg-step em {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid rgb(133 194 255 / 0.35);
+  background: rgb(133 194 255 / 0.1);
+  color: #85c2ff;
+  font-style: normal;
+  font-size: 13px;
+}
+
+.wxg-dismiss {
+  margin: 22px 0 0;
+  font-size: 12px;
+  color: rgb(234 242 255 / 0.42);
+}
+
+/* top-layer 内无祖先 transform，fixed 定位相对视口，指向微信右上角菜单 */
+.wxg-arrow {
+  position: fixed;
+  pointer-events: none;
+  top: calc(env(safe-area-inset-top, 0px) + 72px);
+  right: 18px;
+  width: 76px;
+  height: 76px;
+  color: #fff;
+  filter: drop-shadow(0 0 12px rgb(133 194 255 / 0.55));
+  animation: wxg-nudge 1.6s ease-in-out infinite;
+}
+
+@keyframes wxg-nudge {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(8px, -8px); }
+}
+
+/* 滚动遏制：防止弹窗内滚动手势链到背后页面 */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.wxg-dialog::backdrop,
+  .wxg-card,
+  .wxg-arrow {
+    animation: none;
+  }
+}
