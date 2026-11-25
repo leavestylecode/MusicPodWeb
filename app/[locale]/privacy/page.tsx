@@ -17,8 +17,8 @@ import {
   siteUrl,
 } from "../../../lib/site";
 import { BrandIcon } from "../../BrandIcon";
-import { LanguageMenu } from "../../LanguageMenu";
-import { ThemeToggle } from "../../ThemeToggle";
+import { SiteHeader } from "../../SiteHeader";
+import { SitePreferences } from "../../SitePreferences";
 
 export async function generateMetadata({
   params,
@@ -109,26 +109,7 @@ export default async function PrivacyPage({
 
       <a className="skip-link" href="#main-content">{siteMessages.skip}</a>
 
-      <header className="site-header privacy-header">
-        <Link aria-label={siteMessages.nav.home} className="brand" href={home}>
-          <BrandIcon priority size={34} />
-          <span>MusicPod</span>
-        </Link>
-
-        <nav aria-label={messages.pageLabel} className="site-nav privacy-header-title">
-          <span className="status-dot" aria-hidden="true" />
-          <span>{messages.pageLabel}</span>
-        </nav>
-
-        <div className="header-actions">
-          <ThemeToggle labels={siteMessages.theme} />
-          <LanguageMenu label={siteMessages.nav.language} locale={locale} />
-          <Link className="header-status privacy-back" href={home}>
-            <span aria-hidden="true">←</span>
-            {messages.back}
-          </Link>
-        </div>
-      </header>
+      <SiteHeader locale={locale} />
 
       <main className="privacy-main" id="main-content" tabIndex={-1}>
         <section aria-labelledby="privacy-title" className="privacy-hero">
@@ -223,7 +204,6 @@ export default async function PrivacyPage({
         </Link>
         <div className="footer-meta">
           <span aria-current="page" className="footer-link">{siteMessages.footer.privacy}</span>
-          <Link className="footer-link" href={`${home}/ipod-music`}>{siteMessages.footer.ipodMusic}</Link>
           <a
             className="footer-link"
             href={`${DEVELOPER_URL}${locale.startsWith("zh") ? "" : "en"}`}
@@ -234,6 +214,7 @@ export default async function PrivacyPage({
           </a>
           <p>© 2026 MusicPod. {siteMessages.footer.rights}</p>
         </div>
+        <SitePreferences locale={locale} />
       </footer>
     </div>
   );

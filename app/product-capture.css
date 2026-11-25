@@ -1,0 +1,15 @@
+/* DeviceKit phone11 uses a 402 × 874 pt display in a 456 × 910 pt stage. */
+.product-device {
+  position: relative;
+  aspect-ratio: 456 / 910;
+  background: url("/product/captures/simulator-frame.webp") center / 100% 100% no-repeat;
+}
+
+.product-device > .product-capture {
+  position: absolute;
+  inset: 1.97802% auto auto 5.92105%;
+  width: 88.15789%;
+  height: auto;
+  display: block;
+  mask: url("/product/captures/display-mask.webp") center / 100% 100% no-repeat;
+}

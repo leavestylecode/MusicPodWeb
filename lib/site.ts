@@ -10,9 +10,9 @@ export const SITE_METADATA_BASE = new URL(SITE_ORIGIN);
 export const SITE_NAME = "MusicPod";
 export const SITE_TAGLINE = "Retro iPod Music Player for iPhone";
 export const SITE_DESCRIPTION =
-  "An iPod-style music player for iPhone with a click wheel, Cover Flow, Apple Music, and imported audio. Free to download with optional in-app purchases.";
+  "An iPod-style music player for iPhone with a click wheel, Cover Flow, Apple Music, Spotify (2.6+), and imported audio. Free to download with optional in-app purchases.";
 export const SITE_OG_IMAGE = "/og.png";
-export const SITE_CONTENT_UPDATED = "2026-10-23";
+export const SITE_CONTENT_UPDATED = "2026-11-25";
 export const DEVELOPER_NAME = "Leavestylecode";
 export const DEVELOPER_BRAND = "LeaveStyle";
 export const DEVELOPER_URL = "https://www.leavestyle.com/";

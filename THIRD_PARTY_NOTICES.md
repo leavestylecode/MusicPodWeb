@@ -43,3 +43,7 @@ not required by the license and is included here to credit the photographers.
 - Light trails photograph by [Egor Litvinov](https://unsplash.com/photos/god65fOyZpE)
 - Desert photograph by [bader Abdullah](https://unsplash.com/photos/A1o86P2sNnY)
 - Purple architecture photograph by [Wes Hicks](https://unsplash.com/photos/ZEZeFBLfiLs)
+
+## App Store download badges
+
+The localized black and white badges in `public/product/app-store/` are Apple’s original SVG downloads from [Apple Music Marketing Tools](https://tools.applemediaservices.com/).

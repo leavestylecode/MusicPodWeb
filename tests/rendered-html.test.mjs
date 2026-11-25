@@ -39,23 +39,26 @@ test("server-renders the international English product page", async () => {
   const html = await response.text();
   assert.match(html, /<html lang="en">/);
   assert.match(html, /<title>MusicPod — Retro iPod Music Player for iPhone<\/title>/);
-  assert.match(html, /id="hero-title"><span>Your music<\/span><span>In your hands<\/span>/);
+  assert.match(html, /id="hero-title"><span>Your music<\/span>.*?<span>In your hands<\/span><\/h1>/);
   assert.match(html, /class="site-shell product-page"/);
-  assert.match(html, /\/product\/studio\/hero\.webp/);
-  assert.match(html, /\/product\/studio\/hands\.webp/);
+  assert.match(html, /Sunset Radio playing above the black click wheel/);
+  assert.doesNotMatch(html, /mp-phone|mp-demo-link|Try the wheel/);
   assert.match(html, /Local music needs no subscription/);
   assert.match(html, /optional in-app purchases/);
-  assert.match(html, /The click wheel is back\./);
+  assert.match(html, /Turn to browse. Press to choose./);
   assert.match(html, /Download MusicPod\./);
   assert.match(html, /Download on the/);
   assert.match(html, /app-store-badge-artwork/);
   assert.match(html, /href="https:\/\/apps\.apple\.com\/us\/app\/musicpod-classic-music-player\/id6784645886"/);
-  assert.match(html, /href="\/en\/reward"/);
-  assert.match(html, /Lifetime reward/);
+  assert.doesNotMatch(html, /href="\/en\/reward"|Lifetime reward/);
+  assert.match(html, /id="music-sources"/);
+  assert.ok(html.indexOf('id="experience"') < html.indexOf('id="music-sources"'));
+  assert.match(html, /Three ways to listen\./);
+  assert.match(html, /Requires MusicPod 2\.6 or later\. Playback requires the Spotify app and Spotify Premium\./);
+  assert.match(html, /Import songs or entire folders from the Files app and play them offline\./);
   assert.doesNotMatch(html, /hero-reward-button|mp-hero-meta|mp-gestures/);
   assert.doesNotMatch(html, /reward-promo/);
   assert.match(html, /class="theme-menu"/);
-  assert.match(html, /class="mobile-navigation"/);
   assert.match(html, /id="musicpod-theme"/);
   assert.match(html, /app-icon-dark\.png/);
   assert.match(html, /data-musicpod-theme-icon/);
@@ -63,17 +66,12 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /rel="shortcut icon" type="image\/png"/);
   assert.match(html, /brand-icon-dark/);
   assert.match(html, /Skip to content/);
-  assert.match(html, /\/product\/musicpod-home\.webp/);
-  assert.match(html, /cover-flow-showcase/);
-  assert.match(html, /strands-showcase/);
-  assert.doesNotMatch(html, /Strands ·/);
-  assert.match(html, /Midnight Memory/);
+  assert.doesNotMatch(html, /wheel-demo|cover-flow-showcase|strands-showcase|personalization-showcase/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /href="https:\/\/www\.leavestyle\.com\/(?:en)?"/);
   assert.match(html, /Leavestylecode/);
   assert.match(html, /href="\/en\/privacy"/);
-  assert.match(html, /href="\/en\/ipod-music"/);
-  assert.match(html, /MusicPod guide/);
+  assert.doesNotMatch(html, /href="\/en\/ipod-music|MusicPod guide/);
   assert.match(html, /href="\/zh-cn"/);
   assert.match(html, /hreflang="fr"/i);
   assert.match(html, /name="robots" content="index, follow"/i);
@@ -94,6 +92,21 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /Is MusicPod free\?/);
   assert.match(html, /Do I need an Apple Music subscription\?/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|\/_vinext\/image/i);
+});
+
+test("keeps primary navigation and footer preferences consistent on each page", async () => {
+  for (const path of ["/zh-cn", "/zh-cn/ipod-music", "/zh-cn/privacy", "/zh-cn/reward"]) {
+    const html = await (await render(path)).text();
+    const header = html.match(/<header\b[^>]*>([\s\S]*?)<\/header>/)?.[1] ?? "";
+    const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1] ?? "";
+    const links = [...header.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].map((match) => match[1]);
+
+    assert.deepEqual(links, ["/zh-cn"], path);
+    assert.doesNotMatch(footer, />使用指南<\/a>/, path);
+    assert.doesNotMatch(header, /<summary|<button/, path);
+    assert.match(footer, /class="language-menu"/, path);
+    assert.match(footer, /class="theme-menu"/, path);
+  }
 });
 
 test("server-renders the localized share reward page", async () => {
@@ -175,8 +188,8 @@ test("submits the pasted share text to the reward API", async () => {
 
 test("ships localized HTML and metadata for every supported market", async () => {
   const expectations = [
-    ["/zh-cn", "zh-CN", "让音乐"],
-    ["/zh-tw", "zh-TW", "讓音樂"],
+    ["/zh-cn", "zh-CN", "回到手中"],
+    ["/zh-tw", "zh-TW", "回到手中"],
     ["/ja", "ja", "その手に"],
     ["/ko", "ko", "내 손안에"],
     ["/es", "es", "En tus manos"],
@@ -236,7 +249,7 @@ test("keeps product and guide SEO consistent across all nine languages", async (
     ["ja", "ja"], ["ko", "ko"], ["es", "es"], ["fr", "fr"],
     ["de", "de"], ["pt-br", "pt-BR"],
   ];
-  const sectionIds = ["get-started", "import-local-music", "apple-music", "click-wheel", "cover-flow"];
+  const sectionIds = ["get-started", "import-local-music", "apple-music", "spotify", "click-wheel", "cover-flow"];
   const titles = new Set();
   const descriptions = new Set();
 
@@ -274,17 +287,39 @@ test("keeps product and guide SEO consistent across all nine languages", async (
         const app = graphs.find((entry) => entry["@type"] === "SoftwareApplication");
         assert.equal(app?.url, `https://www.musicpod.app${home}`, home);
         assert.equal(app?.inLanguage, language, home);
+        assert.equal(app?.screenshot, `https://www.musicpod.app/product/captures/${locale}/classic.webp`, home);
         assert.equal(app?.offers.price, "0", home);
         assert.ok(app.featureList.includes("Apple Music"), home);
+        assert.ok(app.featureList.includes("Spotify (MusicPod 2.6+)"), home);
         assert.equal(app.aggregateRating, undefined, home);
       }
     }
 
-    assert.ok(homeHtml.includes(`href="${guide}#import-local-music"`), home);
-    assert.ok(homeHtml.includes(`href="${guide}#click-wheel"`), home);
+    assert.ok(homeHtml.includes('id="music-sources"'), home);
+    assert.equal((homeHtml.match(/class="mp-source"/g) ?? []).length, 3, home);
+    assert.ok(!homeHtml.includes(`href="${home}/reward"`), home);
+    assert.ok(!homeHtml.includes(`href="${guide}`), home);
     assert.deepEqual([...guideHtml.matchAll(/class="privacy-section" id="([^"]+)"/g)].map((match) => match[1]), sectionIds, guide);
     assert.equal((guideHtml.match(/class="guide-steps"/g) ?? []).length, 3, guide);
-    assert.match(guideHtml, /\/product\/musicpod-home\.webp/, guide);
+    const hero = homeHtml.match(/<section[^>]+class="mp-hero"[^>]*>([\s\S]*?)<\/section>/)?.[1];
+    assert.ok(hero, home);
+    assert.equal((hero.match(/<a\b/g) ?? []).length, 1, home);
+    assert.match(hero, /href="https:\/\/apps\.apple\.com\//, home);
+    for (const appearance of ["black", "white"]) {
+      const badge = `/product/app-store/${locale}-${appearance}.svg`;
+      assert.ok(homeHtml.includes(badge), badge);
+      await access(new URL(`../public${badge}`, import.meta.url));
+    }
+    for (const asset of ["player-in-hand.webp", "player-in-hand-mobile.webp"]) {
+      assert.ok(hero.includes(`/product/studio/${asset}`), asset);
+      await access(new URL(`../public/product/studio/${asset}`, import.meta.url));
+    }
+    for (const scene of ["home", "cover-flow", "immersive", "theme"]) {
+      const src = `/product/captures/${locale}/${scene}.webp`;
+      assert.ok(homeHtml.includes(`src="${src}"`), src);
+      await access(new URL(`../public${src}`, import.meta.url));
+    }
+    assert.ok(guideHtml.includes(`src="/product/captures/${locale}/home.webp"`), guide);
   }));
 });
 
@@ -332,7 +367,7 @@ test("publishes international discovery metadata", async () => {
   assert.doesNotMatch(sitemap, /reward/);
   assert.match(sitemap, /hreflang="ja"/);
   assert.match(sitemap, /hreflang="x-default"/);
-  assert.match(sitemap, /<lastmod>2026-10-23T00:00:00\.000Z<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-11-25T00:00:00\.000Z<\/lastmod>/);
   assert.match(robots, /Sitemap: https:\/\/www\.musicpod\.app\/sitemap\.xml/i);
   assert.match(robots, /Host: https:\/\/www\.musicpod\.app\//i);
   assert.match(manifestResponse.headers.get("content-type") ?? "", /^application\/manifest\+json\b/i);
@@ -344,30 +379,16 @@ test("ships the product media, internationalization source, and image sizing gua
     "../public/app-icon.png",
     "../public/app-icon-dark.png",
     "../public/og.png",
-    "../public/product/musicpod-home.webp",
-    "../public/product/icons/albums.webp",
-    "../public/product/icons/playlists.webp",
-    "../public/product/icons/theme.webp",
-    "../public/product/textures/vinyl.webp",
-    "../public/product/studio/hero.webp",
-    "../public/product/studio/hero-1280.webp",
-    "../public/product/studio/hands.webp",
-    "../public/product/studio/vinyl-player.webp",
-    "../public/product/studio/photo-background.webp",
-    "../public/product/studio/sunset-radio.webp",
-    "../public/product/studio/blue-hour.webp",
-    "../public/product/studio/summer-groove.webp",
+    "../public/product/sources/apple-music.png",
+    "../public/product/sources/spotify.svg",
   ];
 
   await Promise.all(assets.map((asset) => access(new URL(asset, import.meta.url))));
 
-  const [page, privacyPage, styles, showcase, coverFlow, strands, appStoreBadge, brandIcon, themeToggle, themeScript, dictionaries, privacyDictionaries, packageJson] = await Promise.all([
+  const [page, privacyPage, styles, appStoreBadge, brandIcon, themeToggle, themeScript, dictionaries, privacyDictionaries, packageJson] = await Promise.all([
     readFile(new URL("../app/[locale]/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/[locale]/privacy/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
-    readFile(new URL("../app/PersonalizationShowcase.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/CoverFlowShowcase.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/StrandsShowcase.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/AppStoreBadge.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/BrandIcon.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ThemeToggle.tsx", import.meta.url), "utf8"),
@@ -377,65 +398,19 @@ test("ships the product media, internationalization source, and image sizing gua
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /SpotlightCard/);
   assert.match(page, /footer\.privacy/);
   assert.match(privacyPage, /privacyPolicyConfig/);
   assert.doesNotMatch(privacyPage, /pathSuffix/);
   assert.match(privacyPage, /application\/ld\+json/);
-  assert.match(page, /alt=\{product\.heroAlt\}/);
   assert.match(styles, /img\s*{[^}]*height:\s*auto;/);
   assert.match(styles, /prefers-reduced-motion/);
   assert.match(styles, /:root\[data-theme="dark"\]/);
   assert.match(styles, /prefers-color-scheme:\s*dark/);
-  assert.match(showcase, /#e8222b/);
-  assert.match(showcase, /#f28d03/);
-  assert.match(showcase, /#eaba00/);
-  assert.match(showcase, /#00803d/);
-  assert.match(showcase, /#009e9e/);
-  assert.match(showcase, /#c9cbcc/);
-  assert.match(showcase, /#0082ce/);
-  assert.match(showcase, /#52388b/);
-  assert.match(showcase, /#cd2370/);
-  assert.doesNotMatch(showcase, /setInterval/);
-  assert.match(showcase, /personalization-carousel-track/);
-  assert.match(showcase, /finishes\.map/);
-  assert.match(showcase, /const navigationIcons = \[/);
-  assert.match(showcase, /const leftIcon = navigationIcons/);
-  assert.match(showcase, /const rightIcon = navigationIcons/);
-  assert.match(showcase, /personalization-icon-active/);
-  assert.match(styles, /\.personalization-screen\s*{[^}]*aspect-ratio:\s*1;/s);
-  assert.match(styles, /\.personalization-icon-row\s*{[^}]*inset:\s*0;/s);
-  assert.match(styles, /\.personalization-icon-row \.personalization-icon-active\s*{[^}]*left:\s*50%;/s);
-  assert.match(styles, /\.personalization-wheel\s*{[^}]*width:\s*72%;/s);
-  assert.match(styles, /\.personalization-center\s*{[^}]*width:\s*34%;/s);
-  assert.match(page, /CoverFlowShowcase/);
-  assert.match(page, /StrandsShowcase/);
-  assert.match(coverFlow, /rotateY\(\$\{-clamped \* 58\}deg\)/);
-  assert.doesNotMatch(coverFlow, /setInterval/);
-  assert.match(coverFlow, /data-flipped/);
-  assert.match(coverFlow, /onPointerDown/);
-  assert.match(coverFlow, /onPointerMove=\{handlePointerMove\}/);
-  assert.match(coverFlow, /getCoverFlowGestureIntent/);
-  assert.match(coverFlow, /getCoverFlowSwipeDirection/);
-  assert.doesNotMatch(
-    coverFlow.match(/function handlePointerDown[\s\S]*?\n  }/)?.[0] ?? "",
-    /setPointerCapture/,
-  );
-  assert.match(coverFlow, /ArrowLeft/);
-  assert.match(strands, /ResizeObserver/);
-  assert.match(strands, /IntersectionObserver/);
-  assert.match(strands, /frequency = 4\.25 \+ index \* 0\.8/);
-  assert.match(strands, /velocity = 1\.55 \+ index \* 0\.95/);
-  assert.match(strands, /smootherStep\(value \/ 0\.23\)/);
-  assert.match(strands, /prefers-reduced-motion: reduce/);
-  assert.match(styles, /\.strands-showcase\s*{[^}]*aspect-ratio:\s*1;/s);
-  assert.match(styles, /\.cover-flow-cover\s*{[^}]*width:\s*222px;[^}]*height:\s*222px;/s);
   assert.match(styles, /\.app-store-badge-image/);
-  assert.match(appStoreBadge, /tools\.applemediaservices\.com\/api\/badges/);
-  assert.match(appStoreBadge, /marketingLocales/);
+  assert.match(appStoreBadge, /\/product\/app-store\//);
+
   assert.match(appStoreBadge, /badgeUrl\("white"\)/);
-  assert.match(brandIcon, /brand-icon-dark-art/);
-  assert.match(brandIcon, /brand-icon-wheel/);
+  assert.match(brandIcon, /src="\/app-icon-dark\.png"/);
   assert.match(styles, /html\[data-theme="dark"\] \.brand-icon-dark/);
   assert.match(styles, /html\[data-theme="dark"\] \.availability::before\s*{[^}]*content:\s*none;/s);
   assert.match(styles, /rgba\(255, 41, 56, 0\.17\)/);

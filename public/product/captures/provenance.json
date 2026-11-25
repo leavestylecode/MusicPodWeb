@@ -1,0 +1,100 @@
+{
+  "project": "MusicPod",
+  "sourceRevision": "8054704ff0cf771c9507bf1c6469e5c0ef7afdbe",
+  "appVersion": "2.6.0 (1)",
+  "device": "iPhone 18 Pro simulator",
+  "osVersion": "27.0",
+  "date": "2026-11-25",
+  "captureMethod": "UIWindow.drawHierarchy",
+  "uiSource": "real-product-views-and-local-music-importer",
+  "fixtureSource": "AppStoreAssets/Screenshots/Photography-20261105/Covers",
+  "export": "Full 1206 × 2622 window resized to 603 × 1311 and encoded as WebP.",
+  "scenes": {
+    "classic": "iphone/01-classic-player",
+    "home": "iphone/03-music-home",
+    "cover-flow": "iphone/02-cover-flow",
+    "immersive": "iphone/05-immersive-player",
+    "theme": "outer/03-custom-theme"
+  },
+  "locales": {
+    "en": "en-US",
+    "zh-cn": "zh-Hans",
+    "zh-tw": "zh-Hant",
+    "ja": "ja",
+    "ko": "ko",
+    "es": "es-MX",
+    "fr": "fr-FR",
+    "de": "de-DE",
+    "pt-br": "pt-BR"
+  },
+  "sourcePngSHA256": {
+    "en": {
+      "classic": "c6ad0fae8b3e34e8d35652040b49d1a3d047d97ffdc3fc4a41dd945977cf97c4",
+      "home": "2de5177cdac290e40188bbf4f258092404d65fab4e50a5f6c6b3d6e1f7e10695",
+      "cover-flow": "a460bcf40efb607a3c30ce8d8cb53fc0acd06f7e062fc1e383557bd951f8284f",
+      "immersive": "99e52814875a674a29fb1345f32e57b7f00b3bf2a1e2ac4b2bff6073c2bb6c0e",
+      "theme": "2945554d2ad8c32c0b472ac710aebad8ed55a6072a15af18c364386cf8616c22"
+    },
+    "zh-cn": {
+      "classic": "1b88f5ad09ed4534cdcfff0fd5484af8e3199f6201d1de7bf1a13bee5766be85",
+      "home": "438c7c2df1d6656b1d3c33103a000d8b47a6322749ea6c403d46405b788cab45",
+      "cover-flow": "a460bcf40efb607a3c30ce8d8cb53fc0acd06f7e062fc1e383557bd951f8284f",
+      "immersive": "790832a531ec93c669006a96560246deae99f6b1bb6803d63c66210a0377fd3c",
+      "theme": "b2977b5e7ad520c4c0b302204e4649c0e25124479fce4df4965191ddf0b4aff2"
+    },
+    "zh-tw": {
+      "classic": "1b88f5ad09ed4534cdcfff0fd5484af8e3199f6201d1de7bf1a13bee5766be85",
+      "home": "f8af3adbfdb6c0a4ef51a2de59a7a0a353b51db12f2e63b4d6a9aeeee6e731d3",
+      "cover-flow": "a460bcf40efb607a3c30ce8d8cb53fc0acd06f7e062fc1e383557bd951f8284f",
+      "immersive": "790832a531ec93c669006a96560246deae99f6b1bb6803d63c66210a0377fd3c",
+      "theme": "a21166f8d4fbcd45ec812231c8c63049fdc31ff9c6970ee9c7c2259ea712763d"
+    },
+    "ja": {
+      "classic": "523abcba611c3bb6653aa8e43d4100b2a7176fe9e7b4c6cf53f9fd63a0173972",
+      "home": "39bc9ec7aed938271901c43a8eb625d42f1ff38f1cdd65ce4446bad5f2411c18",
+      "cover-flow": "a460bcf40efb607a3c30ce8d8cb53fc0acd06f7e062fc1e383557bd951f8284f",
+      "immersive": "15debf59e2e5c4571f89b9751b0e8d8d40466a61c0395eab04e146cd5bda2d6d",
+      "theme": "4dab4484e2295cd1662b838ce958d6b1b0d29cad413d1860740212f8fd3a05f5"
+    },
+    "ko": {
+      "classic": "e37a2e0c80031ef83f4ea89e72b387f76a0a253a520778aadf8395ca31789ba6",
+      "home": "6ccda4f6fef2a72b9da187501ac9c3ac9fd0027c557d0ac30f66daf57645841b",
+      "cover-flow": "a460bcf40efb607a3c30ce8d8cb53fc0acd06f7e062fc1e383557bd951f8284f",
+      "immersive": "882a5f611580f1d8917e1e3774f6c24e0c77b55b54d21e3037cc8af8c6dcaaed",
+      "theme": "8f225e16a357c991e5923ab6db9f6a3f0e9b57980aaf3b3293c34881d5587d17"
+    },
+    "es": {
+      "classic": "c6ad0fae8b3e34e8d35652040b49d1a3d047d97ffdc3fc4a41dd945977cf97c4",
+      "home": "3e46bfbd6631268ec2f9e1365511962a1d584a89221b2bb90d51ae08472fc2f0",
+      "cover-flow": "a460bcf40efb607a3c30ce8d8cb53fc0acd06f7e062fc1e383557bd951f8284f",
+      "immersive": "99e52814875a674a29fb1345f32e57b7f00b3bf2a1e2ac4b2bff6073c2bb6c0e",
+      "theme": "e32642666b54d2388184f62aabc31365f4429dfbd0d41a21ff9c586c617f5e73"
+    },
+    "fr": {
+      "classic": "c6ad0fae8b3e34e8d35652040b49d1a3d047d97ffdc3fc4a41dd945977cf97c4",
+      "home": "7b07f1e2503b2fb40888b2fcc14427b2fa709b74a5d5c366c4ff8f11f564a129",
+      "cover-flow": "c8b1ace515706e323042a4ac3814443e2571139fe481806751e18e7509a56de2",
+      "immersive": "99e52814875a674a29fb1345f32e57b7f00b3bf2a1e2ac4b2bff6073c2bb6c0e",
+      "theme": "d1410c23bfdc44febab63035f977eb88c7b4b88af5451afb75e24dfb324a1d2c"
+    },
+    "de": {
+      "classic": "c6ad0fae8b3e34e8d35652040b49d1a3d047d97ffdc3fc4a41dd945977cf97c4",
+      "home": "4931f4b6c3feaca94a2e5e381c4bc6d4da7c2b4f7d2806e00c7d019963ef4b59",
+      "cover-flow": "a460bcf40efb607a3c30ce8d8cb53fc0acd06f7e062fc1e383557bd951f8284f",
+      "immersive": "99e52814875a674a29fb1345f32e57b7f00b3bf2a1e2ac4b2bff6073c2bb6c0e",
+      "theme": "17d033603475376c9f46c86951ad7cf4c67900978f37b31b52560b2d5f5503f1"
+    },
+    "pt-br": {
+      "classic": "c6ad0fae8b3e34e8d35652040b49d1a3d047d97ffdc3fc4a41dd945977cf97c4",
+      "home": "23adcb0ca34199b941fd67436e56a35ef72f5ae9a3c504fd0112f489c1150466",
+      "cover-flow": "a460bcf40efb607a3c30ce8d8cb53fc0acd06f7e062fc1e383557bd951f8284f",
+      "immersive": "99e52814875a674a29fb1345f32e57b7f00b3bf2a1e2ac4b2bff6073c2bb6c0e",
+      "theme": "a81ebf2640e5692ff4c3b3fe1169113599837f5e07730e2dc47ceed8e5cbf197"
+    }
+  },
+  "deviceFrame": {
+    "profile": "iPhone19,2 (iPhone 18 Pro), com.apple.dt.devicekit.chrome.phone11",
+    "body": "DeviceKit PhoneComposite and the action, volume and power button assets, fitted to the 402 × 874 pt display using chrome.json.",
+    "displayMask": "4E5532ED-1470-47D1-BDF4-7AA90C26957A"
+  }
+}

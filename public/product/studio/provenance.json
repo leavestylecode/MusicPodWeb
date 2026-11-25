@@ -59,6 +59,21 @@
       "sourceSHA256": "975234ce781352311e8bb5c55b7bc456e1f7d7a92dee2ed7ab03cfe3227d7061",
       "width": 1280,
       "height": 548
+    },
+    {
+      "file": "player-in-hand.webp",
+      "source": "Sources/StudioProportions20261021/header-photograph.png (hands and studio background only)",
+      "display": "MusicPod 2.6.0 classic player, from the isolated WebCaptures app on an iPhone 18 Pro simulator running iOS 27.0. Native simctl io screenshot with the device mask set to black and the app’s Hide Dynamic Island setting turned off.",
+      "screenSHA256": "7fb225f303ad810e9b3b8bef327364cdf7b3fff201e57750836fdd1f3b8b4141",
+      "composition": "Simulator chassis and screenshot fitted to the campaign pose with the two fingertips in front.",
+      "width": 1916,
+      "height": 854
+    },
+    {
+      "file": "player-in-hand-mobile.webp",
+      "source": "Portrait crop of the same player-in-hand composition",
+      "width": 820,
+      "height": 854
     }
   ]
 }

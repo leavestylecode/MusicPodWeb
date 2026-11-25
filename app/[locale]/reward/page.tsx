@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AppStoreBadge } from "../../AppStoreBadge";
-import { BrandIcon } from "../../BrandIcon";
-import { LanguageMenu } from "../../LanguageMenu";
+import { SiteHeader } from "../../SiteHeader";
 import { ShareReward } from "../../ShareReward";
-import { ThemeToggle } from "../../ThemeToggle";
+import { SitePreferences } from "../../SitePreferences";
 import { appStoreUrl } from "../../../lib/app-store";
-import { getDictionary } from "../../../lib/dictionaries";
 import { isLocale, localeDetails, localePath, locales, type Locale } from "../../../lib/locales";
 import { getRewardDictionary } from "../../../lib/reward-dictionaries";
 import { languageAlternates, SITE_METADATA_BASE, SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
@@ -71,27 +68,11 @@ export default async function RewardPage({
   if (!isLocale(rawLocale)) notFound();
 
   const locale: Locale = rawLocale;
-  const siteMessages = getDictionary(locale);
   const messages = getRewardDictionary(locale);
-  const home = localePath(locale);
 
   return (
     <div className="reward-shell">
-      <header className="site-header reward-header">
-        <Link aria-label={messages.back} className="brand" href={home}>
-          <BrandIcon priority size={34} />
-          <span>MusicPod</span>
-        </Link>
-
-        <Link className="reward-header-back" href={home}>
-          <span aria-hidden="true">←</span>{messages.back}
-        </Link>
-
-        <div className="header-actions">
-          <ThemeToggle labels={siteMessages.theme} />
-          <LanguageMenu label={siteMessages.nav.language} locale={locale} />
-        </div>
-      </header>
+      <SiteHeader locale={locale} />
 
       <main className="reward-main">
         <section className="reward-hero">
@@ -117,6 +98,10 @@ export default async function RewardPage({
 
         <ShareReward messages={messages} />
       </main>
+
+      <footer className="site-footer">
+        <SitePreferences locale={locale} />
+      </footer>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { localePath, locales } from "../lib/locales";
 import { languageAlternates, SITE_CONTENT_UPDATED, siteUrl } from "../lib/site";
+import { privacyPolicyConfig } from "../lib/privacy-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const homeLanguages = languageAlternates();
@@ -24,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...locales.map((locale) => ({
       url: siteUrl(localePath(locale, "/privacy")),
-      lastModified: new Date(SITE_CONTENT_UPDATED),
+      lastModified: new Date(privacyPolicyConfig.lastUpdated),
       changeFrequency: "yearly" as const,
       priority: locale === "en" ? 0.5 : 0.4,
       alternates: { languages: privacyLanguages },

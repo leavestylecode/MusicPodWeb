@@ -1,20 +1,7 @@
-import Image from "next/image";
 import type { Locale } from "@/lib/locales";
 
 type AppStoreBadgeProps = {
   locale: Locale;
-};
-
-const marketingLocales: Record<Locale, string> = {
-  en: "en-us",
-  "zh-cn": "zh-cn",
-  "zh-tw": "zh-tw",
-  ja: "ja-jp",
-  ko: "ko-kr",
-  es: "es-es",
-  fr: "fr-fr",
-  de: "de-de",
-  "pt-br": "pt-br",
 };
 
 const badgeWidths: Record<Locale, number> = {
@@ -30,27 +17,19 @@ const badgeWidths: Record<Locale, number> = {
 };
 
 export function AppStoreBadge({ locale }: AppStoreBadgeProps) {
-  const marketingLocale = marketingLocales[locale];
   const badgeUrl = (style: "black" | "white") =>
-    `https://tools.applemediaservices.com/api/badges/download-on-the-app-store/${style}/${marketingLocale}?size=250x83`;
+    `/product/app-store/${locale}-${style}.svg`;
 
   return (
-    <span className="app-store-badge-artwork">
-      <Image
-        alt=""
+    <span aria-hidden="true" className="app-store-badge-artwork" style={{ aspectRatio: badgeWidths[locale] / 40 }}>
+      <span className="app-store-badge-fallback">App Store</span>
+      <span
         className="app-store-badge-image app-store-badge-black"
-        height={40}
-        src={badgeUrl("black")}
-        unoptimized
-        width={badgeWidths[locale]}
+        style={{ backgroundImage: `url("${badgeUrl("black")}")` }}
       />
-      <Image
-        alt=""
+      <span
         className="app-store-badge-image app-store-badge-white"
-        height={40}
-        src={badgeUrl("white")}
-        unoptimized
-        width={badgeWidths[locale]}
+        style={{ backgroundImage: `url("${badgeUrl("white")}")` }}
       />
     </span>
   );

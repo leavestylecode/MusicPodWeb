@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { PortfolioLinks } from "../../PortfolioLinks";
-import Image from "next/image";
+import { ProductCapture } from "../../ProductCapture";
+import { getProductCopy } from "../../../lib/product-dictionaries";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BrandIcon } from "../../BrandIcon";
-import { LanguageMenu } from "../../LanguageMenu";
-import { ThemeToggle } from "../../ThemeToggle";
+import { SiteHeader } from "../../SiteHeader";
+import { SitePreferences } from "../../SitePreferences";
 import "../../guide-page.css";
 import { appStoreUrl } from "../../../lib/app-store";
 import { getDictionary } from "../../../lib/dictionaries";
@@ -120,17 +120,7 @@ export default async function IpodMusicPage({
 
       <a className="skip-link" href="#main-content">{siteMessages.skip}</a>
 
-      <header className="site-header privacy-header">
-        <Link aria-label={siteMessages.nav.home} className="brand" href={home}>
-          <BrandIcon priority size={34} />
-          <span>MusicPod</span>
-        </Link>
-
-        <div className="header-actions">
-          <ThemeToggle labels={siteMessages.theme} />
-          <LanguageMenu label={siteMessages.nav.language} locale={locale} />
-        </div>
-      </header>
+      <SiteHeader locale={locale} />
 
       <main className="privacy-main" id="main-content" tabIndex={-1}>
         <section aria-labelledby="ipod-music-title" className="privacy-hero">
@@ -158,7 +148,7 @@ export default async function IpodMusicPage({
                   ) : null}
                   {section.id === "click-wheel" ? (
                     <figure className="guide-screenshot">
-                      <Image alt={messages.screenshot.alt} height={2622} loading="lazy" sizes="(max-width: 760px) 70vw, 240px" src="/product/musicpod-home.webp" unoptimized width={1206} />
+                      <ProductCapture alt={getProductCopy(locale).captures.home} locale={locale} scene="home" />
                     </figure>
                   ) : null}
                 </div>
@@ -175,6 +165,7 @@ export default async function IpodMusicPage({
           <Link className="footer-link" href={`${home}/privacy`}>{siteMessages.footer.privacy}</Link>
           <a className="footer-link" href={downloadHref} rel="external noopener" target="_blank">App Store</a>
         </div>
+        <SitePreferences locale={locale} />
       </footer>
     </div>
   );
