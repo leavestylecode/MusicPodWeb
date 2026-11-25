@@ -24,5 +24,7 @@ export function ProductCapture({ locale, scene, alt, detail = false }: ProductCa
     />
   );
 
-  return detail ? screen : <div className="product-device">{screen}</div>;
+  return detail
+    ? <div className="capture-detail" data-scene={scene}>{screen}</div>
+    : <div className="product-device">{screen}</div>;
 }

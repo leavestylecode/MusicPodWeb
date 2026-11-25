@@ -18,7 +18,6 @@ import {
 } from "../../../lib/site";
 import { BrandIcon } from "../../BrandIcon";
 import { SiteHeader } from "../../SiteHeader";
-import { SitePreferences } from "../../SitePreferences";
 
 export async function generateMetadata({
   params,
@@ -214,7 +213,6 @@ export default async function PrivacyPage({
           </a>
           <p>© 2026 MusicPod. {siteMessages.footer.rights}</p>
         </div>
-        <SitePreferences locale={locale} />
       </footer>
     </div>
   );

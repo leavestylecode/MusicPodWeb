@@ -13,3 +13,29 @@
   display: block;
   mask: url("/product/captures/display-mask.webp") center / 100% 100% no-repeat;
 }
+
+/* Square regions measured in the original 603 × 1311 captures. */
+.capture-detail {
+  --crop-size: 540;
+  --crop-top: 121;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  border-radius: 8.5%;
+  outline: 1px solid var(--line);
+  outline-offset: -1px;
+}
+
+.capture-detail[data-scene="home"] {
+  --crop-top: 724;
+}
+
+.capture-detail > .product-capture {
+  position: absolute;
+  top: calc(-100% * var(--crop-top) / var(--crop-size));
+  left: 50%;
+  width: calc(100% * 603 / var(--crop-size));
+  max-width: none;
+  height: auto;
+  transform: translateX(-50%);
+}

@@ -5,7 +5,6 @@ import { getProductCopy } from "../../../lib/product-dictionaries";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "../../SiteHeader";
-import { SitePreferences } from "../../SitePreferences";
 import "../../guide-page.css";
 import { appStoreUrl } from "../../../lib/app-store";
 import { getDictionary } from "../../../lib/dictionaries";
@@ -165,7 +164,6 @@ export default async function IpodMusicPage({
           <Link className="footer-link" href={`${home}/privacy`}>{siteMessages.footer.privacy}</Link>
           <a className="footer-link" href={downloadHref} rel="external noopener" target="_blank">App Store</a>
         </div>
-        <SitePreferences locale={locale} />
       </footer>
     </div>
   );

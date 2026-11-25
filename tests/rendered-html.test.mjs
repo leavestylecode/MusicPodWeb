@@ -51,8 +51,10 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /app-store-badge-artwork/);
   assert.match(html, /href="https:\/\/apps\.apple\.com\/us\/app\/musicpod-classic-music-player\/id6784645886"/);
   assert.doesNotMatch(html, /href="\/en\/reward"|Lifetime reward/);
-  assert.match(html, /id="music-sources"/);
-  assert.ok(html.indexOf('id="experience"') < html.indexOf('id="music-sources"'));
+  assert.deepEqual(
+    [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1]),
+    ["top", "music-sources", "experience", "personalize", "faq", "availability"],
+  );
   assert.match(html, /Three ways to listen\./);
   assert.match(html, /Requires MusicPod 2\.6 or later\. Playback requires the Spotify app and Spotify Premium\./);
   assert.match(html, /Import songs or entire folders from the Files app and play them offline\./);
@@ -94,18 +96,21 @@ test("server-renders the international English product page", async () => {
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|\/_vinext\/image/i);
 });
 
-test("keeps primary navigation and footer preferences consistent on each page", async () => {
+test("provides appearance and language controls in the shared navigation", async () => {
   for (const path of ["/zh-cn", "/zh-cn/ipod-music", "/zh-cn/privacy", "/zh-cn/reward"]) {
     const html = await (await render(path)).text();
     const header = html.match(/<header\b[^>]*>([\s\S]*?)<\/header>/)?.[1] ?? "";
     const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)?.[1] ?? "";
-    const links = [...header.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].map((match) => match[1]);
+    const nav = header.match(/<nav\b[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? "";
+    const links = [...nav.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)].map((match) => match[1]);
+    const locales = ["en", "zh-cn", "zh-tw", "ja", "ko", "es", "fr", "de", "pt-br"];
+    const suffix = path.slice("/zh-cn".length);
 
-    assert.deepEqual(links, ["/zh-cn"], path);
-    assert.doesNotMatch(footer, />使用指南<\/a>/, path);
-    assert.doesNotMatch(header, /<summary|<button/, path);
-    assert.match(footer, /class="language-menu"/, path);
-    assert.match(footer, /class="theme-menu"/, path);
+    assert.deepEqual(links, ["/zh-cn", ...locales.map((locale) => `/${locale}${suffix}`)], path);
+    assert.equal((nav.match(/class="theme-menu"/g) ?? []).length, 1, path);
+    assert.equal((nav.match(/class="language-menu"/g) ?? []).length, 1, path);
+    assert.equal((nav.match(/<button\b/g) ?? []).length, 3, path);
+    assert.doesNotMatch(footer, /site-preferences|>使用指南<\/a>/, path);
   }
 });
 

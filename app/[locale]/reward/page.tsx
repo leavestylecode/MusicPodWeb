@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { AppStoreBadge } from "../../AppStoreBadge";
 import { SiteHeader } from "../../SiteHeader";
 import { ShareReward } from "../../ShareReward";
-import { SitePreferences } from "../../SitePreferences";
 import { appStoreUrl } from "../../../lib/app-store";
 import { isLocale, localeDetails, localePath, locales, type Locale } from "../../../lib/locales";
 import { getRewardDictionary } from "../../../lib/reward-dictionaries";
@@ -98,10 +97,6 @@ export default async function RewardPage({
 
         <ShareReward messages={messages} />
       </main>
-
-      <footer className="site-footer">
-        <SitePreferences locale={locale} />
-      </footer>
     </div>
   );
 }

@@ -2,9 +2,11 @@ import Link from "next/link";
 import { getDictionary } from "../lib/dictionaries";
 import { localePath, type Locale } from "../lib/locales";
 import { BrandIcon } from "./BrandIcon";
+import { LanguageMenu } from "./LanguageMenu";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function SiteHeader({ locale }: { locale: Locale }) {
-  const { nav } = getDictionary(locale);
+  const { nav, theme } = getDictionary(locale);
 
   return (
     <header className="site-header">
@@ -13,6 +15,10 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           <BrandIcon priority size={30} />
           <span>MusicPod</span>
         </Link>
+        <div className="site-preferences">
+          <ThemeToggle labels={theme} />
+          <LanguageMenu label={nav.language} locale={locale} />
+        </div>
       </nav>
     </header>
   );

@@ -6,7 +6,6 @@ import { BrandIcon } from "../BrandIcon";
 import { ProductCapture } from "../ProductCapture";
 import { capturePath } from "../../lib/product-captures";
 import { SiteHeader } from "../SiteHeader";
-import { SitePreferences } from "../SitePreferences";
 import { PortfolioLinks } from "../PortfolioLinks";
 import { appStoreUrl } from "../../lib/app-store";
 import { getDictionary } from "../../lib/dictionaries";
@@ -124,46 +123,9 @@ export default async function MusicPodPage({
           </div>
         </section>
 
-        <section aria-labelledby="experience-title" className="mp-experience mp-section" id="experience">
-          <div className="mp-container">
-            <h2 id="experience-title">{messages.wheel.title}</h2>
-            <div className="mp-gallery" id="highlights">
-              <figure>
-                <div className="mp-gallery-image">
-                  <ProductCapture alt={messages.wheel.kicker} detail locale={locale} scene="home" />
-                </div>
-                <figcaption>
-                  <h3>{messages.wheel.kicker}</h3>
-                  <p>{messages.wheel.body}</p>
-                </figcaption>
-              </figure>
-              <figure>
-                <div className="mp-gallery-image">
-                  <ProductCapture alt={product.captures.coverFlow} detail locale={locale} scene="cover-flow" />
-                </div>
-                <figcaption>
-                  <h3>{messages.highlights.coverFlow.kicker}</h3>
-                  <p>{messages.highlights.coverFlow.body}</p>
-                </figcaption>
-              </figure>
-              <figure>
-                <div className="mp-gallery-image">
-                  <ProductCapture alt={messages.highlights.nowPlaying.kicker} detail locale={locale} scene="immersive" />
-                </div>
-                <figcaption>
-                  <h3>{messages.highlights.nowPlaying.kicker}</h3>
-                  <p>{messages.highlights.nowPlaying.body}</p>
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </section>
-
-        <section aria-labelledby="library-title" className="mp-library mp-container mp-section" id="music-sources">
-          <div className="mp-section-heading">
-            <h2 id="library-title">{product.libraryTitle}</h2>
-            <p className="mp-description">{product.sourceSetup}</p>
-          </div>
+        <section aria-labelledby="library-title" className="mp-container mp-section" id="music-sources">
+          <h2 id="library-title">{product.libraryTitle}</h2>
+          <p className="mp-description">{product.sourceSetup}</p>
           <div className="mp-sources">
             <article className="mp-source">
               <Image alt="" className="mp-source-icon" height={48} src="/product/sources/apple-music.png" unoptimized width={48} />
@@ -188,6 +150,35 @@ export default async function MusicPodPage({
               <p>{product.localBody}</p>
               <p className="mp-source-requirement">{product.localRequirement}</p>
             </article>
+          </div>
+        </section>
+
+        <section aria-labelledby="experience-title" className="mp-experience mp-section" id="experience">
+          <div className="mp-container">
+            <h2 id="experience-title">{messages.wheel.title}</h2>
+            <div className="mp-gallery" id="highlights">
+              <figure>
+                <ProductCapture alt={messages.wheel.kicker} detail locale={locale} scene="home" />
+                <figcaption>
+                  <h3>{messages.wheel.kicker}</h3>
+                  <p>{messages.wheel.body}</p>
+                </figcaption>
+              </figure>
+              <figure>
+                <ProductCapture alt={product.captures.coverFlow} detail locale={locale} scene="cover-flow" />
+                <figcaption>
+                  <h3>{messages.highlights.coverFlow.kicker}</h3>
+                  <p>{messages.highlights.coverFlow.body}</p>
+                </figcaption>
+              </figure>
+              <figure>
+                <ProductCapture alt={messages.highlights.nowPlaying.kicker} detail locale={locale} scene="immersive" />
+                <figcaption>
+                  <h3>{messages.highlights.nowPlaying.kicker}</h3>
+                  <p>{messages.highlights.nowPlaying.body}</p>
+                </figcaption>
+              </figure>
+            </div>
           </div>
         </section>
 
@@ -267,7 +258,6 @@ export default async function MusicPodPage({
           </a>
           <p>© 2026 MusicPod</p>
         </div>
-        <SitePreferences locale={locale} />
       </footer>
     </div>
   );

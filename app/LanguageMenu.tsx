@@ -51,7 +51,8 @@ export function LanguageMenu({
   return (
     <details className="language-menu" ref={detailsRef}>
       <summary aria-label={`${label}: ${current.label}`}>
-        <span>{current.label}</span>
+        <span className="language-name">{current.label}</span>
+        <span className="language-short-name">{current.shortLabel}</span>
         <span className="language-chevron" aria-hidden="true">⌄</span>
       </summary>
       <div className="language-popover" aria-label={label} role="group">

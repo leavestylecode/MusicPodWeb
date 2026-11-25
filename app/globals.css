@@ -1,5 +1,6 @@
 :root {
-  --site-header-height: 50px;
+  --site-header-height: 3.5rem;
+  --site-content-width: 68rem;
   --paper: #f5f5f7;
   --white: #ffffff;
   --ink: #1d1d1f;
@@ -13,7 +14,7 @@
   --control-text: #4c4c51;
   --interactive-background: rgba(29, 29, 31, 0.06);
   --popover-border: rgba(29, 29, 31, 0.11);
-  --popover-background: rgba(255, 255, 255, 0.94);
+  --popover-background: #fff;
   --popover-shadow: 0 24px 70px rgba(0, 0, 0, 0.16);
   --quiet-text: #75757b;
   --faint-text: #8a8a90;
@@ -90,7 +91,7 @@
   --control-text: #c7c7cc;
   --interactive-background: rgba(255, 41, 56, 0.1);
   --popover-border: rgba(255, 59, 72, 0.16);
-  --popover-background: rgba(19, 15, 18, 0.97);
+  --popover-background: #130f12;
   --popover-shadow: 0 24px 70px rgba(0, 0, 0, 0.48);
   --quiet-text: #a1a1a6;
   --faint-text: #8e8e93;
@@ -164,7 +165,7 @@
     --control-text: #c7c7cc;
     --interactive-background: rgba(255, 41, 56, 0.1);
     --popover-border: rgba(255, 59, 72, 0.16);
-    --popover-background: rgba(19, 15, 18, 0.97);
+    --popover-background: #130f12;
     --popover-shadow: 0 24px 70px rgba(0, 0, 0, 0.48);
     --quiet-text: #a1a1a6;
     --faint-text: #8e8e93;
@@ -342,7 +343,7 @@ img {
 .site-header nav {
   display: flex;
   align-items: center;
-  width: min(1080px, calc(100% - 2 * var(--page-padding)));
+  width: min(var(--site-content-width), calc(100% - 2 * var(--page-padding)));
   min-height: var(--site-header-height);
   margin-inline: auto;
 }
@@ -405,31 +406,40 @@ html[data-theme="dark"] .brand-icon-dark { opacity: 1; }
 }
 
 .site-preferences {
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
   margin-inline-start: auto;
+}
+
+.site-preferences details {
+  position: relative;
+}
+
+.site-preferences :is(summary, button, a):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
 }
 
 .language-menu summary {
   display: flex;
   align-items: center;
   gap: 5px;
-  min-height: 42px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0 9px;
   border: 0;
   border-radius: 10px;
   background: transparent;
   color: var(--control-text);
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   font-weight: 580;
   cursor: pointer;
   list-style: none;
   white-space: nowrap;
 }
 
-.language-menu summary:hover {
+.language-menu summary:hover,
+.language-menu[open] summary {
   background: var(--interactive-background);
   color: var(--ink);
 }
@@ -438,6 +448,7 @@ html[data-theme="dark"] .brand-icon-dark { opacity: 1; }
   display: none;
 }
 
+.language-short-name { display: none; }
 
 .language-chevron {
   position: relative;
@@ -447,14 +458,19 @@ html[data-theme="dark"] .brand-icon-dark { opacity: 1; }
   transition: transform 160ms ease;
 }
 
+@media (max-width: 23rem) {
+  .language-name { display: none; }
+  .language-short-name { display: inline; }
+}
+
 .language-menu[open] .language-chevron {
   transform: rotate(180deg);
 }
 
 .language-popover {
   position: absolute;
-  bottom: calc(100% + 6px);
-  max-height: 60svh;
+  top: calc(100% + 6px);
+  max-height: calc(100dvh - var(--site-header-height) - 12px);
   overflow-y: auto;
   right: 0;
   display: grid;
@@ -465,14 +481,13 @@ html[data-theme="dark"] .brand-icon-dark { opacity: 1; }
   border-radius: 18px;
   background: var(--popover-background);
   box-shadow: var(--popover-shadow);
-  backdrop-filter: blur(24px);
 }
 
 .language-popover a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 11px;
   border-radius: 12px;
   color: var(--header-text);
@@ -516,8 +531,8 @@ html[data-theme="dark"] .brand-icon-dark { opacity: 1; }
 
 .theme-popover {
   position: absolute;
-  bottom: calc(100% + 6px);
-  max-height: 60svh;
+  top: calc(100% + 6px);
+  max-height: calc(100dvh - var(--site-header-height) - 12px);
   overflow-y: auto;
   right: 0;
   display: grid;
@@ -527,14 +542,13 @@ html[data-theme="dark"] .brand-icon-dark { opacity: 1; }
   border-radius: 16px;
   background: var(--popover-background);
   box-shadow: var(--popover-shadow);
-  backdrop-filter: blur(24px);
 }
 
 .theme-popover button {
   display: grid;
   grid-template-columns: 24px 1fr 18px;
   align-items: center;
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 9px;
   border: 0;
   border-radius: 11px;
@@ -2722,10 +2736,6 @@ html[data-theme="dark"] .privacy-contact-card {
   :root {
     --page-padding: 20px;
   }
-
-  .language-menu summary { min-height: 44px; padding: 0 8px; }
-
-
 
   .hero {
     padding-top: 112px;

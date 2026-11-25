@@ -84,6 +84,7 @@ export function ThemeToggle({ labels }: { labels: ThemeToggleLabels }) {
     } catch {}
 
     detailsRef.current?.removeAttribute("open");
+    detailsRef.current?.querySelector("summary")?.focus();
   };
 
   const preferenceLabels: Record<ThemePreference, string> = {
