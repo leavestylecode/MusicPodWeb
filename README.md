@@ -38,4 +38,14 @@ Vercel 生产环境使用 Supabase 发放兑换码，Sites 环境保留 D1 兼�
 node --env-file=.env.local scripts/import-reward-codes-to-supabase.mjs --input /absolute/path/to/codes.csv
 ```
 
+更换过期批次时，先停发旧的未领取兑换码再导入新批次。领取按 `id` 升序发放，旧码停发前会一直排在新的前面；停发脚本会先用池内现存密文校验 `REWARD_CODE_KEY` 是否与生产环境一致：
+
+```bash
+node --env-file=.env.local scripts/retire-unclaimed-reward-codes.mjs
+```
+
+停发与导入之间的窗口内，领取接口会返回 `codes_unavailable`。
+
+`REWARD_CODE_KEY` 在 Vercel 中是 Secret 类型（只写不可读）。若本地 `.env.local` 遗失该值，只能轮换：在 Vercel 编辑该变量写入新密钥并重新部署，然后用 `--allow-key-rotation` 停发旧池再导入新批次。轮换后旧池密文无法解密，但旧池本就应整批停发，正常领取流程不受影响。
+
 同样的三个变量必须配置在 Vercel Production 环境中。Supabase 表不允许浏览器匿名访问；领取通过服务端数据库函数原子完成。
