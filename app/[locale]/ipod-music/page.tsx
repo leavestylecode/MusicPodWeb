@@ -9,16 +9,16 @@ import "../../guide-page.css";
 import { appStoreUrl } from "../../../lib/app-store";
 import { getDictionary } from "../../../lib/dictionaries";
 import { getIpodMusicDictionary } from "../../../lib/ipod-music-dictionaries";
-import { isLocale, localeDetails, localePath, type Locale } from "../../../lib/locales";
+import { isLocale, localeDetails, localePath, locales, type Locale } from "../../../lib/locales";
 import {
-  DEVELOPER_SCHEMA,
+  DEVELOPER_URL,
   languageAlternates,
   SITE_CONTENT_UPDATED,
   SITE_NAME,
   SITE_OG_IMAGE,
-  WEBSITE_SCHEMA_ID,
   siteUrl,
 } from "../../../lib/site";
+import { buildGuideStructuredData, serializeJsonLd } from "../../../lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -48,6 +48,7 @@ export async function generateMetadata({
         follow: true,
         "max-image-preview": "large",
         "max-snippet": -1,
+        "max-video-preview": -1,
       },
     },
     alternates: {
@@ -55,8 +56,13 @@ export async function generateMetadata({
       languages: languageAlternates("/ipod-music"),
     },
     openGraph: {
-      type: "website",
+      type: "article",
+      modifiedTime: SITE_CONTENT_UPDATED,
+      authors: [DEVELOPER_URL],
       locale: localeDetails[locale].openGraphLocale,
+      alternateLocale: locales
+        .filter((entry) => entry !== locale)
+        .map((entry) => localeDetails[entry].openGraphLocale),
       siteName: SITE_NAME,
       title: messages.meta.title,
       description: messages.meta.social,
@@ -84,36 +90,13 @@ export default async function IpodMusicPage({
   const siteMessages = getDictionary(locale);
   const messages = getIpodMusicDictionary(locale);
   const home = localePath(locale);
-  const guideUrl = siteUrl(localePath(locale, "/ipod-music"));
   const downloadHref = appStoreUrl(locale);
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        name: messages.meta.title,
-        description: messages.meta.description,
-        url: guideUrl,
-        dateModified: SITE_CONTENT_UPDATED,
-        inLanguage: localeDetails[locale].htmlLang,
-        author: DEVELOPER_SCHEMA,
-        publisher: DEVELOPER_SCHEMA,
-        isPartOf: { "@id": WEBSITE_SCHEMA_ID },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: SITE_NAME, item: siteUrl(home) },
-            { "@type": "ListItem", position: 2, name: messages.pageLabel, item: guideUrl },
-          ],
-        },
-      },
-    ],
-  };
+  const structuredData = buildGuideStructuredData(locale);
 
   return (
     <div className="site-shell privacy-shell guide-page">
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
         type="application/ld+json"
       />
 
@@ -125,6 +108,10 @@ export default async function IpodMusicPage({
         <section aria-labelledby="ipod-music-title" className="privacy-hero">
           <div className="privacy-hero-copy">
             <h1 id="ipod-music-title">{messages.pageLabel}</h1>
+            <p className="privacy-intro">{messages.meta.description}</p>
+            <p className="guide-updated">
+              <time dateTime={SITE_CONTENT_UPDATED}>{SITE_CONTENT_UPDATED}</time>
+            </p>
           </div>
         </section>
 

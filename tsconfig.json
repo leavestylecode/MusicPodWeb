@@ -34,7 +34,6 @@
     "node_modules",
     "build/**/*.ts",
     "db/**/*.ts",
-    "examples/**/*.ts",
     "worker/**/*.ts",
     "drizzle.config.ts",
     "vite.config.ts"

@@ -3,385 +3,317 @@ import type { Locale } from "./locales";
 export type Messages = {
   meta: { title: string; description: string; social: string };
   skip: string;
-  nav: {
-    home: string;
-    label: string;
-    experience: string;
-    highlights: string;
-    personalize: string;
-    language: string;
-    soon: string;
-  };
+  nav: { home: string; label: string; language: string };
   theme: { label: string; system: string; light: string; dark: string };
-  hero: {
-    kicker: string;
-    title: [string, string];
-    body: string;
-    primaryKicker: string;
-    primary: string;
-    secondary: string;
-    badges: [string, string, string];
-    productLabel: string;
-    screenshotAlt: string;
-    actual: string;
-    native: string;
-  };
-  mantra: { label: string; eyebrow: string; words: [string, string, string] };
-  wheel: {
-    kicker: string;
-    title: string;
-    body: string;
-    help: string;
-    group: string;
-    menu: string;
-    previous: string;
-    next: string;
-    play: string;
-    select: string;
-    selected: string;
-    playing: string;
-    items: [string, string, string, string, string];
-  };
+  hero: { primaryKicker: string; primary: string };
+  wheel: { kicker: string; title: string; body: string };
   highlights: {
-    kicker: string;
-    title: string;
-    library: { kicker: string; title: string; body: string; items: [string, string, string, string] };
-    coverFlow: { kicker: string; title: string; body: string };
-    nowPlaying: { kicker: string; title: string; body: string; track: string; artist: string };
+    coverFlow: { kicker: string; body: string };
+    nowPlaying: { kicker: string; body: string };
   };
-  personalize: {
-    kicker: string;
-    title: string;
-    body: string;
-    palette: string;
-    combinations: string;
-    presets: string[];
-    stats: [{ value: string; label: string }, { value: string; label: string }, { value: string; label: string }];
-  };
-  native: {
-    kicker: string;
-    title: string;
-    body: string;
-    technologies: [string, string, string, string];
-  };
+  personalize: { title: string; body: string; palette: string };
   faq: {
     kicker: string;
-    title: string;
     items: ReadonlyArray<{ question: string; answer: string }>;
   };
-  availability: {
-    kicker: string;
-    title: string;
-    body: string;
-    badgeKicker: string;
-    badge: string;
-    requirement: string;
-  };
+  availability: { title: string; badgeKicker: string; badge: string };
   footer: { rights: string; privacy: string; developer: string };
 };
 
 const en: Messages = {
   meta: {
     title: "MusicPod — Retro iPod Music Player for iPhone",
-    description: "An iPod-style music player for iPhone with a click wheel, Cover Flow, Apple Music, Spotify (2.6+), and imported audio. Free to download with optional in-app purchases.",
-    social: "A classic click wheel for Apple Music, local files, and Spotify in MusicPod 2.6 or later.",
+    description: "An iPod-style music player for iPhone with a click wheel, Cover Flow, Apple Music, Spotify, and imported audio. Free to download with optional in-app purchases.",
+    social: "A classic click wheel for Apple Music, local files, and Spotify.",
   },
   skip: "Skip to content",
-  nav: { home: "MusicPod home", label: "Primary navigation", experience: "Experience", highlights: "Highlights", personalize: "Personalize", language: "Language", soon: "Coming soon" },
+  nav: { home: "MusicPod home", label: "Primary navigation", language: "Language" },
   theme: { label: "Appearance", system: "System", light: "Light", dark: "Dark" },
-  hero: {
-    kicker: "The iPod music experience, on iPhone",
-    title: ["iPod music,", "reborn on iPhone."],
-    body: "The classic iPod, rebuilt as a native iPhone app — click wheel, Cover Flow, and your entire Apple Music library under your thumb.",
-    primaryKicker: "Download on the",
-    primary: "App Store",
-    secondary: "Explore MusicPod",
-    badges: ["Made for iPhone", "Apple Music", "iOS 17+"],
-    productLabel: "MusicPod actual app interface",
-    screenshotAlt: "MusicPod home screen with Favorite Songs, a mini player, and a red click wheel",
-    actual: "Actual interface",
-    native: "Native SwiftUI",
-  },
-  mantra: { label: "MusicPod in three gestures", eyebrow: "The way iPod music felt — now on iPhone.", words: ["Click.", "Turn.", "Listen."] },
-  wheel: {
-    kicker: "Click wheel",
-    title: "The click wheel is back.",
-    body: "Turn to browse. Press to choose.",
-    help: "Slide around the wheel or use the arrow keys",
-    group: "Interactive MusicPod click wheel",
-    menu: "Return to the first item",
-    previous: "Previous item",
-    next: "Next item",
-    play: "Play selected item",
-    select: "Select {item}",
-    selected: "Selected: {item}",
-    playing: "Playing: {item}",
-    items: ["Favorite Songs", "Playlists", "Albums", "Shuffle", "Theme"],
-  },
+  hero: { primaryKicker: "Download on the", primary: "App Store" },
+  wheel: { kicker: "Click wheel", title: "The click wheel and player", body: "Turn to browse. Press to choose." },
   highlights: {
-    kicker: "The essentials",
-    title: "Everything music needs. Nothing it doesn’t.",
-    library: {
-      kicker: "Apple Music library",
-      title: "Your library, one turn away.",
-      body: "Favorites, playlists, albums, and shuffle—right where your thumb expects them.",
-      items: ["Favorites", "Playlists", "Albums", "Shuffle"],
-    },
-    coverFlow: { kicker: "Cover Flow", title: "Artwork takes center stage.", body: "Turn through albums. Flip one over to see the track list." },
-    nowPlaying: { kicker: "Now playing", title: "Give every song the full screen.", body: "Artwork, time, and controls—without the noise.", track: "Midnight Memory", artist: "MusicPod Sessions" },
+    coverFlow: { kicker: "Cover Flow", body: "Turn through albums. Flip one over to see the track list." },
+    nowPlaying: { kicker: "Now playing", body: "Full-screen artwork with an animated waveform." },
   },
   personalize: {
-    kicker: "Make it yours",
-    title: "One player. Entirely yours.",
-    body: "Make the body, wheel, icons, and background your own.",
+    title: "Player appearance",
+    body: "Choose colors for the case and wheel, change the icons, or use a photo as the background.",
     palette: "Choose a color",
-    combinations: "Color",
-    presets: ["MusicPod Original", "Classic Silver", "Classic Black", "Classic White", "Red Edition", "nano Orange", "nano Yellow", "mini Green", "nano Teal", "nano Blue", "nano Purple", "nano Pink"],
-    stats: [{ value: "12", label: "body and wheel colors" }, { value: "9", label: "backdrop themes" }, { value: "2", label: "icon languages" }],
-  },
-  native: {
-    kicker: "Native by design",
-    title: "Nostalgic in form. Native at heart.",
-    body: "Built with Apple frameworks for smooth playback, precise haptics, and accessible navigation.",
-    technologies: ["SwiftUI", "MusicKit", "Haptics", "VoiceOver"],
   },
   faq: {
     kicker: "FAQ",
-    title: "Questions, answered.",
     items: [
       { question: "Is MusicPod free?", answer: "Free to download, with optional in-app purchases." },
-      { question: "Do I need an Apple Music subscription?", answer: "Local music needs no subscription. Streaming Apple Music subscription content requires an active subscription." },
-      { question: "Can I play my own audio files?", answer: "Yes. Import audio files or play music synced to your device." },
       { question: "Does MusicPod need an account?", answer: "No MusicPod account is needed. Connecting to Spotify requires a Spotify account." },
+      { question: "Which local audio formats are supported?", answer: "Supports MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC, and CAF files, plus synced lyrics from LRC files. Protected downloads and encrypted formats (NCM, QMC, KGM) are not supported." },
+      { question: "Which iPhones are supported?", answer: "MusicPod runs on iPhone with iOS 17 or later, with no ads or third-party tracking." },
     ],
   },
-  availability: {
-    kicker: "Available now",
-    title: "Download MusicPod.",
-    body: "The iPod music experience for iPhone — now on the App Store.",
-    badgeKicker: "Download on the",
-    badge: "App Store",
-    requirement: "iOS 17 or later · Local music needs no subscription",
-  },
+  availability: { title: "Download MusicPod.", badgeKicker: "Download on the", badge: "App Store" },
   footer: { rights: "All rights reserved.", privacy: "Privacy Policy", developer: "An independent product by" },
 };
 
 const zhCN: Messages = {
   meta: {
     title: "MusicPod — iPhone 上的复古 iPod 音乐播放器",
-    description: "iPhone 上的 iPod 风格音乐播放器，支持经典转盘、Cover Flow、Apple Music、本地音频，以及 Spotify（2.6 起）。可免费下载，提供可选内购。",
-    social: "用经典转盘听 Apple Music 和本地音乐。MusicPod 2.6 起支持 Spotify。",
+    description: "iPhone 上的 iPod 风格音乐播放器，支持经典转盘、Cover Flow、Apple Music、Spotify 和本地音频。可免费下载，提供可选内购。",
+    social: "用经典转盘听 Apple Music、Spotify 和本地音乐。",
   },
   skip: "跳到主要内容",
-  nav: { home: "MusicPod 首页", label: "主导航", experience: "体验", highlights: "亮点", personalize: "个性化", language: "语言", soon: "即将上线" },
+  nav: { home: "MusicPod 首页", label: "主导航", language: "语言" },
   theme: { label: "外观", system: "跟随系统", light: "浅色", dark: "深色" },
-  hero: {
-    kicker: "iPod 音乐体验 · 为 iPhone 打造",
-    title: ["iPod 音乐", "重回 iPhone"],
-    body: "经典 iPod，以原生 iPhone 应用重生。点按式转盘、Cover Flow、整个 Apple Music 资料库，尽在拇指之下",
-    primaryKicker: "下载自",
-    primary: "App Store",
-    secondary: "探索 MusicPod",
-    badges: ["为 iPhone 打造", "Apple Music", "iOS 17+"],
-    productLabel: "MusicPod 真实应用界面",
-    screenshotAlt: "MusicPod 首页，包含喜爱歌曲、迷你播放器和红色点按式转盘",
-    actual: "真实界面",
-    native: "原生 SwiftUI",
-  },
-  mantra: { label: "MusicPod 的三个动作", eyebrow: "熟悉的 iPod 手感 回到 iPhone", words: ["点按", "转动", "聆听"] },
-  wheel: {
-    kicker: "点按式转盘", title: "转盘回来了", body: "转动浏览，点按选择。", help: "沿转盘滑动，或使用方向键", group: "MusicPod 点按式转盘演示", menu: "返回第一个项目", previous: "上一个项目", next: "下一个项目", play: "播放所选项目", select: "选择 {item}", selected: "已选择：{item}", playing: "正在播放：{item}", items: ["喜爱歌曲", "播放列表", "专辑", "随机播放", "主题"],
-  },
+  hero: { primaryKicker: "下载自", primary: "App Store" },
+  wheel: { kicker: "点按式转盘", title: "转盘与播放", body: "转动浏览，点按选择。" },
   highlights: {
-    kicker: "核心体验", title: "音乐所需 仅此而已",
-    library: { kicker: "Apple Music 资料库", title: "资料库 一转即达", body: "喜爱歌曲、播放列表与专辑，都在拇指熟悉的位置", items: ["喜爱歌曲", "播放列表", "专辑", "随机播放"] },
-    coverFlow: { kicker: "Cover Flow", title: "让封面成为主角", body: "转动浏览专辑，翻面查看曲目" },
-    nowPlaying: { kicker: "正在播放", title: "让每首歌独占全屏", body: "只保留封面、进度与控制", track: "午夜记忆", artist: "MusicPod Sessions" },
+    coverFlow: { kicker: "Cover Flow", body: "转动浏览专辑，翻面查看曲目" },
+    nowPlaying: { kicker: "正在播放", body: "全屏封面与动态波形。" },
   },
-  personalize: { kicker: "属于你的", title: "一台播放器 完全属于你", body: "机身、转盘、图标与背景，随心搭配。", palette: "选择配色", combinations: "配色", presets: ["MusicPod 原色", "经典银白", "经典黑", "经典白", "红色特别版", "nano 橙", "nano 黄", "mini 绿", "nano 青", "nano 蓝", "nano 紫", "nano 粉"], stats: [{ value: "12", label: "种机身与转盘配色" }, { value: "9", label: "套背景主题" }, { value: "2", label: "套首页图标语言" }] },
-  native: { kicker: "原生设计", title: "怀旧外形 原生内核", body: "基于 Apple 框架，带来流畅播放、精准触感与无障碍导航", technologies: ["SwiftUI", "MusicKit", "系统触感", "VoiceOver"] },
-  faq: { kicker: "常见问题", title: "你想知道的", items: [
-    { question: "MusicPod 是免费的吗？", answer: "可免费下载，部分功能需内购。" },
-    { question: "需要订阅 Apple Music 吗？", answer: "本地音乐无需订阅。播放 Apple Music 订阅内容需有效订阅。" },
-    { question: "可以播放自己导入的音频文件吗？", answer: "可以。支持导入音频，以及同步到设备的音乐。" },
-    { question: "需要注册账号吗？", answer: "无需注册 MusicPod 账号。连接 Spotify 时需使用 Spotify 账号。" },
-  ] },
-  availability: { kicker: "现已推出", title: "下载 MusicPod", body: "iPod 音乐体验，现已登陆 App Store", badgeKicker: "下载自", badge: "App Store", requirement: "支持 iOS 17 及以上 · 本地音乐无需订阅" },
+  personalize: {
+    title: "播放器外观",
+    body: "自选机身和转盘配色，更换图标，也能用照片作背景。",
+    palette: "选择配色",
+  },
+  faq: {
+    kicker: "常见问题",
+    items: [
+      { question: "MusicPod 是免费的吗？", answer: "可免费下载，部分功能需内购。" },
+      { question: "需要注册账号吗？", answer: "无需注册 MusicPod 账号。连接 Spotify 时需使用 Spotify 账号。" },
+      { question: "支持哪些本地音频格式？", answer: "支持 MP3、M4A、AAC、WAV、AIFF、AIF、AIFC、FLAC 与 CAF 文件，以及 LRC 同步歌词。不支持受保护的下载内容和 NCM、QMC、KGM 等加密格式。" },
+      { question: "支持哪些 iPhone 和系统版本？", answer: "支持运行 iOS 17 及以上版本的 iPhone，无广告，无第三方追踪。" },
+    ],
+  },
+  availability: { title: "下载 MusicPod", badgeKicker: "下载自", badge: "App Store" },
   footer: { rights: "保留所有权利。", privacy: "隐私政策", developer: "独立开发者作品 ·" },
 };
 
 const zhTW: Messages = {
   meta: {
     title: "MusicPod — iPhone 上的復古 iPod 音樂播放器",
-    description: "iPhone 上的 iPod 風格音樂播放器，支援經典轉盤、Cover Flow、Apple Music、本機音訊，以及 Spotify（2.6 起）。可免費下載，提供選購項目。",
-    social: "用經典轉盤聽 Apple Music 和本機音樂。MusicPod 2.6 起支援 Spotify。",
+    description: "iPhone 上的 iPod 風格音樂播放器，支援經典轉盤、Cover Flow、Apple Music、Spotify 和本機音訊。可免費下載，提供選購項目。",
+    social: "用經典轉盤聽 Apple Music、Spotify 和本機音樂。",
   },
   skip: "跳到主要內容",
-  nav: { home: "MusicPod 首頁", label: "主要導覽", experience: "體驗", highlights: "亮點", personalize: "個人化", language: "語言", soon: "即將推出" },
+  nav: { home: "MusicPod 首頁", label: "主要導覽", language: "語言" },
   theme: { label: "外觀", system: "跟隨系統", light: "淺色", dark: "深色" },
-  hero: { kicker: "iPod 音樂體驗 · 為 iPhone 打造", title: ["iPod 音樂", "重回 iPhone"], body: "經典 iPod，以原生 iPhone App 重生。點按式轉盤、Cover Flow、整個 Apple Music 資料庫，盡在拇指之下", primaryKicker: "下載自", primary: "App Store", secondary: "探索 MusicPod", badges: ["為 iPhone 打造", "Apple Music", "iOS 17+"], productLabel: "MusicPod 實際 App 介面", screenshotAlt: "MusicPod 首頁，包含喜愛歌曲、迷你播放器與紅色點按式轉盤", actual: "實際介面", native: "原生 SwiftUI" },
-  mantra: { label: "MusicPod 的三個動作", eyebrow: "熟悉的 iPod 手感 回到 iPhone", words: ["點按", "轉動", "聆聽"] },
-  wheel: { kicker: "點按式轉盤", title: "轉盤回來了", body: "轉動瀏覽，點按選擇。", help: "沿轉盤滑動，或使用方向鍵", group: "MusicPod 點按式轉盤示範", menu: "返回第一個項目", previous: "上一個項目", next: "下一個項目", play: "播放所選項目", select: "選擇 {item}", selected: "已選擇：{item}", playing: "正在播放：{item}", items: ["喜愛歌曲", "播放列表", "專輯", "隨機播放", "主題"] },
-  highlights: { kicker: "核心體驗", title: "音樂所需 僅此而已", library: { kicker: "Apple Music 資料庫", title: "資料庫 一轉即達", body: "喜愛歌曲、播放列表與專輯，都在拇指熟悉的位置", items: ["喜愛歌曲", "播放列表", "專輯", "隨機播放"] }, coverFlow: { kicker: "Cover Flow", title: "讓封面成為主角", body: "轉動瀏覽專輯，翻面查看曲目" }, nowPlaying: { kicker: "播放中", title: "讓每首歌獨佔全螢幕", body: "只保留封面、進度與控制", track: "午夜記憶", artist: "MusicPod Sessions" } },
-  personalize: { kicker: "屬於你的", title: "一台播放器 完全屬於你", body: "機身、轉盤、圖示與背景，隨心搭配。", palette: "選擇配色", combinations: "配色", presets: ["MusicPod 原色", "經典銀白", "經典黑", "經典白", "紅色特別版", "nano 橙", "nano 黃", "mini 綠", "nano 青", "nano 藍", "nano 紫", "nano 粉"], stats: [{ value: "12", label: "種機身與轉盤配色" }, { value: "9", label: "套背景主題" }, { value: "2", label: "套首頁圖示語言" }] },
-  native: { kicker: "原生設計", title: "懷舊外形 原生核心", body: "以 Apple 框架帶來流暢播放、精準觸感與輔助使用導覽", technologies: ["SwiftUI", "MusicKit", "系統觸感", "VoiceOver"] },
-  faq: { kicker: "常見問題", title: "你想知道的", items: [
-    { question: "MusicPod 是免費的嗎？", answer: "可免費下載，部分功能需 App 內購買。" },
-    { question: "需要訂閱 Apple Music 嗎？", answer: "本機音樂無需訂閱。播放 Apple Music 訂閱內容需有效訂閱。" },
-    { question: "可以播放自己匯入的音訊檔嗎？", answer: "可以。支援匯入音訊，以及同步到裝置的音樂。" },
-    { question: "需要註冊帳號嗎？", answer: "無需註冊 MusicPod 帳號。連接 Spotify 時需使用 Spotify 帳號。" },
-  ] },
-  availability: { kicker: "現已推出", title: "下載 MusicPod", body: "iPod 音樂體驗，現已登上 App Store", badgeKicker: "下載自", badge: "App Store", requirement: "支援 iOS 17 及以上 · 本機音樂無需訂閱" },
+  hero: { primaryKicker: "下載自", primary: "App Store" },
+  wheel: { kicker: "點按式轉盤", title: "轉盤與播放", body: "轉動瀏覽，點按選擇。" },
+  highlights: {
+    coverFlow: { kicker: "Cover Flow", body: "轉動瀏覽專輯，翻面查看曲目" },
+    nowPlaying: { kicker: "播放中", body: "全螢幕封面與動態波形。" },
+  },
+  personalize: {
+    title: "播放器外觀",
+    body: "自選機身和轉盤配色、更換圖示，也能用照片當背景。",
+    palette: "選擇配色",
+  },
+  faq: {
+    kicker: "常見問題",
+    items: [
+      { question: "MusicPod 是免費的嗎？", answer: "可免費下載，部分功能需 App 內購買。" },
+      { question: "需要註冊帳號嗎？", answer: "無需註冊 MusicPod 帳號。連接 Spotify 時需使用 Spotify 帳號。" },
+      { question: "支援哪些本機音訊格式？", answer: "支援 MP3、M4A、AAC、WAV、AIFF、AIF、AIFC、FLAC 與 CAF 檔案，以及 LRC 同步歌詞。不支援受保護的下載內容與 NCM、QMC、KGM 等加密格式。" },
+      { question: "支援哪些 iPhone 與系統版本？", answer: "支援執行 iOS 17 及以上版本的 iPhone，無廣告，無第三方追蹤。" },
+    ],
+  },
+  availability: { title: "下載 MusicPod", badgeKicker: "下載自", badge: "App Store" },
   footer: { rights: "保留所有權利。", privacy: "隱私權政策", developer: "獨立開發者作品 ·" },
 };
 
 const ja: Messages = {
   meta: {
     title: "MusicPod — iPhoneで使えるレトロなiPod風音楽プレーヤー",
-    description: "クリックホイールとCover FlowをiPhoneで。Apple Music、ローカル音楽、Spotify（2.6以降）に対応するiPodスタイルのプレーヤー。無料ダウンロード、アプリ内課金あり。",
-    social: "懐かしいクリックホイールでApple Musicとローカル音楽を。MusicPod 2.6以降はSpotifyにも対応。",
+    description: "クリックホイールとCover FlowをiPhoneで。Apple Music、ローカル音楽、Spotifyに対応するiPodスタイルのプレーヤー。無料ダウンロード、アプリ内課金あり。",
+    social: "懐かしいクリックホイールでApple Music、Spotify、ローカル音楽を楽しめます。",
   },
   skip: "メインコンテンツへ移動",
-  nav: { home: "MusicPod ホーム", label: "メインナビゲーション", experience: "体験", highlights: "特長", personalize: "カスタマイズ", language: "言語", soon: "近日公開" },
+  nav: { home: "MusicPod ホーム", label: "メインナビゲーション", language: "言語" },
   theme: { label: "外観", system: "システム", light: "ライト", dark: "ダーク" },
-  hero: { kicker: "iPodの音楽体験を、iPhoneに。", title: ["iPodの音楽、", "iPhoneに蘇る。"], body: "あのiPodを、ネイティブなiPhoneアプリとして再現。クリックホイール、Cover Flow、Apple Musicライブラリのすべてを親指ひとつで。", primaryKicker: "App Storeからダウンロード", primary: "App Store", secondary: "MusicPodを体験", badges: ["iPhoneのために", "Apple Music", "iOS 17+"], productLabel: "MusicPodの実際のアプリ画面", screenshotAlt: "お気に入りの曲、ミニプレーヤー、赤いクリックホイールを表示したMusicPodのホーム画面", actual: "実際の画面", native: "SwiftUIネイティブ" },
-  mantra: { label: "MusicPodを表す3つの動作", eyebrow: "あのiPodの手感触を、iPhoneに。", words: ["押す。", "回す。", "聴く。"] },
-  wheel: { kicker: "クリックホイール", title: "クリックホイールが、帰ってきた。", body: "回して探す。押して選ぶ。", help: "ホイールに沿ってスライドするか、矢印キーを使ってください", group: "MusicPodクリックホイールのデモ", menu: "最初の項目に戻る", previous: "前の項目", next: "次の項目", play: "選択した項目を再生", select: "{item}を選択", selected: "選択済み：{item}", playing: "再生中：{item}", items: ["お気に入り", "プレイリスト", "アルバム", "シャッフル", "テーマ"] },
-  highlights: { kicker: "必要なものだけ", title: "音楽に必要なすべてを、シンプルに。", library: { kicker: "Apple Musicライブラリ", title: "ライブラリへ、ひと回し。", body: "お気に入り、プレイリスト、アルバム、シャッフルを、親指のすぐそばに。", items: ["お気に入り", "プレイリスト", "アルバム", "シャッフル"] }, coverFlow: { kicker: "Cover Flow", title: "アートワークを、もう一度主役に。", body: "回してアルバムを選び、裏返して曲目を表示。" }, nowPlaying: { kicker: "再生中", title: "一曲のために、画面いっぱいを。", body: "アートワーク、時間、操作だけ。余計なものはありません。", track: "Midnight Memory", artist: "MusicPod Sessions" } },
-  personalize: { kicker: "自分らしく", title: "自分だけの一台に。", body: "本体、ホイール、アイコン、背景を自分好みに。", palette: "カラーを選ぶ", combinations: "カラー", presets: ["MusicPod オリジナル", "クラシックシルバー", "クラシックブラック", "クラシックホワイト", "レッドエディション", "nano オレンジ", "nano イエロー", "mini グリーン", "nano ティール", "nano ブルー", "nano パープル", "nano ピンク"], stats: [{ value: "12", label: "本体とホイールのカラー" }, { value: "9", label: "背景テーマ" }, { value: "2", label: "ホームアイコンの言語" }] },
-  native: { kicker: "ネイティブ設計", title: "懐かしいかたち。中身は、どこまでもネイティブ。", body: "Appleのフレームワークで、滑らかな再生、正確な触覚、アクセシブルな操作を実現。", technologies: ["SwiftUI", "MusicKit", "触覚フィードバック", "VoiceOver"] },
-  faq: { kicker: "よくある質問", title: "知りたいことに、お答えします。", items: [
-    { question: "MusicPodは無料ですか？", answer: "無料でダウンロードできます。一部機能はアプリ内購入が必要です。" },
-    { question: "Apple Musicのサブスクリプションは必要ですか？", answer: "ローカル音楽には不要です。Apple Musicのサブスクリプション対象コンテンツの再生には有効な契約が必要です。" },
-    { question: "自分で取り込んだオーディオファイルは再生できますか？", answer: "はい。読み込んだ音声ファイルや、デバイスに同期した音楽を再生できます。" },
-    { question: "アカウント登録は必要ですか？", answer: "MusicPodのアカウント登録は不要です。Spotifyの連携にはSpotifyアカウントが必要です。" },
-  ] },
-  availability: { kicker: "配信中", title: "MusicPodをダウンロード。", body: "iPodの音楽体験を、App Storeでどうぞ。", badgeKicker: "App Storeからダウンロード", badge: "App Store", requirement: "iOS 17以降 · ローカル音楽はサブスクリプション不要" },
+  hero: { primaryKicker: "App Storeからダウンロード", primary: "App Store" },
+  wheel: { kicker: "クリックホイール", title: "ホイールと再生画面", body: "回して探す。押して選ぶ。" },
+  highlights: {
+    coverFlow: { kicker: "Cover Flow", body: "回してアルバムを選び、裏返して曲目を表示。" },
+    nowPlaying: { kicker: "再生中", body: "画面いっぱいのジャケットと動く波形。" },
+  },
+  personalize: {
+    title: "プレーヤーの外観",
+    body: "本体やホイールの色、アイコンを変更できます。背景には自分の写真も使えます。",
+    palette: "カラーを選ぶ",
+  },
+  faq: {
+    kicker: "よくある質問",
+    items: [
+      { question: "MusicPodは無料ですか？", answer: "無料でダウンロードできます。一部機能はアプリ内購入が必要です。" },
+      { question: "アカウント登録は必要ですか？", answer: "MusicPodのアカウント登録は不要です。Spotifyの連携にはSpotifyアカウントが必要です。" },
+      { question: "対応しているローカル音声形式は？", answer: "MP3、M4A、AAC、WAV、AIFF、AIF、AIFC、FLAC、CAF と LRC 同期歌詞に対応しています。保護されたダウンロードや NCM・QMC・KGM などの暗号化形式には対応していません。" },
+      { question: "対応するiPhoneとiOSバージョンは？", answer: "iOS 17 以降を搭載した iPhone に対応しています。広告や第三者トラッキングはありません。" },
+    ],
+  },
+  availability: { title: "MusicPodをダウンロード。", badgeKicker: "App Storeからダウンロード", badge: "App Store" },
   footer: { rights: "All rights reserved.", privacy: "プライバシーポリシー", developer: "インディー開発 ·" },
 };
 
 const ko: Messages = {
   meta: {
     title: "MusicPod — iPhone용 레트로 iPod 스타일 음악 플레이어",
-    description: "iPhone용 iPod 스타일 음악 플레이어. 클릭 휠과 Cover Flow로 Apple Music, 로컬 음악, Spotify(2.6 이상)를 즐기세요. 무료 다운로드, 선택적 앱 내 구입 제공.",
-    social: "클래식 클릭 휠로 Apple Music과 로컬 음악을 즐기세요. Spotify는 MusicPod 2.6부터 지원합니다.",
+    description: "iPhone용 iPod 스타일 음악 플레이어. 클릭 휠과 Cover Flow로 Apple Music, 로컬 음악, Spotify를 즐기세요. 무료 다운로드, 선택적 앱 내 구입 제공.",
+    social: "클래식 클릭 휠로 Apple Music, Spotify, 로컬 음악을 즐기세요.",
   },
   skip: "본문으로 건너뛰기",
-  nav: { home: "MusicPod 홈", label: "주요 탐색", experience: "경험", highlights: "주요 기능", personalize: "맞춤 설정", language: "언어", soon: "출시 예정" },
+  nav: { home: "MusicPod 홈", label: "주요 탐색", language: "언어" },
   theme: { label: "화면 모드", system: "시스템", light: "라이트", dark: "다크" },
-  hero: { kicker: "iPod 음악 경험, iPhone으로", title: ["iPod 음악,", "iPhone에서 다시."], body: "클래식 iPod을 네이티브 iPhone 앱으로 되살렸습니다. 클릭 휠, Cover Flow, Apple Music 보관함 전부를 엄지손가락 하나로.", primaryKicker: "App Store에서 다운로드", primary: "App Store", secondary: "MusicPod 살펴보기", badges: ["iPhone을 위해 제작", "Apple Music", "iOS 17+"], productLabel: "MusicPod 실제 앱 화면", screenshotAlt: "좋아하는 노래, 미니 플레이어, 빨간색 클릭 휠이 있는 MusicPod 홈 화면", actual: "실제 화면", native: "네이티브 SwiftUI" },
-  mantra: { label: "MusicPod의 세 가지 동작", eyebrow: "익숙한 iPod의 감각, 다시 iPhone에서.", words: ["누르고.", "돌리고.", "듣다."] },
-  wheel: { kicker: "클릭 휠", title: "클릭 휠이 돌아왔습니다.", body: "돌려서 탐색하고 눌러서 선택하세요.", help: "휠을 따라 밀거나 화살표 키를 사용하세요", group: "MusicPod 클릭 휠 데모", menu: "첫 항목으로 돌아가기", previous: "이전 항목", next: "다음 항목", play: "선택한 항목 재생", select: "{item} 선택", selected: "선택됨: {item}", playing: "재생 중: {item}", items: ["좋아하는 노래", "플레이리스트", "앨범", "임의 재생", "테마"] },
-  highlights: { kicker: "핵심 기능", title: "음악에 필요한 모든 것. 그 이상은 없습니다.", library: { kicker: "Apple Music 보관함", title: "한 번 돌리면 보관함으로.", body: "좋아하는 노래, 플레이리스트, 앨범, 임의 재생을 엄지손가락 가까이에.", items: ["좋아하는 노래", "플레이리스트", "앨범", "임의 재생"] }, coverFlow: { kicker: "Cover Flow", title: "앨범 아트가 다시 주인공이 됩니다.", body: "돌려서 앨범을 찾고 뒤집어 트랙을 확인하세요." }, nowPlaying: { kicker: "지금 재생 중", title: "한 곡을 화면 가득.", body: "앨범 아트, 시간, 컨트롤만 남겼습니다.", track: "Midnight Memory", artist: "MusicPod Sessions" } },
-  personalize: { kicker: "나만의 방식으로", title: "하나의 플레이어. 온전히 나만의 것.", body: "본체, 휠, 아이콘과 배경을 내 마음대로.", palette: "색상 선택", combinations: "색상", presets: ["MusicPod 오리지널", "클래식 실버", "클래식 블랙", "클래식 화이트", "레드 에디션", "nano 오렌지", "nano 옐로", "mini 그린", "nano 틸", "nano 블루", "nano 퍼플", "nano 핑크"], stats: [{ value: "12", label: "본체 및 휠 색상" }, { value: "9", label: "배경 테마" }, { value: "2", label: "홈 아이콘 언어" }] },
-  native: { kicker: "네이티브 설계", title: "형태는 향수를, 중심은 네이티브를.", body: "Apple 프레임워크로 부드러운 재생, 정교한 햅틱, 손쉬운 사용 탐색을 구현했습니다.", technologies: ["SwiftUI", "MusicKit", "햅틱", "VoiceOver"] },
-  faq: { kicker: "자주 묻는 질문", title: "궁금한 점을 답아 드립니다.", items: [
-    { question: "MusicPod는 무료인가요?", answer: "무료로 다운로드할 수 있으며 일부 기능은 앱 내 구입이 필요합니다." },
-    { question: "Apple Music 구독이 필요한가요?", answer: "로컬 음악에는 구독이 필요하지 않습니다. Apple Music 구독 콘텐츠 재생에는 유효한 구독이 필요합니다." },
-    { question: "직접 가져온 오디오 파일도 재생할 수 있나요?", answer: "네. 가져온 오디오와 기기에 동기화한 음악을 재생할 수 있습니다." },
-    { question: "계정 등록이 필요한가요?", answer: "MusicPod 계정은 필요하지 않습니다. Spotify를 연결하려면 Spotify 계정이 필요합니다." },
-  ] },
-  availability: { kicker: "지금 이용 가능", title: "MusicPod 다운로드.", body: "iPod 음악 경험을 App Store에서 만나보세요.", badgeKicker: "App Store에서 다운로드", badge: "App Store", requirement: "iOS 17 이상 · 로컬 음악은 구독 불필요" },
+  hero: { primaryKicker: "App Store에서 다운로드", primary: "App Store" },
+  wheel: { kicker: "클릭 휠", title: "클릭 휠과 재생 화면", body: "돌려서 탐색하고 눌러서 선택하세요." },
+  highlights: {
+    coverFlow: { kicker: "Cover Flow", body: "돌려서 앨범을 찾고 뒤집어 트랙을 확인하세요." },
+    nowPlaying: { kicker: "지금 재생 중", body: "전체 화면 앨범 커버와 움직이는 파형." },
+  },
+  personalize: {
+    title: "플레이어 디자인",
+    body: "본체와 휠 색상, 아이콘을 바꾸거나 내 사진을 배경으로 쓸 수 있습니다.",
+    palette: "색상 선택",
+  },
+  faq: {
+    kicker: "자주 묻는 질문",
+    items: [
+      { question: "MusicPod는 무료인가요?", answer: "무료로 다운로드할 수 있으며 일부 기능은 앱 내 구입이 필요합니다." },
+      { question: "계정 등록이 필요한가요?", answer: "MusicPod 계정은 필요하지 않습니다. Spotify를 연결하려면 Spotify 계정이 필요합니다." },
+      { question: "어떤 로컬 오디오 형식을 지원하나요?", answer: "MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC, CAF 파일과 LRC 동기화 가사를 지원합니다. 보호된 다운로드 및 NCM, QMC, KGM 같은 암호화 형식은 지원하지 않습니다." },
+      { question: "어떤 iPhone과 iOS 버전을 지원하나요?", answer: "iOS 17 이상이 설치된 iPhone에서 사용할 수 있으며 광고나 타사 추적이 없습니다." },
+    ],
+  },
+  availability: { title: "MusicPod 다운로드.", badgeKicker: "App Store에서 다운로드", badge: "App Store" },
   footer: { rights: "All rights reserved.", privacy: "개인정보 처리방침", developer: "인디 개발 ·" },
 };
 
 const es: Messages = {
   meta: {
     title: "MusicPod — Reproductor de música estilo iPod para iPhone",
-    description: "Reproductor estilo iPod para iPhone con rueda de clic, Cover Flow, Apple Music, Spotify (2.6 o posterior) y audio local. Descarga gratuita con compras opcionales.",
-    social: "La rueda de clic clásica para Apple Music, tus archivos y Spotify desde MusicPod 2.6.",
+    description: "Reproductor estilo iPod para iPhone con rueda de clic, Cover Flow, Apple Music, Spotify y audio local. Descarga gratuita con compras opcionales.",
+    social: "La rueda de clic clásica para Apple Music, tus archivos y Spotify.",
   },
   skip: "Saltar al contenido",
-  nav: { home: "Inicio de MusicPod", label: "Navegación principal", experience: "Experiencia", highlights: "Funciones", personalize: "Personaliza", language: "Idioma", soon: "Próximamente" },
+  nav: { home: "Inicio de MusicPod", label: "Navegación principal", language: "Idioma" },
   theme: { label: "Apariencia", system: "Sistema", light: "Claro", dark: "Oscuro" },
-  hero: { kicker: "La experiencia musical del iPod, en iPhone", title: ["Música de iPod,", "renacida en iPhone."], body: "El iPod clásico, reconstruido como app nativa de iPhone. Rueda de clic, Cover Flow y toda tu biblioteca de Apple Music bajo el pulgar.", primaryKicker: "Descárgalo en", primary: "App Store", secondary: "Descubre MusicPod", badges: ["Creado para iPhone", "Apple Music", "iOS 17+"], productLabel: "Interfaz real de la app MusicPod", screenshotAlt: "Pantalla de inicio de MusicPod con canciones favoritas, minirreproductor y rueda de clic roja", actual: "Interfaz real", native: "SwiftUI nativo" },
-  mantra: { label: "MusicPod en tres gestos", eyebrow: "Aquella sensación del iPod, ahora en tu iPhone.", words: ["Pulsa.", "Gira.", "Escucha."] },
-  wheel: { kicker: "Rueda de clic", title: "La rueda de clic ha vuelto.", body: "Gira para explorar. Pulsa para elegir.", help: "Desliza alrededor de la rueda o usa las teclas de flecha", group: "Demostración de la rueda de clic de MusicPod", menu: "Volver al primer elemento", previous: "Elemento anterior", next: "Elemento siguiente", play: "Reproducir el elemento seleccionado", select: "Seleccionar {item}", selected: "Seleccionado: {item}", playing: "Reproduciendo: {item}", items: ["Favoritas", "Playlists", "Álbumes", "Aleatorio", "Tema"] },
-  highlights: { kicker: "Lo esencial", title: "Todo lo que la música necesita. Nada más.", library: { kicker: "Biblioteca de Apple Music", title: "Tu biblioteca, a un giro.", body: "Favoritas, playlists, álbumes y aleatorio justo donde los espera tu pulgar.", items: ["Favoritas", "Playlists", "Álbumes", "Aleatorio"] }, coverFlow: { kicker: "Cover Flow", title: "Las portadas vuelven al centro.", body: "Gira entre álbumes y voltea uno para ver sus canciones." }, nowPlaying: { kicker: "En reproducción", title: "Toda la pantalla para cada canción.", body: "Portada, tiempo y controles. Sin ruido.", track: "Midnight Memory", artist: "MusicPod Sessions" } },
-  personalize: { kicker: "Hazlo tuyo", title: "Un reproductor. Completamente tuyo.", body: "Personaliza el cuerpo, la rueda, los iconos y el fondo.", palette: "Elige un color", combinations: "Color", presets: ["MusicPod Original", "Classic plata", "Classic negro", "Classic blanco", "Edición roja", "nano naranja", "nano amarillo", "mini verde", "nano turquesa", "nano azul", "nano morado", "nano rosa"], stats: [{ value: "12", label: "colores de cuerpo y rueda" }, { value: "9", label: "temas de fondo" }, { value: "2", label: "idiomas de iconos" }] },
-  native: { kicker: "Nativo por diseño", title: "Nostálgico por fuera. Nativo por dentro.", body: "Creado con tecnologías de Apple para una reproducción fluida, vibración precisa y navegación accesible.", technologies: ["SwiftUI", "MusicKit", "Vibración", "VoiceOver"] },
-  faq: { kicker: "Preguntas frecuentes", title: "Respuestas a tus dudas.", items: [
-    { question: "¿MusicPod es gratis?", answer: "Descarga gratuita con compras opcionales dentro de la app." },
-    { question: "¿Necesito una suscripción a Apple Music?", answer: "La música local no requiere suscripción. El contenido de suscripción de Apple Music requiere una suscripción activa." },
-    { question: "¿Puedo reproducir mis propios archivos de audio?", answer: "Sí. Importa archivos de audio o reproduce música sincronizada con tu dispositivo." },
-    { question: "¿Necesito crear una cuenta?", answer: "No necesitas una cuenta de MusicPod. Para conectar Spotify, necesitas una cuenta de Spotify." },
-  ] },
-  availability: { kicker: "Ya disponible", title: "Descarga MusicPod.", body: "La experiencia musical del iPod, ya en App Store.", badgeKicker: "Descárgalo en", badge: "App Store", requirement: "iOS 17 o posterior · Música local sin suscripción" },
+  hero: { primaryKicker: "Descárgalo en", primary: "App Store" },
+  wheel: { kicker: "Rueda de clic", title: "La rueda y el reproductor", body: "Gira para explorar. Pulsa para elegir." },
+  highlights: {
+    coverFlow: { kicker: "Cover Flow", body: "Gira entre álbumes y voltea uno para ver sus canciones." },
+    nowPlaying: { kicker: "En reproducción", body: "Portada a pantalla completa con una onda animada." },
+  },
+  personalize: {
+    title: "Aspecto del reproductor",
+    body: "Elige los colores de la carcasa y la rueda, cambia los iconos o usa una foto como fondo.",
+    palette: "Elige un color",
+  },
+  faq: {
+    kicker: "Preguntas frecuentes",
+    items: [
+      { question: "¿MusicPod es gratis?", answer: "Descarga gratuita con compras opcionales dentro de la app." },
+      { question: "¿Necesito crear una cuenta?", answer: "No necesitas una cuenta de MusicPod. Para conectar Spotify, necesitas una cuenta de Spotify." },
+      { question: "¿Qué formatos de audio local admite?", answer: "Admite archivos MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC y CAF, además de letras sincronizadas LRC. No admite descargas protegidas ni formatos cifrados (NCM, QMC, KGM)." },
+      { question: "¿Con qué modelos de iPhone es compatible?", answer: "Funciona en iPhone con iOS 17 o posterior, sin anuncios ni seguimiento de terceros." },
+    ],
+  },
+  availability: { title: "Descarga MusicPod.", badgeKicker: "Descárgalo en", badge: "App Store" },
   footer: { rights: "Todos los derechos reservados.", privacy: "Política de privacidad", developer: "Un producto independiente de" },
 };
 
 const fr: Messages = {
   meta: {
     title: "MusicPod — Lecteur de musique rétro façon iPod pour iPhone",
-    description: "Lecteur façon iPod pour iPhone avec molette, Cover Flow, Apple Music, Spotify (dès la version 2.6) et fichiers locaux. Téléchargement gratuit avec achats intégrés facultatifs.",
-    social: "La molette classique pour Apple Music, vos fichiers locaux et Spotify à partir de MusicPod 2.6.",
+    description: "Lecteur façon iPod pour iPhone avec molette, Cover Flow, Apple Music, Spotify et fichiers locaux. Téléchargement gratuit avec achats intégrés facultatifs.",
+    social: "La molette classique pour Apple Music, vos fichiers locaux et Spotify.",
   },
   skip: "Aller au contenu",
-  nav: { home: "Accueil MusicPod", label: "Navigation principale", experience: "Expérience", highlights: "Fonctions", personalize: "Personnaliser", language: "Langue", soon: "Bientôt disponible" },
+  nav: { home: "Accueil MusicPod", label: "Navigation principale", language: "Langue" },
   theme: { label: "Apparence", system: "Système", light: "Clair", dark: "Sombre" },
-  hero: { kicker: "L’expérience musicale de l’iPod, sur iPhone", title: ["La musique de l’iPod,", "renaît sur iPhone."], body: "L’iPod classique, reconstruit en app iPhone native. Molette cliquable, Cover Flow et toute votre bibliothèque Apple Music sous le pouce.", primaryKicker: "Télécharger dans", primary: "App Store", secondary: "Découvrir MusicPod", badges: ["Conçu pour iPhone", "Apple Music", "iOS 17+"], productLabel: "Interface réelle de l’app MusicPod", screenshotAlt: "Écran d’accueil MusicPod avec morceaux favoris, mini-lecteur et molette rouge", actual: "Interface réelle", native: "SwiftUI natif" },
-  mantra: { label: "MusicPod en trois gestes", eyebrow: "La sensation de l’iPod, de retour sur iPhone.", words: ["Cliquez.", "Tournez.", "Écoutez."] },
-  wheel: { kicker: "Molette cliquable", title: "La molette cliquable est de retour.", body: "Tournez pour explorer. Cliquez pour choisir.", help: "Glissez autour de la molette ou utilisez les touches fléchées", group: "Démonstration de la molette MusicPod", menu: "Revenir au premier élément", previous: "Élément précédent", next: "Élément suivant", play: "Lire l’élément sélectionné", select: "Sélectionner {item}", selected: "Sélection : {item}", playing: "Lecture : {item}", items: ["Morceaux favoris", "Playlists", "Albums", "Aléatoire", "Thème"] },
-  highlights: { kicker: "L’essentiel", title: "Tout ce dont la musique a besoin. Rien de plus.", library: { kicker: "Bibliothèque Apple Music", title: "Votre bibliothèque, à un tour de molette.", body: "Favoris, playlists, albums et lecture aléatoire, au bout du pouce.", items: ["Favoris", "Playlists", "Albums", "Aléatoire"] }, coverFlow: { kicker: "Cover Flow", title: "Les pochettes retrouvent le premier rôle.", body: "Parcourez les albums, puis retournez-en un pour afficher les titres." }, nowPlaying: { kicker: "À l’écoute", title: "Tout l’écran pour chaque morceau.", body: "Pochette, durée et commandes. Rien de superflu.", track: "Midnight Memory", artist: "MusicPod Sessions" } },
-  personalize: { kicker: "À votre image", title: "Un lecteur. Entièrement le vôtre.", body: "Personnalisez le boîtier, la molette, les icônes et le fond.", palette: "Choisir une couleur", combinations: "Couleur", presets: ["MusicPod Original", "Classic argent", "Classic noir", "Classic blanc", "Édition rouge", "nano orange", "nano jaune", "mini vert", "nano turquoise", "nano bleu", "nano violet", "nano rose"], stats: [{ value: "12", label: "couleurs de boîtier et molette" }, { value: "9", label: "thèmes d’arrière-plan" }, { value: "2", label: "langues d’icônes" }] },
-  native: { kicker: "Natif par conception", title: "Nostalgique dans la forme. Natif dans l’âme.", body: "Conçu avec les technologies Apple pour une lecture fluide, un retour haptique précis et une navigation accessible.", technologies: ["SwiftUI", "MusicKit", "Haptique", "VoiceOver"] },
-  faq: { kicker: "Questions fréquentes", title: "Vos questions, nos réponses.", items: [
-    { question: "MusicPod est-il gratuit ?", answer: "Téléchargement gratuit avec achats intégrés facultatifs." },
-    { question: "Ai-je besoin d’un abonnement Apple Music ?", answer: "La musique locale ne nécessite aucun abonnement. Les contenus Apple Music sur abonnement nécessitent un abonnement actif." },
-    { question: "Puis-je lire mes propres fichiers audio ?", answer: "Oui. Importez des fichiers audio ou écoutez la musique synchronisée sur votre appareil." },
-    { question: "Dois-je créer un compte ?", answer: "Aucun compte MusicPod n’est nécessaire. Pour connecter Spotify, il vous faut un compte Spotify." },
-  ] },
-  availability: { kicker: "Disponible", title: "Téléchargez MusicPod.", body: "L’expérience musicale de l’iPod, désormais sur l’App Store.", badgeKicker: "Télécharger dans", badge: "App Store", requirement: "iOS 17 ou ultérieur · Musique locale sans abonnement" },
+  hero: { primaryKicker: "Télécharger dans", primary: "App Store" },
+  wheel: { kicker: "Molette cliquable", title: "La molette et la lecture", body: "Tournez pour explorer. Cliquez pour choisir." },
+  highlights: {
+    coverFlow: { kicker: "Cover Flow", body: "Parcourez les albums, puis retournez-en un pour afficher les titres." },
+    nowPlaying: { kicker: "À l’écoute", body: "Pochette en plein écran et forme d’onde animée." },
+  },
+  personalize: {
+    title: "Apparence du lecteur",
+    body: "Choisissez la couleur du boîtier et de la molette, changez les icônes ou utilisez une photo comme fond.",
+    palette: "Choisir une couleur",
+  },
+  faq: {
+    kicker: "Questions fréquentes",
+    items: [
+      { question: "MusicPod est-il gratuit ?", answer: "Téléchargement gratuit avec achats intégrés facultatifs." },
+      { question: "Dois-je créer un compte ?", answer: "Aucun compte MusicPod n’est nécessaire. Pour connecter Spotify, il vous faut un compte Spotify." },
+      { question: "Quels formats audio locaux sont pris en charge ?", answer: "Compatible avec les fichiers MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC et CAF, ainsi que les paroles synchronisées LRC. Les téléchargements protégés et formats chiffrés (NCM, QMC, KGM) ne sont pas pris en charge." },
+      { question: "Quels iPhone sont pris en charge ?", answer: "MusicPod fonctionne sur iPhone sous iOS 17 ou version ultérieure, sans publicité ni suivi tiers." },
+    ],
+  },
+  availability: { title: "Téléchargez MusicPod.", badgeKicker: "Télécharger dans", badge: "App Store" },
   footer: { rights: "Tous droits réservés.", privacy: "Politique de confidentialité", developer: "Un produit indépendant par" },
 };
 
 const de: Messages = {
   meta: {
     title: "MusicPod — Retro-Musikplayer im iPod-Stil fürs iPhone",
-    description: "Musikplayer im iPod-Stil fürs iPhone mit Click Wheel, Cover Flow, Apple Music, Spotify (ab 2.6) und lokalen Dateien. Kostenloser Download mit optionalen In-App-Käufen.",
-    social: "Das klassische Click Wheel für Apple Music, lokale Dateien und Spotify ab MusicPod 2.6.",
+    description: "Musikplayer im iPod-Stil fürs iPhone mit Click Wheel, Cover Flow, Apple Music, Spotify und lokalen Dateien. Kostenloser Download mit optionalen In-App-Käufen.",
+    social: "Das klassische Click Wheel für Apple Music, lokale Dateien und Spotify.",
   },
   skip: "Zum Inhalt springen",
-  nav: { home: "MusicPod Startseite", label: "Hauptnavigation", experience: "Erlebnis", highlights: "Funktionen", personalize: "Personalisieren", language: "Sprache", soon: "Demnächst" },
+  nav: { home: "MusicPod Startseite", label: "Hauptnavigation", language: "Sprache" },
   theme: { label: "Darstellung", system: "System", light: "Hell", dark: "Dunkel" },
-  hero: { kicker: "Das iPod-Musikerlebnis, auf dem iPhone", title: ["iPod-Musik,", "zurück auf dem iPhone."], body: "Der klassische iPod, neu gebaut als native iPhone-App. Click Wheel, Cover Flow und deine gesamte Apple Music-Mediathek unter dem Daumen.", primaryKicker: "Laden im", primary: "App Store", secondary: "MusicPod entdecken", badges: ["Für iPhone gemacht", "Apple Music", "iOS 17+"], productLabel: "Echte Benutzeroberfläche der MusicPod App", screenshotAlt: "MusicPod-Startbildschirm mit Lieblingstiteln, Miniplayer und rotem Click Wheel", actual: "Echte Oberfläche", native: "Natives SwiftUI" },
-  mantra: { label: "MusicPod in drei Gesten", eyebrow: "Das iPod-Gefühl, zurück auf dem iPhone.", words: ["Klicken.", "Drehen.", "Hören."] },
-  wheel: { kicker: "Click Wheel", title: "Das Click Wheel ist zurück.", body: "Drehen zum Stöbern. Drücken zum Auswählen.", help: "Auf dem Rad wischen oder die Pfeiltasten verwenden", group: "Interaktives MusicPod Click Wheel", menu: "Zum ersten Eintrag zurückkehren", previous: "Vorheriger Eintrag", next: "Nächster Eintrag", play: "Ausgewählten Eintrag abspielen", select: "{item} auswählen", selected: "Ausgewählt: {item}", playing: "Wiedergabe: {item}", items: ["Lieblingstitel", "Playlists", "Alben", "Zufällig", "Design"] },
-  highlights: { kicker: "Das Wesentliche", title: "Alles, was Musik braucht. Sonst nichts.", library: { kicker: "Apple Music-Mediathek", title: "Deine Mediathek. Eine Drehung entfernt.", body: "Lieblingstitel, Playlists, Alben und Zufallswiedergabe direkt unter deinem Daumen.", items: ["Lieblingstitel", "Playlists", "Alben", "Zufällig"] }, coverFlow: { kicker: "Cover Flow", title: "Cover stehen wieder im Mittelpunkt.", body: "Durch Alben drehen und umklappen, um die Titelliste zu sehen." }, nowPlaying: { kicker: "Aktuelle Wiedergabe", title: "Der ganze Bildschirm für jeden Song.", body: "Cover, Zeit und Steuerung. Ohne Ablenkung.", track: "Midnight Memory", artist: "MusicPod Sessions" } },
-  personalize: { kicker: "Mach ihn zu deinem", title: "Ein Player. Ganz deiner.", body: "Gestalte Gehäuse, Wheel, Symbole und Hintergrund.", palette: "Farbe wählen", combinations: "Farbe", presets: ["MusicPod Original", "Classic Silber", "Classic Schwarz", "Classic Weiß", "Red Edition", "nano Orange", "nano Gelb", "mini Grün", "nano Türkis", "nano Blau", "nano Violett", "nano Pink"], stats: [{ value: "12", label: "Gehäuse- und Radfarben" }, { value: "9", label: "Hintergrundthemen" }, { value: "2", label: "Symbolsprachen" }] },
-  native: { kicker: "Von Grund auf nativ", title: "Nostalgisch in der Form. Nativ im Kern.", body: "Mit Apple-Technologien für flüssige Wiedergabe, präzise Haptik und barrierefreie Navigation.", technologies: ["SwiftUI", "MusicKit", "Haptik", "VoiceOver"] },
-  faq: { kicker: "Häufige Fragen", title: "Antworten auf deine Fragen.", items: [
-    { question: "Ist MusicPod kostenlos?", answer: "Kostenloser Download mit optionalen In-App-Käufen." },
-    { question: "Brauche ich ein Apple Music-Abo?", answer: "Lokale Musik braucht kein Abo. Apple Music Abo-Inhalte erfordern ein aktives Abo." },
-    { question: "Kann ich eigene Audiodateien abspielen?", answer: "Ja. Importiere Audiodateien oder spiele auf dein Gerät synchronisierte Musik ab." },
-    { question: "Brauche ich ein Konto?", answer: "Du brauchst kein MusicPod-Konto. Um Spotify zu verbinden, brauchst du ein Spotify-Konto." },
-  ] },
-  availability: { kicker: "Jetzt erhältlich", title: "MusicPod laden.", body: "Das iPod-Musikerlebnis, jetzt im App Store.", badgeKicker: "Laden im", badge: "App Store", requirement: "Ab iOS 17 · Lokale Musik ohne Abo" },
+  hero: { primaryKicker: "Laden im", primary: "App Store" },
+  wheel: { kicker: "Click Wheel", title: "Click Wheel und Wiedergabe", body: "Drehen zum Stöbern. Drücken zum Auswählen." },
+  highlights: {
+    coverFlow: { kicker: "Cover Flow", body: "Durch Alben drehen und umklappen, um die Titelliste zu sehen." },
+    nowPlaying: { kicker: "Aktuelle Wiedergabe", body: "Albencover im Vollbild mit animierter Wellenform." },
+  },
+  personalize: {
+    title: "Player-Design",
+    body: "Wähle Farben für Gehäuse und Click Wheel, ändere die Symbole oder nutze ein Foto als Hintergrund.",
+    palette: "Farbe wählen",
+  },
+  faq: {
+    kicker: "Häufige Fragen",
+    items: [
+      { question: "Ist MusicPod kostenlos?", answer: "Kostenloser Download mit optionalen In-App-Käufen." },
+      { question: "Brauche ich ein Konto?", answer: "Du brauchst kein MusicPod-Konto. Um Spotify zu verbinden, brauchst du ein Spotify-Konto." },
+      { question: "Welche lokalen Audioformate werden unterstützt?", answer: "Unterstützt MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC und CAF sowie synchronisierte LRC-Liedtexte. Geschützte Downloads und verschlüsselte Formate (NCM, QMC, KGM) werden nicht unterstützt." },
+      { question: "Welche iPhones werden unterstützt?", answer: "MusicPod läuft auf dem iPhone ab iOS 17 – ohne Werbung und ohne Tracking von Drittanbietern." },
+    ],
+  },
+  availability: { title: "MusicPod laden.", badgeKicker: "Laden im", badge: "App Store" },
   footer: { rights: "Alle Rechte vorbehalten.", privacy: "Datenschutzerklärung", developer: "Ein unabhängiges Produkt von" },
 };
 
 const ptBR: Messages = {
   meta: {
     title: "MusicPod — Player de música retrô estilo iPod para iPhone",
-    description: "Player estilo iPod para iPhone com click wheel, Cover Flow, Apple Music, Spotify (a partir da versão 2.6) e arquivos locais. Download gratuito com compras opcionais.",
-    social: "A click wheel clássica para Apple Music, arquivos locais e Spotify a partir do MusicPod 2.6.",
+    description: "Player estilo iPod para iPhone com click wheel, Cover Flow, Apple Music, Spotify e arquivos locais. Download gratuito com compras opcionais.",
+    social: "A click wheel clássica para Apple Music, arquivos locais e Spotify.",
   },
   skip: "Pular para o conteúdo",
-  nav: { home: "Início do MusicPod", label: "Navegação principal", experience: "Experiência", highlights: "Recursos", personalize: "Personalize", language: "Idioma", soon: "Em breve" },
+  nav: { home: "Início do MusicPod", label: "Navegação principal", language: "Idioma" },
   theme: { label: "Aparência", system: "Sistema", light: "Claro", dark: "Escuro" },
-  hero: { kicker: "A experiência musical do iPod, no iPhone", title: ["Música de iPod,", "renascida no iPhone."], body: "O iPod clássico, reconstruído como app nativo de iPhone. Click wheel, Cover Flow e toda a sua biblioteca do Apple Music sob o polegar.", primaryKicker: "Baixe na", primary: "App Store", secondary: "Conheça o MusicPod", badges: ["Feito para iPhone", "Apple Music", "iOS 17+"], productLabel: "Interface real do app MusicPod", screenshotAlt: "Tela inicial do MusicPod com músicas favoritas, miniplayer e click wheel vermelha", actual: "Interface real", native: "SwiftUI nativo" },
-  mantra: { label: "MusicPod em três gestos", eyebrow: "Aquele sentimento do iPod, de volta ao iPhone.", words: ["Clique.", "Gire.", "Ouça."] },
-  wheel: { kicker: "Click wheel", title: "A click wheel está de volta.", body: "Gire para explorar. Clique para escolher.", help: "Deslize ao redor da roda ou use as teclas de seta", group: "Demonstração da click wheel do MusicPod", menu: "Voltar ao primeiro item", previous: "Item anterior", next: "Próximo item", play: "Reproduzir item selecionado", select: "Selecionar {item}", selected: "Selecionado: {item}", playing: "Reproduzindo: {item}", items: ["Favoritas", "Playlists", "Álbuns", "Aleatório", "Tema"] },
-  highlights: { kicker: "O essencial", title: "Tudo que a música precisa. Nada além.", library: { kicker: "Biblioteca do Apple Music", title: "Sua biblioteca, a um giro.", body: "Favoritas, playlists, álbuns e aleatório ao alcance do polegar.", items: ["Favoritas", "Playlists", "Álbuns", "Aleatório"] }, coverFlow: { kicker: "Cover Flow", title: "As capas voltam ao centro do palco.", body: "Gire pelos álbuns e vire um deles para ver as faixas." }, nowPlaying: { kicker: "Reproduzindo", title: "A tela inteira para cada música.", body: "Capa, tempo e controles. Sem distrações.", track: "Midnight Memory", artist: "MusicPod Sessions" } },
-  personalize: { kicker: "Deixe do seu jeito", title: "Um player. Totalmente seu.", body: "Personalize o corpo, a roda, os ícones e o fundo.", palette: "Escolha uma cor", combinations: "Cor", presets: ["MusicPod Original", "Classic prateado", "Classic preto", "Classic branco", "Edição vermelha", "nano laranja", "nano amarelo", "mini verde", "nano turquesa", "nano azul", "nano roxo", "nano rosa"], stats: [{ value: "12", label: "cores de corpo e roda" }, { value: "9", label: "temas de fundo" }, { value: "2", label: "idiomas de ícones" }] },
-  native: { kicker: "Nativo por design", title: "Nostálgico na forma. Nativo por dentro.", body: "Criado com tecnologias Apple para reprodução fluida, resposta tátil precisa e navegação acessível.", technologies: ["SwiftUI", "MusicKit", "Resposta tátil", "VoiceOver"] },
-  faq: { kicker: "Perguntas frequentes", title: "Suas dúvidas, respondidas.", items: [
-    { question: "O MusicPod é gratuito?", answer: "Download gratuito com compras opcionais no app." },
-    { question: "Preciso de assinatura do Apple Music?", answer: "Música local não precisa de assinatura. Conteúdos por assinatura do Apple Music exigem uma assinatura ativa." },
-    { question: "Posso tocar meus próprios arquivos de áudio?", answer: "Sim. Importe arquivos de áudio ou reproduza músicas sincronizadas no dispositivo." },
-    { question: "Preciso criar uma conta?", answer: "Não é preciso ter uma conta no MusicPod. Para conectar o Spotify, você precisa de uma conta do Spotify." },
-  ] },
-  availability: { kicker: "Já disponível", title: "Baixe o MusicPod.", body: "A experiência musical do iPod, já na App Store.", badgeKicker: "Baixe na", badge: "App Store", requirement: "iOS 17 ou posterior · Música local sem assinatura" },
+  hero: { primaryKicker: "Baixe na", primary: "App Store" },
+  wheel: { kicker: "Click wheel", title: "Roda e reprodução", body: "Gire para explorar. Clique para escolher." },
+  highlights: {
+    coverFlow: { kicker: "Cover Flow", body: "Gire pelos álbuns e vire um deles para ver as faixas." },
+    nowPlaying: { kicker: "Reproduzindo", body: "Capa em tela cheia com forma de onda animada." },
+  },
+  personalize: {
+    title: "Visual do player",
+    body: "Escolha as cores do corpo e da roda, troque os ícones ou use uma foto como fundo.",
+    palette: "Escolha uma cor",
+  },
+  faq: {
+    kicker: "Perguntas frequentes",
+    items: [
+      { question: "O MusicPod é gratuito?", answer: "Download gratuito com compras opcionais no app." },
+      { question: "Preciso criar uma conta?", answer: "Não é preciso ter uma conta no MusicPod. Para conectar o Spotify, você precisa de uma conta do Spotify." },
+      { question: "Quais formatos de áudio local são compatíveis?", answer: "Compatível com arquivos MP3, M4A, AAC, WAV, AIFF, AIF, AIFC, FLAC e CAF, além de letras sincronizadas em LRC. Downloads protegidos e formatos criptografados (NCM, QMC, KGM) não são compatíveis." },
+      { question: "Quais modelos de iPhone são compatíveis?", answer: "O MusicPod funciona no iPhone com iOS 17 ou posterior, sem anúncios nem rastreamento de terceiros." },
+    ],
+  },
+  availability: { title: "Baixe o MusicPod.", badgeKicker: "Baixe na", badge: "App Store" },
   footer: { rights: "Todos os direitos reservados.", privacy: "Política de Privacidade", developer: "Um produto independente de" },
 };
 

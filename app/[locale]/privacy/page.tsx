@@ -3,19 +3,19 @@ import { PortfolioLinks } from "../../PortfolioLinks";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary } from "../../../lib/dictionaries";
+import { getIpodMusicDictionary } from "../../../lib/ipod-music-dictionaries";
 import { getPrivacyDictionary } from "../../../lib/privacy-dictionaries";
 import { privacyPolicyConfig } from "../../../lib/privacy-config";
-import { isLocale, localeDetails, localePath, type Locale } from "../../../lib/locales";
+import { isLocale, localeDetails, localePath, locales, type Locale } from "../../../lib/locales";
 import {
   DEVELOPER_BRAND,
-  DEVELOPER_SCHEMA,
   DEVELOPER_URL,
   languageAlternates,
   SITE_NAME,
   SITE_OG_IMAGE,
-  WEBSITE_SCHEMA_ID,
   siteUrl,
 } from "../../../lib/site";
+import { buildPrivacyStructuredData, serializeJsonLd } from "../../../lib/structured-data";
 import { BrandIcon } from "../../BrandIcon";
 import { SiteHeader } from "../../SiteHeader";
 
@@ -41,7 +41,17 @@ export async function generateMetadata({
   return {
     title: messages.meta.title,
     description: messages.meta.description,
-    robots: { index: true, follow: true },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     alternates: {
       canonical: siteUrl(canonicalPath),
       languages: languageAlternates("/privacy"),
@@ -49,6 +59,9 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale: localeDetails[locale].openGraphLocale,
+      alternateLocale: locales
+        .filter((entry) => entry !== locale)
+        .map((entry) => localeDetails[entry].openGraphLocale),
       siteName: SITE_NAME,
       title: messages.meta.title,
       description: messages.meta.description,
@@ -74,35 +87,15 @@ export default async function PrivacyPage({
 
   const locale: Locale = rawLocale;
   const siteMessages = getDictionary(locale);
+  const guideMessages = getIpodMusicDictionary(locale);
   const messages = getPrivacyDictionary(locale);
   const home = localePath(locale);
-  const privacyUrl = siteUrl(localePath(locale, "/privacy"));
-  const policySchema = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: messages.meta.title,
-    description: messages.meta.description,
-    url: privacyUrl,
-    dateModified: privacyPolicyConfig.lastUpdated,
-    inLanguage: localeDetails[locale].htmlLang,
-    author: DEVELOPER_SCHEMA,
-    publisher: DEVELOPER_SCHEMA,
-    isPartOf: {
-      "@id": WEBSITE_SCHEMA_ID,
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: SITE_NAME, item: siteUrl(home) },
-        { "@type": "ListItem", position: 2, name: messages.pageLabel, item: privacyUrl },
-      ],
-    },
-  };
+  const policySchema = buildPrivacyStructuredData(locale);
 
   return (
     <div className="site-shell privacy-shell">
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(policySchema).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(policySchema) }}
         type="application/ld+json"
       />
 
@@ -202,6 +195,7 @@ export default async function PrivacyPage({
           <strong>MusicPod</strong>
         </Link>
         <div className="footer-meta">
+          <Link className="footer-link" href={`${home}/ipod-music`}>{guideMessages.pageLabel}</Link>
           <span aria-current="page" className="footer-link">{siteMessages.footer.privacy}</span>
           <a
             className="footer-link"

@@ -4,24 +4,16 @@ import { notFound } from "next/navigation";
 import { AppStoreBadge } from "../AppStoreBadge";
 import { BrandIcon } from "../BrandIcon";
 import { ProductCapture } from "../ProductCapture";
-import { capturePath } from "../../lib/product-captures";
 import { SiteHeader } from "../SiteHeader";
 import { PortfolioLinks } from "../PortfolioLinks";
 import { appStoreUrl } from "../../lib/app-store";
 import { getDictionary } from "../../lib/dictionaries";
+import { getIpodMusicDictionary } from "../../lib/ipod-music-dictionaries";
 import { getProductCopy } from "../../lib/product-dictionaries";
 import "../product-page.css";
-import { isLocale, localeDetails, localePath } from "../../lib/locales";
-import {
-  DEVELOPER_BRAND,
-  DEVELOPER_SCHEMA,
-  DEVELOPER_URL,
-  SITE_NAME,
-  SITE_OG_IMAGE,
-  SOFTWARE_SCHEMA_ID,
-  WEBSITE_SCHEMA_ID,
-  siteUrl,
-} from "../../lib/site";
+import { isLocale, localePath } from "../../lib/locales";
+import { DEVELOPER_BRAND, DEVELOPER_URL } from "../../lib/site";
+import { buildHomeStructuredData, serializeJsonLd } from "../../lib/structured-data";
 
 export default async function MusicPodPage({
   params,
@@ -33,58 +25,16 @@ export default async function MusicPodPage({
 
   const locale = rawLocale;
   const messages = getDictionary(locale);
+  const guide = getIpodMusicDictionary(locale);
   const product = getProductCopy(locale);
   const home = localePath(locale);
   const downloadHref = appStoreUrl(locale);
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      DEVELOPER_SCHEMA,
-      {
-        "@type": "WebSite",
-        "@id": WEBSITE_SCHEMA_ID,
-        name: SITE_NAME,
-        url: siteUrl(),
-        inLanguage: localeDetails[locale].htmlLang,
-        publisher: { "@id": DEVELOPER_SCHEMA["@id"] },
-      },
-      {
-        "@type": "SoftwareApplication",
-        "@id": SOFTWARE_SCHEMA_ID,
-        name: SITE_NAME,
-        alternateName: "iPod music player for iPhone",
-        description: messages.meta.description,
-        applicationCategory: "MultimediaApplication",
-        operatingSystem: "iOS 17 or later",
-        url: siteUrl(home),
-        downloadUrl: downloadHref,
-        image: siteUrl(SITE_OG_IMAGE),
-        screenshot: siteUrl(capturePath(locale, "classic")),
-        inLanguage: localeDetails[locale].htmlLang,
-        featureList: [
-          messages.wheel.kicker,
-          messages.highlights.coverFlow.kicker,
-          "Apple Music",
-          "Spotify (MusicPod 2.6+)",
-          product.localMusic,
-          product.photoTitle,
-        ],
-        author: { "@id": DEVELOPER_SCHEMA["@id"] },
-        publisher: { "@id": DEVELOPER_SCHEMA["@id"] },
-        isPartOf: { "@id": WEBSITE_SCHEMA_ID },
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "USD",
-        },
-      },
-    ],
-  };
+  const structuredData = buildHomeStructuredData(locale);
 
   return (
     <div className="site-shell product-page">
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
         type="application/ld+json"
       />
 
@@ -125,7 +75,6 @@ export default async function MusicPodPage({
 
         <section aria-labelledby="library-title" className="mp-container mp-section" id="music-sources">
           <h2 id="library-title">{product.libraryTitle}</h2>
-          <p className="mp-description">{product.sourceSetup}</p>
           <div className="mp-sources">
             <article className="mp-source">
               <Image alt="" className="mp-source-icon" height={48} src="/product/sources/apple-music.png" unoptimized width={48} />
@@ -189,8 +138,8 @@ export default async function MusicPodPage({
               <ProductCapture alt={product.captures.theme} locale={locale} scene="theme" />
             </div>
             <div className="mp-copy">
-              <h2 id="style-title"><span>{product.style[0]}</span>{" "}<span>{product.style[1]}</span></h2>
-              <p className="mp-description">{messages.personalize.body} {product.photoTitle}</p>
+              <h2 id="style-title">{messages.personalize.title}</h2>
+              <p className="mp-description">{messages.personalize.body}</p>
               <fieldset className="mp-finishes">
                 <legend>{messages.personalize.palette}</legend>
                 <label>
@@ -247,6 +196,7 @@ export default async function MusicPodPage({
           <strong>MusicPod</strong>
         </div>
         <div className="footer-meta">
+          <Link className="footer-link" href={`${home}/ipod-music`}>{guide.pageLabel}</Link>
           <Link className="footer-link" href={`${home}/privacy`}>{messages.footer.privacy}</Link>
           <a
             className="footer-link"

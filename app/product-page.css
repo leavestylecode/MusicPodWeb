@@ -100,7 +100,7 @@ html:lang(ko) .product-page :is(h1, h2) {
   letter-spacing: -.06em;
 }
 
-.mp-hero h1 span, #style-title span { display: block; }
+.mp-hero h1 span { display: block; }
 html:lang(zh) .mp-hero h1 { line-height: 1.1; letter-spacing: -.055em; }
 .mp-intro {
   margin: 22px 0 24px;

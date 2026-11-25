@@ -41,6 +41,28 @@ function isNotFoundRejection(error: unknown): boolean {
   return digest === "NEXT_NOT_FOUND" || digest === "NEXT_HTTP_ERROR_FALLBACK;404";
 }
 
+const LLMS_DISCOVERY_LINK =
+  '<https://www.musicpod.app/llms.txt>; rel="describedby"; type="text/markdown"';
+
+function withDiscoveryHeaders(response: Response): Response {
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!/^text\/html\b/i.test(contentType)) return response;
+
+  const headers = new Headers(response.headers);
+  if (!headers.has("X-Content-Type-Options")) {
+    headers.set("X-Content-Type-Options", "nosniff");
+  }
+  const existingLink = headers.get("Link") ?? "";
+  if (!existingLink.includes("/llms.txt")) {
+    headers.append("Link", LLMS_DISCOVERY_LINK);
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     setRuntimeBindings(env);
@@ -58,10 +80,12 @@ const worker = {
     }
 
     try {
-      return await handler.fetch(request, env, ctx);
+      return withDiscoveryHeaders(await handler.fetch(request, env, ctx));
     } catch (error) {
       if (isNotFoundRejection(error) && url.pathname !== NOT_FOUND_RENDER_PATH) {
-        return handler.fetch(new Request(new URL(NOT_FOUND_RENDER_PATH, request.url), request), env, ctx);
+        return withDiscoveryHeaders(
+          await handler.fetch(new Request(new URL(NOT_FOUND_RENDER_PATH, request.url), request), env, ctx),
+        );
       }
       throw error;
     }

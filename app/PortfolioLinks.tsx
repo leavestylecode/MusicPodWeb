@@ -1,4 +1,5 @@
 import type { Locale } from "../lib/locales";
+import { developerHomeUrl, PORTFOLIO_APPS } from "../lib/site";
 
 const headings: Record<Locale, string> = {
   en: "More apps by LeaveStyle",
@@ -13,17 +14,27 @@ const headings: Record<Locale, string> = {
 };
 
 export function PortfolioLinks({ locale }: { locale: Locale }) {
-  const zh = locale === "zh-cn" || locale === "zh-tw";
-  const products = [
-    { name: "MusicPal", href: `https://www.musicpal.app/${locale === "zh-tw" ? "tw" : zh ? "zh" : "en"}` },
-    { name: "DeepMusic", href: `https://www.deepmusic.app/${zh ? "zh/" : ""}` },
-    { name: "ImageFit", href: `https://imagefit.app/${zh ? "zh" : "en"}` },
-  ];
-
   return (
     <nav className="portfolio-links" aria-label={headings[locale]}>
-      <a className="footer-link" href={`https://www.leavestyle.com/${zh ? "" : "en"}`}>{headings[locale]}</a>
-      {products.map((product) => <a className="footer-link" href={product.href} key={product.name}>{product.name}</a>)}
+      <a
+        className="footer-link"
+        href={developerHomeUrl(locale)}
+        rel="external noopener"
+        target="_blank"
+      >
+        {headings[locale]}
+      </a>
+      {PORTFOLIO_APPS.map((product) => (
+        <a
+          className="footer-link"
+          href={product.href(locale)}
+          key={product.name}
+          rel="external noopener"
+          target="_blank"
+        >
+          {product.name}
+        </a>
+      ))}
     </nav>
   );
 }
