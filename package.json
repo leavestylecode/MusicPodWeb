@@ -13,6 +13,7 @@
     "test": "npm run build && node --test tests/*.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
+    "geo:indexnow": "node scripts/submit-indexnow.mjs",
     "reward:import:supabase": "node scripts/import-reward-codes-to-supabase.mjs"
   },
   "dependencies": {

@@ -33,6 +33,25 @@ html[data-theme="dark"] .guide-page .privacy-main {
   font-size: 0.875rem;
 }
 
+.guide-page .guide-store-link {
+  display: inline-flex;
+  margin-top: 24px;
+  border-radius: 8px;
+  transition: opacity 160ms;
+}
+
+.guide-page .guide-store-link:hover {
+  opacity: 0.74;
+}
+
+.guide-page .guide-store-link .app-store-badge-artwork {
+  height: 41px;
+}
+
+.guide-page .guide-toc {
+  margin-bottom: 52px;
+}
+
 .guide-page .privacy-layout {
   display: block;
   width: 100%;

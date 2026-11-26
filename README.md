@@ -26,6 +26,14 @@ node --test tests/rendered-html.test.mjs
 `npm run build` 生成 Sites/Vinext 的 `dist` 构建；Vercel 会根据
 `vercel.json` 执行 `npm run build:vercel`，生成原生 Next.js 的 `.next` 构建。
 
+## GEO 与搜索引擎通知
+
+网站内置 `/llms.txt`、`/llms-full.txt` 与 IndexNow 验证文件。上线更新后可执行以下命令主动通知 Bing（含 ChatGPT Search 底层索引）等支持 IndexNow 的搜索引擎刷新全站 27 个多语言页面：
+
+```bash
+npm run geo:indexnow
+```
+
 ## Supabase 兑换码
 
 Vercel 生产环境使用 Supabase 发放兑换码，Sites 环境保留 D1 兼容路径。

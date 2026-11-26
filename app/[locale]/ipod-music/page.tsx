@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AppStoreBadge } from "../../AppStoreBadge";
 import { PortfolioLinks } from "../../PortfolioLinks";
 import { ProductCapture } from "../../ProductCapture";
 import { getProductCopy } from "../../../lib/product-dictionaries";
@@ -9,9 +10,12 @@ import "../../guide-page.css";
 import { appStoreUrl } from "../../../lib/app-store";
 import { getDictionary } from "../../../lib/dictionaries";
 import { getIpodMusicDictionary } from "../../../lib/ipod-music-dictionaries";
+import { getPrivacyDictionary } from "../../../lib/privacy-dictionaries";
 import { isLocale, localeDetails, localePath, locales, type Locale } from "../../../lib/locales";
 import {
+  DEVELOPER_BRAND,
   DEVELOPER_URL,
+  developerHomeUrl,
   languageAlternates,
   SITE_CONTENT_UPDATED,
   SITE_NAME,
@@ -88,6 +92,7 @@ export default async function IpodMusicPage({
 
   const locale: Locale = rawLocale;
   const siteMessages = getDictionary(locale);
+  const privacyMessages = getPrivacyDictionary(locale);
   const messages = getIpodMusicDictionary(locale);
   const home = localePath(locale);
   const downloadHref = appStoreUrl(locale);
@@ -112,10 +117,30 @@ export default async function IpodMusicPage({
             <p className="guide-updated">
               <time dateTime={SITE_CONTENT_UPDATED}>{SITE_CONTENT_UPDATED}</time>
             </p>
+            <a
+              aria-label={`${siteMessages.hero.primaryKicker} ${siteMessages.hero.primary}`}
+              className="guide-store-link"
+              href={downloadHref}
+              rel="external noopener"
+              target="_blank"
+            >
+              <AppStoreBadge locale={locale} />
+            </a>
           </div>
         </section>
 
         <div className="privacy-layout">
+          <nav aria-label={privacyMessages.contents} className="privacy-toc guide-toc">
+            <h2>{privacyMessages.contents}</h2>
+            <ol>
+              {messages.sections.map((section) => (
+                <li key={section.id}>
+                  <a href={`#${section.id}`}>{section.title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+
           <article className="privacy-document">
             {messages.sections.map((section) => (
               <section className="privacy-section" id={section.id} key={section.id}>
@@ -149,6 +174,14 @@ export default async function IpodMusicPage({
         <p>© 2026 MusicPod</p>
         <div className="footer-meta">
           <Link className="footer-link" href={`${home}/privacy`}>{siteMessages.footer.privacy}</Link>
+          <a
+            className="footer-link"
+            href={developerHomeUrl(locale)}
+            rel="author external noopener"
+            target="_blank"
+          >
+            {DEVELOPER_BRAND}<span aria-hidden="true"> ↗</span>
+          </a>
           <a className="footer-link" href={downloadHref} rel="external noopener" target="_blank">App Store</a>
         </div>
       </footer>

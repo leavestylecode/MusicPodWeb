@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
+import { buildIndexNowPayload, INDEXNOW_KEY, INDEXNOW_KEY_LOCATION } from "../lib/indexnow.mjs";
 
 let workerPromise;
 
@@ -77,6 +78,7 @@ test("server-renders the international English product page", async () => {
   assert.match(html, /href="\/zh-cn"/);
   assert.match(html, /hreflang="fr"/i);
   assert.match(html, /name="robots" content="index, follow"/i);
+  assert.match(html, /name="apple-itunes-app" content="app-id=6784645886"/i);
   assert.match(html, /name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/i);
   assert.match(html, /rel="manifest" href="https:\/\/www\.musicpod\.app\/manifest\.webmanifest"/i);
   assert.match(html, /https?:\/\/[^\"]+\/og\.png/);
@@ -164,6 +166,9 @@ test("server-renders the localized iPod music guide", async () => {
   assert.match(html, /property="og:type" content="article"/i);
   assert.match(html, /<time dateTime="2026-11-25">/i);
   assert.match(html, /class="privacy-intro"/);
+  assert.match(html, /class="privacy-toc guide-toc"/);
+  assert.match(html, /href="#import-local-music"/);
+  assert.match(html, /app-store-badge-artwork/);
   assert.doesNotMatch(html, /"@type":"FAQPage"/);
   assert.match(html, /How to import local music/);
   assert.match(html, /Choose Files/);
@@ -413,6 +418,13 @@ test("publishes GEO discovery endpoints for AI search engines", async () => {
   assert.match(llmsFull, /中文核心信息与使用指南/);
   assert.match(llmsFull, /https:\/\/www\.musicpod\.app\/pt-br\/ipod-music/);
   assert.doesNotMatch(llmsFull, /\/reward\b/);
+
+  const keyFile = (await readFile(new URL(`../public/${INDEXNOW_KEY}.txt`, import.meta.url), "utf8")).trim();
+  assert.equal(keyFile, INDEXNOW_KEY);
+  const indexNow = buildIndexNowPayload();
+  assert.equal(indexNow.keyLocation, INDEXNOW_KEY_LOCATION);
+  assert.equal(indexNow.urlList.length, 27);
+  assert.ok(indexNow.urlList.every((url) => !url.includes("/reward")));
 });
 
 test("publishes international discovery metadata", async () => {
@@ -449,7 +461,9 @@ test("publishes international discovery metadata", async () => {
   assert.match(robots, /User-Agent: Google-Extended/i);
   assert.match(robots, /Disallow: \/api\//i);
   assert.match(manifestResponse.headers.get("content-type") ?? "", /^application\/manifest\+json\b/i);
-  assert.equal(JSON.parse(manifest).short_name, "MusicPod");
+  const parsedManifest = JSON.parse(manifest);
+  assert.equal(parsedManifest.short_name, "MusicPod");
+  assert.equal(parsedManifest.start_url, "/");
 });
 
 test("ships the product media, internationalization source, and image sizing guard", async () => {

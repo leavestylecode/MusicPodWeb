@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
+import { APP_STORE_ID } from "../../lib/app-store";
 import { getDictionary } from "../../lib/dictionaries";
 import { isLocale, localeDetails, localePath, locales, type Locale } from "../../lib/locales";
 import {
@@ -64,6 +65,7 @@ export async function generateMetadata({
     classification: "iPod-style music player for iPhone",
     referrer: "origin-when-cross-origin",
     formatDetection: { telephone: false, address: false, email: false },
+    itunes: { appId: APP_STORE_ID },
     robots: {
       index: true,
       follow: true,

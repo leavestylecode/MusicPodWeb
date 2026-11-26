@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: `${SITE_NAME} — iPod music, reborn on iPhone.`,
     short_name: SITE_NAME,
     description: SITE_DESCRIPTION,
-    start_url: "/en",
+    start_url: "/",
     display: "standalone",
     background_color: "#08080a",
     theme_color: "#e8222b",
