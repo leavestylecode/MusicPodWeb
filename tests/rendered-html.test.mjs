@@ -164,6 +164,8 @@ test("server-renders the localized iPod music guide", async () => {
   assert.match(html, /"@type":"HowToStep"/);
   assert.match(html, /"@type":"BreadcrumbList"/);
   assert.match(html, /property="og:type" content="article"/i);
+  assert.match(html, /property="article:published_time" content="2026-09-17T00:00:00Z"/i);
+  assert.match(html, /property="article:modified_time" content="2026-11-25T00:00:00Z"/i);
   assert.match(html, /<time dateTime="2026-11-25">/i);
   assert.match(html, /class="privacy-intro"/);
   assert.match(html, /class="privacy-toc guide-toc"/);
@@ -316,6 +318,7 @@ test("keeps product and guide SEO consistent across all nine languages", async (
         const faq = graphs.find((entry) => entry["@type"] === "FAQPage");
         assert.equal(app?.url, `https://www.musicpod.app${home}`, home);
         assert.equal(app?.inLanguage, language, home);
+        assert.equal(app?.dateModified, "2026-11-25T00:00:00Z", home);
         assert.equal(app?.screenshot, `https://www.musicpod.app/product/captures/${locale}/classic.webp`, home);
         assert.equal(app?.offers.price, "0", home);
         assert.equal(app?.isAccessibleForFree, true, home);
@@ -331,6 +334,8 @@ test("keeps product and guide SEO consistent across all nine languages", async (
         const howTos = graphs.filter((entry) => entry["@type"] === "HowTo");
         assert.ok(graphs.every((entry) => entry["@type"] !== "FAQPage"), guide);
         assert.equal(article?.inLanguage, language, guide);
+        assert.equal(article?.datePublished, "2026-09-17T00:00:00Z", guide);
+        assert.equal(article?.dateModified, "2026-11-25T00:00:00Z", guide);
         assert.equal(howTos.length, 3, guide);
       }
     }

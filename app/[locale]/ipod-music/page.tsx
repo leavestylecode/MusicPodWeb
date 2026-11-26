@@ -15,9 +15,11 @@ import { isLocale, localeDetails, localePath, locales, type Locale } from "../..
 import {
   DEVELOPER_BRAND,
   DEVELOPER_URL,
+  GUIDE_PUBLISHED_ISO,
   developerHomeUrl,
   languageAlternates,
   SITE_CONTENT_UPDATED,
+  SITE_CONTENT_UPDATED_ISO,
   SITE_NAME,
   SITE_OG_IMAGE,
   siteUrl,
@@ -61,7 +63,8 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "article",
-      modifiedTime: SITE_CONTENT_UPDATED,
+      publishedTime: GUIDE_PUBLISHED_ISO,
+      modifiedTime: SITE_CONTENT_UPDATED_ISO,
       authors: [DEVELOPER_URL],
       locale: localeDetails[locale].openGraphLocale,
       alternateLocale: locales

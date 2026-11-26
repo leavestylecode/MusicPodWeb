@@ -14,6 +14,8 @@ export const SITE_DESCRIPTION =
   "An iPod-style music player for iPhone with a click wheel, Cover Flow, Apple Music, Spotify, and imported audio. Free to download with optional in-app purchases.";
 export const SITE_OG_IMAGE = "/og.png";
 export const SITE_CONTENT_UPDATED = "2026-11-25";
+export const SITE_CONTENT_UPDATED_ISO = `${SITE_CONTENT_UPDATED}T00:00:00Z`;
+export const GUIDE_PUBLISHED_ISO = "2026-09-17T00:00:00Z";
 export const DEVELOPER_NAME = "Leavestylecode";
 export const DEVELOPER_BRAND = "LeaveStyle";
 export const DEVELOPER_URL = "https://www.leavestyle.com/";
